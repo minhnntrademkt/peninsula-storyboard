@@ -1,0 +1,1306 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Peninsula Private – AI Storyboard Dashboard</title>
+    
+    <!-- Google Fonts & FontAwesome -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --bg-primary: #0A0B0E;
+            --bg-secondary: #12141C;
+            --bg-tertiary: #1A1D29;
+            --accent-gold: #C9A045;
+            --accent-gold-hover: #E5BE65;
+            --text-main: #E2E8F0;
+            --text-muted: #8A94A6;
+            --border-color: rgba(201, 160, 69, 0.15);
+            --card-glass: rgba(18, 20, 28, 0.7);
+            --shadow-gold: 0 8px 32px 0 rgba(201, 160, 69, 0.08);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 600;
+            color: #FFFFFF;
+        }
+
+        /* Layout */
+        .app-container {
+            display: grid;
+            grid-template-columns: 420px 1fr;
+            min-height: 100vh;
+        }
+
+        /* Sidebar Control Panel */
+        .sidebar {
+            background-color: var(--bg-secondary);
+            border-right: 1px solid var(--border-color);
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            height: 100vh;
+            position: sticky;
+            top: 0;
+            overflow-y: auto;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .brand-logo {
+            font-size: 24px;
+            color: var(--accent-gold);
+            text-shadow: 0 0 10px rgba(201, 160, 69, 0.3);
+        }
+
+        .brand h2 {
+            font-size: 20px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .brand span {
+            color: var(--accent-gold);
+        }
+
+        /* Forms */
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .form-group label {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--accent-gold);
+            font-weight: 600;
+        }
+
+        .form-input {
+            background-color: var(--bg-tertiary);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 8px;
+            padding: 12px;
+            color: #FFFFFF;
+            font-family: inherit;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--accent-gold);
+            box-shadow: 0 0 0 2px rgba(201, 160, 69, 0.15);
+        }
+
+        textarea.form-input {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .select-wrapper {
+            position: relative;
+        }
+
+        select.form-input {
+            width: 100%;
+            appearance: none;
+            cursor: pointer;
+        }
+
+        .select-wrapper::after {
+            content: '\f107';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--accent-gold);
+            pointer-events: none;
+        }
+
+        /* Buttons */
+        .btn {
+            background: linear-gradient(135deg, var(--accent-gold), #997325);
+            color: #0A0B0E;
+            border: none;
+            border-radius: 8px;
+            padding: 14px;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            font-size: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .btn:hover {
+            background: linear-gradient(135deg, var(--accent-gold-hover), var(--accent-gold));
+            box-shadow: 0 4px 15px rgba(201, 160, 69, 0.25);
+            transform: translateY(-1px);
+        }
+
+        .btn:active {
+            transform: translateY(1px);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 1px solid var(--accent-gold);
+            color: var(--accent-gold);
+            padding: 10px;
+            font-size: 13px;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(201, 160, 69, 0.08);
+            color: var(--accent-gold-hover);
+        }
+
+        .btn-group {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 10px;
+        }
+
+        /* Quick Samples */
+        .samples-section {
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            padding-top: 20px;
+        }
+
+        .samples-section h4 {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .sample-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .sample-btn {
+            background-color: var(--bg-tertiary);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            border-radius: 6px;
+            padding: 10px 14px;
+            color: var(--text-main);
+            font-size: 13px;
+            text-align: left;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .sample-btn:hover {
+            border-color: var(--accent-gold);
+            background-color: rgba(201, 160, 69, 0.04);
+            color: #FFFFFF;
+        }
+
+        .sample-btn i {
+            color: var(--accent-gold);
+            opacity: 0.6;
+            transition: all 0.2s ease;
+        }
+
+        .sample-btn:hover i {
+            opacity: 1;
+            transform: translateX(3px);
+        }
+
+        /* Main Storyboard Content */
+        .main-content {
+            padding: 40px;
+            height: 100vh;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .content-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding-bottom: 20px;
+        }
+
+        .content-header-info h2 {
+            font-size: 28px;
+            margin-bottom: 5px;
+        }
+
+        .content-header-info p {
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background-color: rgba(201, 160, 69, 0.1);
+            border: 1px solid var(--accent-gold);
+            border-radius: 20px;
+            padding: 6px 16px;
+            font-size: 13px;
+            color: var(--accent-gold-hover);
+        }
+
+        .status-badge.loading {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-color: var(--text-muted);
+            color: var(--text-muted);
+        }
+
+        .status-badge.loading i {
+            animation: spin 1s linear infinite;
+        }
+
+        /* Storyboard Grid */
+        .storyboard-feed {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .scene-card {
+            background-color: var(--card-glass);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: var(--shadow-gold);
+            backdrop-filter: blur(10px);
+            transition: border-color 0.3s ease;
+        }
+
+        .scene-card:hover {
+            border-color: rgba(201, 160, 69, 0.3);
+        }
+
+        .scene-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 18px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .scene-badge-group {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .scene-number {
+            background-color: var(--accent-gold);
+            color: #0A0B0E;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            padding: 4px 12px;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+
+        .scene-duration {
+            background-color: var(--bg-tertiary);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #FFFFFF;
+            font-weight: 600;
+            padding: 4px 12px;
+            border-radius: 6px;
+            font-size: 13px;
+        }
+
+        .scene-touchpoint {
+            font-size: 14px;
+            color: var(--accent-gold-hover);
+            font-style: italic;
+            font-weight: 500;
+        }
+
+        /* Split Scene Grid */
+        .scene-body {
+            display: grid;
+            grid-template-columns: 1fr 280px;
+            gap: 24px;
+        }
+
+        .scene-details {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .detail-block {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .detail-block h5 {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            font-weight: 700;
+        }
+
+        .detail-content {
+            background-color: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            border-radius: 10px;
+            padding: 16px;
+            font-size: 14.5px;
+            color: var(--text-main);
+            white-space: pre-line;
+        }
+
+        /* Voice-over Audio Style */
+        .vo-content {
+            position: relative;
+            background: linear-gradient(135deg, rgba(201, 160, 69, 0.03), rgba(255,255,255,0.01));
+            border: 1px solid rgba(201, 160, 69, 0.08);
+            border-radius: 10px;
+            padding: 16px;
+            font-size: 14.5px;
+            color: #FFFFFF;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .audio-waveform-sim {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            height: 24px;
+            padding-left: 5px;
+        }
+
+        .wave-bar {
+            width: 3px;
+            background-color: var(--accent-gold);
+            border-radius: 3px;
+            opacity: 0.5;
+            transition: all 0.3s ease;
+        }
+
+        .scene-card:hover .wave-bar {
+            opacity: 0.9;
+        }
+
+        /* Mobile Mockup Preview */
+        .mobile-mockup {
+            width: 280px;
+            height: 480px;
+            background-color: #000000;
+            border: 8px solid #2D3139;
+            border-radius: 32px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .mobile-mockup::before {
+            content: '';
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 18px;
+            background-color: #2D3139;
+            border-radius: 10px;
+            z-index: 10;
+        }
+
+        .mockup-overlay-grad {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(0deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.2) 40%, rgba(0,0,0,0.5) 100%);
+            z-index: 1;
+        }
+
+        .mockup-content {
+            position: relative;
+            z-index: 2;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        /* Mockup Overlay Text Design */
+        .text-overlay-preview {
+            background-color: rgba(0, 0, 0, 0.65);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(5px);
+            border-radius: 8px;
+            padding: 12px;
+            color: #FFFFFF;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            font-size: 13px;
+            line-height: 1.4;
+            text-align: center;
+            margin-bottom: 12px;
+            letter-spacing: 0.5px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+            border-left: 4px solid var(--accent-gold);
+        }
+
+        .mockup-header-branding {
+            position: absolute;
+            top: 40px;
+            left: 20px;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .mockup-header-branding span {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 600;
+            font-size: 11px;
+            letter-spacing: 1px;
+            color: #FFFFFF;
+            text-transform: uppercase;
+            background-color: rgba(201, 160, 69, 0.85);
+            padding: 3px 8px;
+            border-radius: 4px;
+        }
+
+        .mockup-social-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 5px;
+        }
+
+        .avatar-sim {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background-color: var(--accent-gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 9px;
+            color: #000000;
+            font-weight: 700;
+        }
+
+        .username-sim {
+            font-size: 11px;
+            font-weight: 600;
+            color: #FFFFFF;
+        }
+
+        .desc-sim {
+            font-size: 10px;
+            color: #DDDDDD;
+            line-height: 1.3;
+        }
+
+        /* Empty State */
+        .empty-state {
+            background-color: var(--bg-secondary);
+            border: 1px dashed rgba(201, 160, 69, 0.2);
+            border-radius: 20px;
+            padding: 80px 40px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            max-width: 600px;
+            margin: 80px auto;
+        }
+
+        .empty-icon {
+            font-size: 64px;
+            color: var(--accent-gold);
+            opacity: 0.3;
+            margin-bottom: 10px;
+        }
+
+        .empty-state p {
+            color: var(--text-muted);
+            font-size: 15px;
+            max-width: 400px;
+        }
+
+        /* Skeleton Loading */
+        .skeleton-card {
+            background-color: var(--bg-secondary);
+            border-radius: 16px;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            border: 1px solid rgba(255,255,255,0.02);
+        }
+
+        .skeleton-line {
+            height: 15px;
+            background: linear-gradient(90deg, #181B26 25%, #252A3B 50%, #181B26 75%);
+            background-size: 200% 100%;
+            animation: loading-shine 1.5s infinite;
+            border-radius: 4px;
+        }
+
+        /* Animations */
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes loading-shine {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+
+        /* Print friendly style */
+        @media print {
+            .app-container {
+                display: block;
+            }
+            .sidebar {
+                display: none;
+            }
+            .main-content {
+                padding: 0;
+                height: auto;
+            }
+            .scene-card {
+                page-break-inside: avoid;
+                border: 1px solid #000000 !important;
+                background-color: #FFFFFF !important;
+                color: #000000 !important;
+                box-shadow: none !important;
+                margin-bottom: 30px;
+            }
+            .mobile-mockup {
+                border: 1px solid #000000 !important;
+                height: 350px !important;
+            }
+            .detail-content, .vo-content {
+                background: none !important;
+                border: 1px solid #CCCCCC !important;
+                color: #000000 !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="app-container">
+        
+        <!-- SIDEBAR CONTROLS -->
+        <aside class="sidebar">
+            <div class="brand">
+                <i class="fa-solid fa-clapperboard brand-logo"></i>
+                <h2>Peninsula <span>Private</span></h2>
+            </div>
+
+            <!-- API Configuration is fully hidden in this version -->
+
+            <!-- Storyboard Options -->
+            <div class="form-group">
+                <label for="targetAudience">Target Đối Tượng</label>
+                <textarea id="targetAudience" class="form-input" placeholder="Ví dụ: Khách hàng mua đầu tư cho thuê..."></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="apartmentType">Loại Căn Hộ</label>
+                <div class="select-wrapper">
+                    <select id="apartmentType" class="form-input">
+                        <option value="Căn Studio">Căn Studio (~36m²)</option>
+                        <option value="Can ho 1 Phong Ngu">Căn hộ 1 Phòng Ngủ (~47m²)</option>
+                        <option value="Can ho 2 Phong Ngu" selected>Căn hộ 2 Phòng Ngủ (~72m² - 79m²)</option>
+                        <option value="Can ho 3 Phong Ngu">Căn hộ 3 Phòng Ngủ (~121m² - 170m²)</option>
+                        <option value="Can ho 4 Phong Ngu">Căn hộ 4 Phòng Ngủ (~210m² - 280m²)</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="message">Thông Điệp Chủ Đạo</label>
+                <textarea id="message" class="form-input" placeholder="Ví dụ: Sở hữu căn hộ đợt cuối nhận chiết khấu đến 15.5%..."></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="hook">Ý Tưởng Hook 3s đầu</label>
+                <textarea id="hook" class="form-input" placeholder="Ví dụ: Sự phiền toái của khách sạn 5 sao..."></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="duration">Thời Lượng Video</label>
+                <div class="select-wrapper">
+                    <select id="duration" class="form-input">
+                        <option value="60 giây">60 Giây (Khuyên dùng)</option>
+                        <option value="45 giây">45 Giây</option>
+                        <option value="30 giây">30 Giây</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Actions grouped in Grid -->
+            <div class="btn-group">
+                <button class="btn" id="btnGenerate" onclick="generateStoryboard()">
+                    <i class="fa-solid fa-wand-magic-sparkles"></i> Tạo Kịch Bản
+                </button>
+                <button class="btn btn-secondary" onclick="resetApp()" title="Reset trang và biểu mẫu">
+                    <i class="fa-solid fa-trash-can"></i> Xóa
+                </button>
+            </div>
+
+            <!-- Quick Pre-loaded Templates -->
+            <div class="samples-section">
+                <h4>Kịch bản mẫu cài sẵn (Xem ngay)</h4>
+                <div class="sample-buttons">
+                    <button class="sample-btn" onclick="loadSample('second_home')">
+                        <span><i class="fa-solid fa-umbrella-beach"></i> Nghỉ dưỡng/Lưu trú (Chủ tịch)</span>
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </button>
+                    <button class="sample-btn" onclick="loadSample('rental')">
+                        <span><i class="fa-solid fa-chart-line"></i> Đầu tư cho thuê dòng tiền</span>
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </button>
+                    <button class="sample-btn" onclick="loadSample('resale')">
+                        <span><i class="fa-solid fa-coins"></i> Đầu tư bán lại trước cất nóc</span>
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        </aside>
+
+        <!-- MAIN STORYBOARD VIEW -->
+        <main class="main-content">
+            <header class="content-header">
+                <div class="content-header-info">
+                    <h2>Bảng Kịch Bản Storyboard</h2>
+                    <p id="campaignInfoText">Hãy điền thông tin bên trái và nhấn Tạo Kịch Bản, hoặc nhấp vào Kịch bản mẫu cài sẵn.</p>
+                </div>
+                <div id="statusIndicator" class="status-badge">
+                    <i class="fa-solid fa-check-circle"></i> Sẵn sàng
+                </div>
+            </header>
+
+            <!-- Grid container where scenes are outputted -->
+            <section class="storyboard-feed" id="storyboardFeed">
+                <!-- Welcome Empty State -->
+                <div class="empty-state">
+                    <i class="fa-solid fa-film empty-icon"></i>
+                    <h3>Chào mừng đến với Peninsula Storyboard</h3>
+                    <p>Hệ thống AI Storyboard giúp bạn mô phỏng kịch bản quay dựng chi tiết với HOST người thật, hiển thị trực quan phần chữ chạy trên màn hình điện thoại.</p>
+                    <button class="btn btn-secondary" onclick="loadSample('second_home')">Xem mẫu demo ngay</button>
+                </div>
+            </section>
+        </main>
+
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // Obfuscated API Key (Base64 of the key provided by the user)
+        const OBFUSCATED_KEY = "QVEuQWI4Uk42S09tU2pWaVJMVkhTbzVMNWVNUEhtck9HeDdtb2dkRER1dlZFZXdYTndEZFE=";
+
+        // Project Database matching design file
+        const DATA_PENINSULA_PRIVATE = 
+            `DU AN: PENINSULA PRIVATE (TP. Da Nang)
+Chu dau tu: Lien danh Cong ty CP Tap doan Dong Do & Cong ty TNHH MTV Dau tu Athena Luxury. Don vi phan phoi chien luoc: Dat Xanh Mien Trung.
+Vi tri: To hop Da Nang Downtown, trung tam Quan Hai Chau, TP. Da Nang. Ket noi nhanh chong den song Han (3 phut), Lotte Mart, truong hoc, benh vien, san bay va bien My Khe.
+Quy mo: Thap can ho bieu tuong cao 39 tang noi (chieu cao gan 150m: 149.8m), mat do xay dung chi 40%, 3 tang ham do xe thong minh.
+So luong san pham: Khoang 612 - 630 can ho thuong mai cao cap.
+Co cau dien tich:
+  - Căn Studio: Can ~36m2 (124 can), TMDV ~34.37m2.
+  - Can ho 1PN: Can ~47m2 (302 can).
+  - Can ho 2PN: Can ~72m2 den 79m2 (178 can), Can dac biet ~78.98m2 (1 can).
+  - Can ho 3PN: Can ~121.8m2 (8 can), Can ~150-170m2 (5 can).
+  - Can ho 4PN: Can lon ~210-280m2 (5 can).
+  - Sieu can ho/Sky Villa/Penthouse: Can ~430-460m2 (3 can), Can ~540-590m2 (2 can).
+Tieu chuan ban giao: Full noi that lien tuong cao cap. Su dung kinh hop Low-E day 27.5mm cach am, cach nhiet va ngan tia UV vuot troi. Thiet bi ve sinh va bep tu cac thuong hieu hang dau (Bosch, Hafele, Kohler/Grohe). Cua chong chay American Doors, sanh don sang trong op da Marble tu nhien.
+Gia ban: Tu 65 trieu dong/m2 (da bao gom VAT).
+
+CHINH SACH BAN HANG DU KIEN (Thang 07/2026):
+  - Nhan dat cho uu tien (Booking): 50 trieu dong/suat (co hoan phi).
+  - Chiet khau thanh toan nhanh: Dat muc tu 13.5% den 15.5%.
+  - Chiet khau thanh toan tien do: Tu 6% den 7.5%.
+  - Ho tro vay von: Ngan hang lien ket ho tro cho vay toi da 70% gia tri can ho.
+  - Uu dai lai suat & An han goc: Lai suat 0% tu 18 den 24 thang, an han no goc den khi nhan ban giao nha.
+  - Qua tang: Mien phi quan ly van hanh tu 2 den 3 nam.
+
+BOI CANH GIAI DOAN 3 (GIO HANG CUOI CUNG - SAP CAT NOC):
+  Day la dot mo ban cuoi cung. Co hoi cuoi cung de mua gia goc tu chu dau tu truoc khi cat noc. Sau khi cat noc gia se tang manh.
+
+HINH ANH DUOC PHEP (Off-plan guide):
+  - Phoi canh 3D ngoai khu va noi thực can ho (bat buoc ghi chu 'Hinh anh phoi canh minh hoa').
+  - Chuyen dong cong truong dang thi cong thuc te (crane, cot be tong, tien do xay dung).
+  - Drone/aerial view: song Han, cau Thuan Phuoc, ban dao Son Tra, Da Nang Downtown.
+  - Location shots thuc te: song Han, Da Nang Downtown, Lotte Mart, trung tam Da Nang.
+  - Infographic ve CSBH, chiet khau, mat bang mat dung.
+  - KHONG DUOC DUNG: Hinh anh can ho hoan thien thuc te cua du an, anh ho boi vo cuc hoan thien thuc te (chua ton tai).
+  - Meta Ads policy: Khong cam ket tuyet doi thoi gian ban giao.`;
+
+        // Preloaded Static Demos (No API Key required to test)
+        const STATIC_DEMOS = {
+            second_home: [
+                {
+                    stt: 1,
+                    duration: "3 giây",
+                    message: "Thu hút sự tò mò bằng nỗi băn khoăn về sự riêng tư của giới tinh hoa.",
+                    visual: "Host đứng tại ban công căn hộ mẫu ngắm toàn cảnh sông Hàn lung linh, sau đó quay lại mỉm cười nói trực tiếp với ống kính. Hậu cảnh là dòng sông Hàn êm đềm.",
+                    textOverlay: "65 TRIỆU / M²\nPENINSULA PRIVATE\nTÂM ĐIỂM HẢI CHÂU",
+                    vo: "65 triệu đồng/m², bạn sở hữu ngay một bất động sản tại vị trí được cho là tâm điểm phát triển mới của thành phố? Peninsula Private tổ hợp Đà Nẵng Downtown ngay bờ sông Hàn!"
+                },
+                {
+                    stt: 2,
+                    duration: "12 giây",
+                    message: "Khẳng định ưu thế kết nối vượt trội và giá trị trung tâm Hải Châu.",
+                    visual: "Hiệu ứng Map Animation 3D zoom từ vị trí tòa tháp Peninsula Private tỏa ra các tuyến đường huyết mạch. Host di chuyển lịch lãm trong sảnh đón ốp đá Marble tự nhiên, chỉ tay về mô hình kết nối.",
+                    textOverlay: "VỊ TRÍ ĐẶC ĐỊA\nTrung tâm Hải Châu\n3 phút đến sông Hàn\nKề cận Lotte Mart",
+                    vo: "Nằm trong toàn bộ tổ hợp tiện ích và thương mại Đà Nẵng Downtown. Từ đây, chỉ vài phút để chạm đến sông Hàn, Lotte Mart, trường học và sân bay. Mọi nhu cầu đều nằm trong tầm tay."
+                },
+                {
+                    stt: 3,
+                    duration: "15 giây",
+                    message: "Khắc họa chất sống độc bản và độ hoàn mỹ của thiết kế.",
+                    visual: "Host đi bộ vào căn hộ mẫu, lướt tay qua mặt kính hộp Low-E 27.5mm cách âm cản tia UV hoàn hảo, máy quay chuyển góc cận cảnh sang ban công nhìn trực diện sông Hàn.",
+                    textOverlay: "39 TẦNG BIỂU TƯỢNG\nCao 149.8m\nKính hộp Low-E 27.5mm\n3 Tầng hầm thông minh",
+                    vo: "Với quy mô 39 tầng nổi cao gần 150m, tháp căn hộ sở hữu thiết kế kính Low-E tràn viền cách nhiệt cản UV tối đa. Nơi sự riêng tư của bạn được bảo vệ tuyệt đối giữa mây trời Đà Nẵng."
+                },
+                {
+                    stt: 4,
+                    duration: "10 giây",
+                    message: "Trực quan tiêu chuẩn bàn giao cao cấp.",
+                    visual: "Host đứng bên trong phòng bếp giới thiệu bếp từ Bosch, lò nướng Hafele, sau đó di chuyển qua phòng tắm rộng rãi với thiết bị Kohler/Grohe sáng bóng.",
+                    textOverlay: "BÀN GIAO CAO CẤP\nFull nội thất liền tường\nThương hiệu Bosch, Hafele\nKohler & Grohe nhập khẩu",
+                    vo: "Mỗi căn hộ được bàn giao hoàn thiện với tiêu chuẩn cao cấp nhất từ thiết bị bếp Bosch, phụ kiện Hafele cho tới vệ sinh Kohler. Tối ưu công năng và giá trị bền vững lâu dài."
+                },
+                {
+                    stt: 5,
+                    duration: "15 giây",
+                    message: "Tạo niềm tin vững chắc về tiến độ thực tế cận kề mốc cất nóc.",
+                    visual: "Cảnh quay thực tế Host đội mũ bảo hộ đứng trước công trường đang thi công nhộn nhịp, cần cẩu hoạt động khẩn trương. Chuyển sang biểu đồ chính sách thanh toán và chiết khấu.",
+                    textOverlay: "CƠ HỘI ĐỢT CUỐI\nChiết khấu đến 15.5%\nNgân hàng hỗ trợ vay 70%\nLãi suất 0% 18-24 tháng",
+                    vo: "Dự án đang tiến sát mốc cất nóc đếm ngược, bảo chứng vàng cho tiến độ. Cơ hội mua giá gốc từ chủ đầu tư đợt này với chiết khấu tới 15.5% và hỗ trợ 0% lãi suất lên tới 24 tháng."
+                },
+                {
+                    stt: 6,
+                    duration: "5 giây",
+                    message: "Kêu gọi hành động khẩn trương.",
+                    visual: "Host đứng tại sảnh căn hộ mẫu mỉm cười vẫy tay nhẹ, màn hình hiện thông tin đăng ký nhận bảng giá và tham quan thực tế.",
+                    textOverlay: "ĐẶT HÀNG NGAY\nƯu tiên chọn vị trí đẹp\nNhận bảng giá đợt cuối",
+                    vo: "Số lượng căn hộ đợt cuối cực kỳ giới hạn trước thềm cất nóc. Hãy đăng ký ngay hôm nay để nhận bảng giá chi tiết!"
+                }
+            ],
+            rental: [
+                {
+                    stt: 1,
+                    duration: "3 giây",
+                    message: "Tác động thẳng vào tử huyệt dòng tiền nhàn rỗi bị mất giá.",
+                    visual: "Host đứng trước background là biểu đồ lạm phát mờ ảo, cầm chiếc máy tính bảng chỉ vào con số dòng tiền, sau đó hướng ánh mắt sắc bén nói trực tiếp vào camera.",
+                    textOverlay: "TIỀN MẤT GIÁ?\nDÒNG TIỀN THỤ ĐỘNG\n65 TRIỆU / M²",
+                    vo: "Lãi suất tiết kiệm chạm đáy, dòng tiền của bạn đang mất giá mỗi ngày? Làm thế nào để sở hữu dòng tiền cho thuê chuyên gia nước ngoài bền vững tại trung tâm Đà Nẵng?"
+                },
+                {
+                    stt: 2,
+                    duration: "12 giây",
+                    message: "Chứng minh tiềm năng cho thuê cực cao tại khu vực.",
+                    visual: "Host di chuyển trong không gian phòng khách căn hộ mẫu 2PN thiết kế mở hiện đại, mở cửa kính bước ra ban công view trọn Da Nang Downtown và Lotte Mart.",
+                    textOverlay: "ĐÀ NẴNG DOWNTOWN\nTâm điểm đón chuyên gia\nNhu cầu thuê căn hộ 5 sao\n3 phút đến sông Hàn",
+                    vo: "Với vị trí tâm điểm quận Hải Châu kề sát Đà Nẵng Downtown, Peninsula Private đón đầu làn sóng định cư của tệp chuyên gia quốc tế lớn tại Đà Nẵng. Đảm bảo tỷ lệ lấp đầy lý tưởng."
+                },
+                {
+                    stt: 3,
+                    duration: "15 giây",
+                    message: "Phân tích điểm tựa hạ tầng 39 tầng và độ bàn giao cao cấp để giữ chân khách thuê ngoại.",
+                    visual: "Host chạm nhẹ vào các chi tiết bàn giao nội thất gỗ tinh xảo, bật thử bếp từ Bosch, mở cửa tủ bếp Hafele. Máy quay lia góc nhìn từ sàn đá tự nhiên lên hệ trần cao thoáng đãng.",
+                    textOverlay: "TIÊU CHUẨN 5 SAO\nFull nội thất liền tường\nKính Low-E cách âm cản UV\nGiữ chân khách thuê ngoại",
+                    vo: "Tiêu chuẩn bàn giao chuẩn 5 sao với thiết bị Bosch, Hafele giúp tối ưu chi phí vận hành ban đầu cho chủ nhà. Lớp kính hộp Low-E 27.5mm cản tiếng ồn, mang lại sự riêng tư tuyệt đối."
+                },
+                {
+                    stt: 4,
+                    duration: "15 giây",
+                    message: "Trình bày chính sách đòn bẩy tài chính ưu việt giảm nhẹ dòng tiền.",
+                    visual: "Host đứng bên cạnh màn hình LED lớn mô tả chính sách hỗ trợ vay 70%, lãi suất 0% và ân hạn nợ gốc.",
+                    textOverlay: "ĐÒN BẨY ƯU VIỆT\nVốn ban đầu chỉ 30%\nLãi suất 0% đến 24 tháng\nMiễn phí 3 năm vận hành",
+                    vo: "Sở hữu ngay chỉ với 30% vốn tự có, ngân hàng hỗ trợ cho vay 70% với lãi suất 0% lên tới 24 tháng và ân hạn nợ gốc. Đặc biệt, miễn phí quản lý vận hành 3 năm giúp tối đa hóa lợi nhuận."
+                },
+                {
+                    stt: 5,
+                    duration: "10 giây",
+                    message: "Thúc đẩy tính khan hiếm trước mốc cất nóc.",
+                    visual: "Cảnh flycam thực tế tháp căn hộ Peninsula đang đổ sàn bê tông tầng cao, tiến độ thi công thần tốc ngày đêm.",
+                    textOverlay: "SẮP CẤT NÓC\nBảo chứng tiến độ xây dựng\nChiết khấu đợt cuối 15.5%",
+                    vo: "Dự án sắp cất nóc – thời điểm vàng để mua giá gốc tốt nhất trước khi tăng giá. Chiết khấu ngay tới 15.5% cho phương thức thanh toán nhanh."
+                },
+                {
+                    stt: 6,
+                    duration: "5 giây",
+                    message: "Kêu gọi hành động đăng ký tư vấn dòng tiền.",
+                    visual: "Host đứng mỉm cười cầm tập hồ sơ dự án Peninsula Private, chỉ tay xuống nút gửi tin nhắn trên màn hình.",
+                    textOverlay: "NHẬN BẢNG TÍNH DÒNG TIỀN\nĐăng ký nhận chi tiết\nGiỏ hàng đợt cuối giá gốc",
+                    vo: "Click gửi tin nhắn ngay hôm nay để nhận bảng tính dòng tiền cho thuê chi tiết từ chuyên gia bất động sản!"
+                }
+            ],
+            resale: [
+                {
+                    stt: 1,
+                    duration: "3 giây",
+                    message: "Tạo sự kích thích tâm lý đầu tư chênh lệch giá trước cất nóc.",
+                    visual: "Host cầm biểu đồ nến tăng trưởng giá trị bất động sản hướng thẳng về ống kính, biểu cảm hào hứng, sau đó bước đi tự tin trong hành lang căn hộ mẫu.",
+                    textOverlay: "ĐẦU TƯ BÁN LẠI?\nTẬN DỤNG MỐC CẤT NÓC\nBIÊN LỢI NHUẬN CỰC TỐT",
+                    vo: "Đầu tư bất động sản căn hộ, thời điểm nào mua vào dễ thanh khoản và sinh lời cao nhất? Hãy nắm bắt ngay trước thềm cất nóc!"
+                },
+                {
+                    stt: 2,
+                    duration: "12 giây",
+                    message: "Chỉ ra mốc tăng giá vàng của Peninsula Private.",
+                    visual: "Flycam từ trên cao lia cận cảnh tháp căn hộ Peninsula Private uy nghi nổi bật giữa trung tâm Hải Châu, ghi nhận công trường đang lắp đặt cốt thép tầng mái.",
+                    textOverlay: "THÁP CĂN HỘ 39 TẦNG\nĐiểm tựa tăng giá cất nóc\nTổ hợp Đà Nẵng Downtown\nSở hữu lâu dài cực hiếm",
+                    vo: "Peninsula Private – tòa tháp 39 tầng biểu tượng sắp cất nóc. Lịch sử chứng minh, bất động sản luôn tăng trưởng 10-15% giá trị ngay sau mốc cất nóc và bước vào hoàn thiện."
+                },
+                {
+                    stt: 3,
+                    duration: "15 giây",
+                    message: "Lồng ghép mức chiết khấu khủng tạo lợi thế mua rẻ hơn thị trường.",
+                    visual: "Host tương tác với một sa bàn dự án, chỉ vào vị trí đắc địa 4 mặt tiền, sau đó phân tích các con số chiết khấu hiện trên màn hình.",
+                    textOverlay: "MUA GIÁ GỐC ĐỢT CUỐI\nChiết khấu nhanh tới 15.5%\nThanh toán tiến độ chỉ 2%/tháng\nQuỹ đất trung tâm khan hiếm",
+                    vo: "Đặc biệt, đây là giỏ hàng đợt cuối trực tiếp từ chủ đầu tư với giá gốc. Bạn được chiết khấu tới 15.5% nếu thanh toán nhanh, hoặc trả góp cực giãn chỉ từ 2% mỗi tháng."
+                },
+                {
+                    stt: 4,
+                    duration: "15 giây",
+                    message: "Xây dựng trust bằng tiêu chuẩn bàn giao nội thất hàng đầu để dễ thanh khoản cho tệp nhà giàu.",
+                    visual: "Host gõ nhẹ vào hệ cửa chống cháy American Doors dày dặn, di chuyển chỉ tay vào thiết bị Grohe nhập khẩu sáng bóng trong phòng vệ sinh.",
+                    textOverlay: "DỄ DÀNG THANH KHOẢN\nNội thất American Doors, Grohe\nKính Low-E cản UV cách âm\nTệp khách thượng lưu ưa chuộng",
+                    vo: "Tiêu chuẩn bàn giao full nội thất liền tường cao cấp từ American Doors, Grohe, Bosch giúp tài sản của bạn dễ dàng thanh khoản cho tệp khách hàng thượng lưu mong muốn dọn vào ở ngay."
+                },
+                {
+                    stt: 5,
+                    duration: "10 giây",
+                    message: "Nhắc nhở thời gian đếm ngược.",
+                    visual: "Màn hình chuyển sang đồ họa đếm ngược ngày cất nóc dự án, lồng ghép cảnh thực tế công nhân công trường đang hối hả đổ bê tông.",
+                    textOverlay: "ĐẾM NGƯỢC CẤT NÓC\nGiới hạn số lượng căn đẹp\nGiá gốc trực tiếp chủ đầu tư",
+                    vo: "Chỉ còn vài tuần trước khi dự án chính thức cất nóc và đóng giỏ hàng ưu đãi đợt cuối. Mua lúc rẻ bán lúc cất nóc hoàn thành!"
+                },
+                {
+                    stt: 6,
+                    duration: "5 giây",
+                    message: "Kêu gọi hành động chọn căn vị trí đẹp.",
+                    visual: "Host đứng trước logo dự án Peninsula Private Đà Nẵng, chỉ tay ra hiệu đăng ký tư vấn.",
+                    textOverlay: "ĐẶT CHỖ ƯU TIÊN 50TR\nHoàn phí 100% nếu đổi ý\nNhận bảng hàng ngoại giao",
+                    vo: "Liên hệ đặt chỗ ưu tiên ngay hôm nay chỉ với 50 triệu để chọn căn đẹp nhất, hoàn tiền 100% nếu không giao dịch thành công!"
+                }
+            ]
+        };
+
+        // Load Static Demo immediately on startup
+        document.addEventListener('DOMContentLoaded', () => {
+            loadSample('second_home');
+        });
+
+        // Load Campaign Details helper
+        function loadSample(type) {
+            const scenes = STATIC_DEMOS[type];
+            if (!scenes) return;
+
+            let campaignName = "";
+            if (type === 'second_home') campaignName = "Nghỉ dưỡng & Lưu trú thượng lưu";
+            if (type === 'rental') campaignName = "Đầu tư cho thuê dòng tiền";
+            if (type === 'resale') campaignName = "Đầu tư bán lại trước cất nóc";
+
+            document.getElementById('campaignInfoText').innerHTML = `Đang xem kịch bản mẫu: <strong>${campaignName}</strong> (Tải sẵn)`;
+            renderStoryboard(scenes);
+            
+            // Populate form with realistic inputs corresponding to sample
+            if (type === 'second_home') {
+                document.getElementById('targetAudience').value = "Khách hàng thượng lưu thường ghé Đà Nẵng công tác/nghỉ dưỡng muốn sở hữu căn hộ 5 sao riêng tư để ở thay thế khách sạn.";
+                document.getElementById('apartmentType').value = "Can ho 3 Phong Ngu";
+                document.getElementById('message').value = "Peninsula Private căn hộ di sản bờ Đông sông Hàn, vị thế riêng tư tuyệt đối cho chủ nhân tinh hoa.";
+                document.getElementById('hook').value = "Người giàu không chọn ở khách sạn mỗi khi ghé thăm Đà Nẵng.";
+            } else if (type === 'rental') {
+                document.getElementById('targetAudience').value = "Nhà đầu tư tài chính muốn tối ưu dòng tiền thụ động bằng cách mua căn hộ Hải Châu đón tệp chuyên gia nước ngoài thuê lâu dài.";
+                document.getElementById('apartmentType').value = "Can ho 2 Phong Ngu";
+                document.getElementById('message').value = "Sở hữu căn hộ tổ hợp Đà Nẵng Downtown đợt cuối nhận chiết khấu đến 15.5% và hỗ trợ 0% lãi suất vay.";
+                document.getElementById('hook').value = "Lãi suất tiết kiệm chạm đáy, dòng tiền của bạn đang đi về đâu?";
+            } else if (type === 'resale') {
+                document.getElementById('targetAudience').value = "Nhà đầu tư lướt sóng/trung hạn muốn tối ưu lợi nhuận đón đầu mốc cất nóc tháp căn hộ biểu tượng.";
+                document.getElementById('apartmentType').value = "Can ho 2 Phong Ngu";
+                document.getElementById('message').value = "Mua giá gốc đợt cuối Peninsula Private Hải Châu trước thềm cất nóc tăng giá trị vượt trội.";
+                document.getElementById('hook').value = "Mốc thời gian vàng để tối đa hóa biên lợi nhuận đầu tư căn hộ.";
+            }
+        }
+
+        // Reset App back to original Welcome empty state
+        function resetApp() {
+            // Clear inputs
+            document.getElementById('targetAudience').value = '';
+            document.getElementById('message').value = '';
+            document.getElementById('hook').value = '';
+            document.getElementById('apartmentType').value = 'Can ho 2 Phong Ngu';
+            document.getElementById('duration').value = '60 giây';
+            
+            // Reset campaign header text
+            document.getElementById('campaignInfoText').innerText = 'Hãy điền thông tin bên trái và nhấn Tạo Kịch Bản, hoặc nhấp vào Kịch bản mẫu cài sẵn.';
+            
+            // Reset status badge
+            const statusIndicator = document.getElementById('statusIndicator');
+            statusIndicator.className = 'status-badge';
+            statusIndicator.innerHTML = '<i class="fa-solid fa-check-circle"></i> Sẵn sàng';
+            
+            // Restore empty state welcome screen
+            const feed = document.getElementById('storyboardFeed');
+            feed.innerHTML = `
+                <div class="empty-state">
+                    <i class="fa-solid fa-film empty-icon"></i>
+                    <h3>Chào mừng đến với Peninsula Storyboard</h3>
+                    <p>Hệ thống AI Storyboard giúp bạn mô phỏng kịch bản quay dựng chi tiết với HOST người thật, hiển thị trực quan phần chữ chạy trên màn hình điện thoại.</p>
+                    <button class="btn btn-secondary" onclick="loadSample('second_home')">Xem mẫu demo ngay</button>
+                </div>
+            `;
+        }
+
+        // Render scenes to HTML feed
+        function renderStoryboard(scenes) {
+            const feed = document.getElementById('storyboardFeed');
+            feed.innerHTML = '';
+
+            scenes.forEach(scene => {
+                const card = document.createElement('div');
+                card.className = 'scene-card';
+                
+                // Audio Waveform bars simulator HTML
+                let waveHtml = '';
+                for (let i = 0; i < 28; i++) {
+                    let h = Math.floor(Math.random() * 18) + 6;
+                    waveHtml += `<div class="wave-bar" style="height: ${h}px;"></div>`;
+                }
+
+                // Choose background based on scene type to simulate mobile ad preview
+                let bgStyle = 'linear-gradient(135deg, #1b2030 0%, #0d0f15 100%)';
+                if (scene.stt % 3 === 1) {
+                    bgStyle = `linear-gradient(135deg, rgba(20,24,35,0.8) 0%, rgba(10,12,18,0.9) 100%), url('./peninsula_exterior.jpg')`;
+                } else if (scene.stt % 3 === 2) {
+                    bgStyle = `linear-gradient(135deg, rgba(20,24,35,0.85) 0%, rgba(10,12,18,0.95) 100%), url('./peninsula_interior.jpg')`;
+                }
+
+                card.innerHTML = `
+                    <div class="scene-header">
+                        <div class="scene-badge-group">
+                            <span class="scene-number">CẢNH ${scene.stt}</span>
+                            <span class="scene-duration"><i class="fa-regular fa-clock"></i> ${scene.duration || '0-3s'}</span>
+                        </div>
+                        <span class="scene-touchpoint"><i class="fa-solid fa-heart"></i> ${scene.message}</span>
+                    </div>
+                    <div class="scene-body">
+                        <!-- Details on Left -->
+                        <div class="scene-details">
+                            <div class="detail-block">
+                                <h5><i class="fa-solid fa-camera"></i> Hình ảnh / Ghi chú quay (Visual)</h5>
+                                <div class="detail-content" contenteditable="true">${scene.visual}</div>
+                            </div>
+                            <div class="detail-block">
+                                <h5><i class="fa-solid fa-microphone"></i> Nội dung Voice-over (VO) thuyết minh của Host</h5>
+                                <div class="vo-content">
+                                    <div contenteditable="true">${scene.vo}</div>
+                                    <div class="audio-waveform-sim">
+                                        <i class="fa-solid fa-play" style="color: var(--accent-gold); font-size: 11px; margin-right: 5px; cursor: pointer;"></i>
+                                        ${waveHtml}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Smartphone Preview on Right -->
+                        <div class="mobile-mockup" style="background-image: ${bgStyle};">
+                            <div class="mockup-overlay-grad"></div>
+                            <div class="mockup-header-branding">
+                                <span>Peninsula</span>
+                            </div>
+                            <div class="mockup-content">
+                                <div class="text-overlay-preview">
+                                    ${scene.textOverlay.replace(/\n/g, '<br>')}
+                                </div>
+                                <div class="mockup-social-info">
+                                    <div class="avatar-sim">P</div>
+                                    <div class="username-sim">peninsula.private</div>
+                                </div>
+                                <div class="desc-sim">Đăng ký nhận bảng hàng ngoại giao đợt cuối... #peninsula #danang</div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                feed.appendChild(card);
+            });
+        }
+
+        // Call Gemini API silently with hardcoded API key
+        async function generateStoryboard() {
+            const apiKey = atob(OBFUSCATED_KEY); // Decrypt obfuscated key in background
+            const target = document.getElementById('targetAudience').value.trim();
+            const apartment = document.getElementById('apartmentType').value;
+            const message = document.getElementById('message').value.trim();
+            const hook = document.getElementById('hook').value.trim();
+            const duration = document.getElementById('duration').value;
+
+            if (!target || !message || !hook) {
+                alert("Vui lòng điền đầy đủ thông tin chiến dịch (Target, Thông điệp, Ý tưởng Hook)!");
+                return;
+            }
+
+            const statusIndicator = document.getElementById('statusIndicator');
+            const feed = document.getElementById('storyboardFeed');
+
+            // Set loading state
+            statusIndicator.className = "status-badge loading";
+            statusIndicator.innerHTML = `<i class="fa-solid fa-spinner"></i> Đang tạo Prompt chiến dịch...`;
+            
+            // Render Skeleton loaders
+            feed.innerHTML = `
+                <div class="skeleton-card">
+                    <div class="skeleton-line" style="width: 30%; height: 25px;"></div>
+                    <div class="skeleton-line" style="width: 90%; height: 80px;"></div>
+                    <div class="skeleton-line" style="width: 100%; height: 120px;"></div>
+                </div>
+                <div class="skeleton-card">
+                    <div class="skeleton-line" style="width: 30%; height: 25px;"></div>
+                    <div class="skeleton-line" style="width: 80%; height: 80px;"></div>
+                    <div class="skeleton-line" style="width: 95%; height: 120px;"></div>
+                </div>
+            `;
+
+            try {
+                // STEP 1: Persona Engine (Assistant 1)
+                const sysAssistant1 = 
+                    "Ban la Senior Copywriter va chuyen gia tam ly hoc hanh vi khach hang cao cap (HNWIs) tai Viet Nam.\n\n" +
+                    "NHIEM VU CHINH:\n" +
+                    "Dựa vào Target doi tuong, hãy tự động nhận diện họ thuộc nhóm nào trong 5 nhóm sau để viết PROMPT chiến lược:\n" +
+                    "1. Đầu tư cho thuê: Khao khát dòng tiền bền vững, sợ lạm phát mất giá tiền tệ.\n" +
+                    "2. Đầu tư bán lại: Muốn tối ưu biên lợi nhuận trước cất nóc, mua lúc rẻ bán lúc cất nóc xong/hoàn thiện.\n" +
+                    "3. Mua ở nội đô: Muốn nâng cấp không gian sống cao cấp, sợ nhà ngõ chật hẹp, ẩm mốc, thiếu tiện ích.\n" +
+                    "4. Khách xa quê (người Đà Nẵng/quê miền Trung ở HN/SG/Kiều bào): Hướng về nguồn cội, báo hiếu cha mẹ, mua tài sản di sản truyền đời để làm nơi trở về.\n" +
+                    "5. Khách mua lưu trú (thường ghé Đà Nẵng): Muốn có căn hộ trú ẩn 5 sao riêng tư tuyệt đối của riêng mình thay thế sự phiền toái, thiếu an toàn tại khách sạn công cộng.\n\n" +
+                    "YÊU CẦU PROMPT CHIẾN LƯỢC CHO CREATOR:\n" +
+                    "- Phải tạo ra các Hook (0-3s) đánh trúng tử huyệt tâm lý của nhóm đối tượng nhận diện được ở trên (legacy, vinh quy bái tổ, dòng tiền bền vững, đặc quyền chủ tịch riêng tư...).\n" +
+                    "- Cài đặt sự thúc giục: Giỏ hàng đợt cuối và mốc cất nóc đang đếm ngược ngày.\n" +
+                    "- Chỉ ra cách lồng ghép giá rumor và chiết khấu (đến 15.5%) một cách tinh tế để lọc khách hàng không đủ tài chính.\n" +
+                    "- TẬP TRUNG THIẾT KẾ QUAY VỚI HOST (NGƯỜI THẬT) DẪN DẮT xuyên suốt video để tối ưu watch-time.\n\n" +
+                    "CHI tra ve doan prompt chien luoc bang tieng Viet. Khong giai thich, khong bat ky thong tin nao khac.";
+
+                const csbhCanho = "Chính sách Peninsula Private: Booking 50 triệu (hoàn phí), CK đến 15.5% thanh toán nhanh, 0% lãi suất vay 70% từ 18-24 tháng, ân hạn nợ gốc, miễn phí vận hành 2-3 năm.";
+                const userMsg1 = `BO DU LIEU DU AN:\n${DATA_PENINSULA_PRIVATE}\n\nCHIEN DICH CAN VIET KICH BAN:\nLoai can ho: ${apartment}\nCSBH: ${csbhCanho}\nTarget doi tuong: ${target}\nThong diep: ${message}\nHook: ${hook}\nThoi luong: ${duration}`;
+
+                const promptChuan = await callGeminiAPI(sysAssistant1, userMsg1, apiKey);
+
+                // Update loader status
+                statusIndicator.innerHTML = `<i class="fa-solid fa-spinner"></i> Đang viết kịch bản phân cảnh...`;
+
+                // STEP 2: Storyboard Creator
+                const sysCreator = 
+                    "Ban la Creative Director va chuyen gia viet ad copy bat dong san sieu sang Viet Nam.\n\n" +
+                    "QUY TAC TAO HOOK & PHAN CANH (UGC HOST OPTIMIZED):\n" +
+                    "- YEU CAU BẮT BUỘC: Kịch bản phải được thiết kế xoay quanh một HOST (người dẫn chương trình/KOC/Reviewer thực tế) xuất hiện xuyên suốt cả video.\n" +
+                    "- Canh 1 (0-3s) bat buoc dung Hook tam ly cuc sau đánh thẳng vào tử huyệt đối tượng. Mô tả rõ góc máy quay Host (VD: Host nhìn trực tiếp camera nói biểu cảm, hoặc Host đang đứng ngắm ban công rồi quay lại nói chuyện với ống kính).\n" +
+                    "- Các phân cảnh tiếp theo phải miêu tả rõ hành động tương tác vật lý của Host với không gian (VD: Host đi lại trong nhà mẫu, chạm vào kính hộp Low-E cách âm, Host đứng trước công trình đang thi công đội mũ bảo hộ chỉ tay về tiến độ cất nóc, Host đứng tại sảnh đón đá Marble chia sẻ trực tiếp).\n" +
+                    "- Tránh tuyệt đối các hook sáo rỗng. Phải dùng các câu thoại của Host chạm vào tâm tư, khiến người xem phải dừng lại suy ngẫm.\n" +
+                    "- Visual: Mô tả hình ảnh có sự xuất hiện của Host phối hợp với bối cảnh dự án (chỉ dùng visual được phép của off-plan).\n" +
+                    "- Audio: Voiceover của Host trầm ấm, truyền cảm, nhịp điệu kể chuyện tự nhiên (Native). Nhạc nền Classical/Luxury Cinematic.\n\n" +
+                    "Xuat DUNG MOT JSON ARRAY [] voi 6-8 phan canh. Moi phan canh co dung 6 truong sau (viet dung ten truong bang chu thuong):\n" +
+                    "  'stt'         : so thu tu phan canh (so nguyen: 1, 2, 3...)\n" +
+                    "  'duration'    : thoi luong cua phan canh (VD: '3s', '12s' hoac bo trong)\n" +
+                    "  'message'     : thong diep muon gui den KH (tao ra nhung diem cham ve cam xuc)\n" +
+                    "  'visual'      : hinh anh / ghi chu quay (visual mo ta hanh dong cua Host tuong tac voi bo canh)\n" +
+                    "  'textOverlay' : text tren man hinh (in hoa, chia dong bang \\n neu can thiet)\n" +
+                    "  'vo'          : noi dung voice-over (VO) thuyet minh cua Host\n\n" +
+                    "YEU CAU TUYET DOI: Chi tra ve JSON thuan bat dau [ va ket thuc ]. Khong dung markdown, khong chu thich ngoai JSON.";
+
+                const userMsg2 = `BO DU LIEU DU AN:\n${DATA_PENINSULA_PRIVATE}\n\nPROMPT CHIEN LUOC TU ASSIST ASSISTANT 1:\n${promptChuan}`;
+
+                const jsonRaw = await callGeminiAPI(sysCreator, userMsg2, apiKey);
+                
+                // Parse and render
+                const scenes = repairJson(jsonRaw);
+                renderStoryboard(scenes);
+
+                // Update campaign title text
+                document.getElementById('campaignInfoText').innerHTML = `Chiến dịch cho: <strong>${apartment}</strong> | Đối tượng: ${target.substring(0, 50)}...`;
+
+                // Set success state
+                statusIndicator.className = "status-badge";
+                statusIndicator.innerHTML = `<i class="fa-solid fa-check-circle"></i> Đã hoàn thành (${scenes.length} cảnh)`;
+
+            } catch (err) {
+                console.error(err);
+                statusIndicator.className = "status-badge loading";
+                statusIndicator.style.borderColor = "red";
+                statusIndicator.style.color = "red";
+                statusIndicator.innerHTML = `<i class="fa-solid fa-exclamation-triangle"></i> Gặp lỗi`;
+                
+                alert("Đã xảy ra lỗi trong quá trình xử lý:\n\n" + err.message);
+                feed.innerHTML = `
+                    <div class="empty-state" style="border-color: red;">
+                        <i class="fa-solid fa-triangle-exclamation empty-icon" style="color: red;"></i>
+                        <h3>Khởi tạo thất bại</h3>
+                        <p>${err.message}</p>
+                        <button class="btn btn-secondary" onclick="loadSample('second_home')">Quay lại xem kịch bản mẫu</button>
+                    </div>
+                `;
+            }
+        }
+
+        // Direct Fetch HTTP request to Gemini API
+        async function callGeminiAPI(systemPrompt, userMessage, apiKey) {
+            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
+            
+            const payload = {
+                systemInstruction: {
+                    parts: [{ text: systemPrompt }]
+                },
+                contents: [{
+                    role: "user",
+                    parts: [{ text: userMessage }]
+                }],
+                generationConfig: {
+                    temperature: 0.85,
+                    maxOutputTokens: 16384
+                }
+            };
+
+            const response = await fetch(url, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(payload)
+            });
+
+            if (!response.ok) {
+                const text = await response.text();
+                throw new Error(`HTTP ${response.status}: ${text}`);
+            }
+
+            const data = await response.json();
+            try {
+                const parts = data.candidates[0].content.parts;
+                for (let p = 0; p < parts.length; p++) {
+                    if (parts[p].text && !parts[p].thought) {
+                        return parts[p].text;
+                    }
+                }
+                for (let q = parts.length - 1; q >= 0; q--) {
+                    if (parts[q].text) return parts[q].text;
+                }
+                throw new Error("Không tìm thấy nội dung văn bản trả về.");
+            } catch (err) {
+                throw new Error("Cấu trúc phản hồi AI không đúng định dạng: " + err.message);
+            }
+        }
+
+        // Clean and repair JSON string
+        function repairJson(raw) {
+            let s = raw.replace(/```json/gi, '').replace(/```/g, '').trim();
+
+            try {
+                const parsed = JSON.parse(s);
+                if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+            } catch(e) {}
+
+            const start = s.indexOf('[');
+            if (start === -1) throw new Error('Không tìm thấy định dạng kịch bản JSON Array trong phản hồi.');
+            s = s.substring(start);
+
+            try {
+                const p2 = JSON.parse(s);
+                if (Array.isArray(p2) && p2.length > 0) return p2;
+            } catch(e) {}
+
+            // Fallback manual regex parser if JSON is broken slightly
+            const results = [];
+            let depth = 0;
+            let inStr = false;
+            let escape = false;
+            let objStart = -1;
+
+            for (let i = 0; i < s.length; i++) {
+                let ch = s[i];
+                if (escape) { escape = false; continue; }
+                if (ch === '\\' && inStr) { escape = true; continue; }
+                if (ch === '"') { inStr = !inStr; continue; }
+                if (inStr) continue;
+                if (ch === '{') { if (depth === 0) objStart = i; depth++; }
+                else if (ch === '}') {
+                    depth--;
+                    if (depth === 0 && objStart !== -1) {
+                        try {
+                            const obj = JSON.parse(s.substring(objStart, i + 1));
+                            results.push(obj);
+                        } catch(ex) {}
+                        objStart = -1;
+                    }
+                }
+            }
+
+            if (results.length === 0) throw new Error('Không thể bóc tách dữ liệu JSON phân cảnh.');
+            return results;
+        }
+    </script>
+</body>
+</html>
