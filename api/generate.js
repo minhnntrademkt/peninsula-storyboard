@@ -16,13 +16,13 @@ export default async function handler(req, res) {
         return res.status(405).json({ error: 'Method Not Allowed' });
     }
 
-    const OBFUSCATED_KEY = "QVEuQWI4Uk42S09tU2pWaVJMVkhTbzVMNWVNUEhtck9HeDdtb2dkRER1dlZFZXdYTndEZFE=";
-    const apiKey = process.env.GEMINI_API_KEY || Buffer.from(OBFUSCATED_KEY, 'base64').toString('utf-8');
+    // Verified working Base64 key (OHx7 variant)
+    const OBFUSCATED_KEY = "QVEuQWI4Uk42S09tU2pWaVJMVkhTbzVMNWVNUEhtck9IeDdtb2dkRER1dlZFZXdYTndEZFE=";
+    const apiKey = process.env.GEMINI_API_KEY || Buffer.from(OBFUSCATED_KEY, 'base64').toString('utf-8').trim();
 
     try {
         const { systemInstruction, userMessage } = req.body;
 
-        // Use standard URL without query param + pass x-goog-api-key header (Required for AQ. format keys)
         const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent`;
 
         const response = await fetch(url, {
