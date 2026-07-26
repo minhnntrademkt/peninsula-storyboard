@@ -420,18 +420,31 @@
             gap: 4px;
             height: 24px;
             padding-left: 5px;
+            cursor: pointer;
+            user-select: none;
         }
 
         .wave-bar {
             width: 3px;
             background-color: var(--accent-gold);
             border-radius: 3px;
-            opacity: 0.5;
-            transition: all 0.3s ease;
+            opacity: 0.4;
+            transition: all 0.2s ease;
         }
 
         .scene-card:hover .wave-bar {
-            opacity: 0.9;
+            opacity: 0.6;
+        }
+
+        /* Audio simulation animation when playing */
+        .audio-waveform-sim.playing .wave-bar {
+            opacity: 0.95;
+            animation: bounce 0.8s ease infinite alternate;
+        }
+
+        @keyframes bounce {
+            0% { transform: scaleY(0.3); }
+            100% { transform: scaleY(1.1); }
         }
 
         /* Mobile Mockup Preview */
@@ -791,7 +804,7 @@ BOI CANH GIAI DOAN 3 (GIO HANG CUOI CUNG - SAP CAT NOC):
   Day la dot mo ban cuoi cung. Co hoi cuoi cung de mua gia goc tu chu dau tu truoc khi cat noc. Sau khi cat noc gia se tang manh.
 
 HINH ANH DUOC PHEP (Off-plan guide):
-  - Phoi canh 3D ngoai khu va noi thực can ho (bat buoc ghi chu 'Hinh anh phoi canh minh hoa').
+  - Phoi canh 3D ngoai khu va noi that can ho (bat buoc ghi chu 'Hinh anh phoi canh minh hoa').
   - Chuyen dong cong truong dang thi cong thuc te (crane, cot be tong, tien do xay dung).
   - Drone/aerial view: song Han, cau Thuan Phuoc, ban dao Son Tra, Da Nang Downtown.
   - Location shots thuc te: song Han, Da Nang Downtown, Lotte Mart, trung tam Da Nang.
@@ -939,7 +952,7 @@ HINH ANH DUOC PHEP (Off-plan guide):
                     duration: "10 giây",
                     message: "Nhắc nhở thời gian đếm ngược.",
                     visual: "Màn hình chuyển sang đồ họa đếm ngược ngày cất nóc dự án, lồng ghép cảnh thực tế công nhân công trường đang hối hả đổ bê tông.",
-                    textOverlay: "ĐẾM NGƯỢC CẤT NÓC\nGiới hạn số lượng căn đẹp\nGiá gốc trực tiếp chủ đầu tư",
+                    textOverlay: "ĐỀM NGƯỢC CẤT NÓC\nGiới hạn số lượng căn đẹp\nGiá gốc trực tiếp chủ đầu tư",
                     vo: "Chỉ còn vài tuần trước khi dự án chính thức cất nóc và đóng giỏ hàng ưu đãi đợt cuối. Mua lúc rẻ bán lúc cất nóc hoàn thành!"
                 },
                 {
@@ -953,10 +966,15 @@ HINH ANH DUOC PHEP (Off-plan guide):
             ]
         };
 
-        // Load Static Demo immediately on startup
-        document.addEventListener('DOMContentLoaded', () => {
-            loadSample('second_home');
-        });
+        // Cache browser TTS voices
+        let voicesList = [];
+        function loadVoices() {
+            voicesList = window.speechSynthesis.getVoices();
+        }
+        if (window.speechSynthesis) {
+            loadVoices();
+            window.speechSynthesis.onvoiceschanged = loadVoices;
+        }
 
         // Load Campaign Details helper
         function loadSample(type) {
@@ -992,6 +1010,11 @@ HINH ANH DUOC PHEP (Off-plan guide):
 
         // Reset App back to original Welcome empty state
         function resetApp() {
+            // Stop speech synthesis if running
+            if (window.speechSynthesis) {
+                window.speechSynthesis.cancel();
+            }
+
             // Clear inputs
             document.getElementById('targetAudience').value = '';
             document.getElementById('message').value = '';
@@ -1019,6 +1042,59 @@ HINH ANH DUOC PHEP (Off-plan guide):
             `;
         }
 
+        // Browser TTS Voice Synthesis Player
+        function playVoice(element, text) {
+            if (!window.speechSynthesis) {
+                alert("Trình duyệt của bạn không hỗ trợ công nghệ đọc văn bản SpeechSynthesis.");
+                return;
+            }
+
+            // If already playing this wave, stop it
+            if (element.classList.contains('playing')) {
+                window.speechSynthesis.cancel();
+                element.classList.remove('playing');
+                element.querySelector('.play-icon').className = 'fa-solid fa-play play-icon';
+                return;
+            }
+
+            // Cancel any current speaking
+            window.speechSynthesis.cancel();
+
+            // Reset all waves back to idle icon
+            document.querySelectorAll('.audio-waveform-sim.playing').forEach(el => {
+                el.classList.remove('playing');
+                el.querySelector('.play-icon').className = 'fa-solid fa-play play-icon';
+            });
+
+            // Clean up content-editable text
+            const cleanedText = text.replace(/<[^>]*>/g, '').trim();
+            const utterance = new SpeechSynthesisUtterance(cleanedText);
+            
+            // Explicitly look for high-quality Vietnamese Neural voices (Edge/Chrome)
+            const viVoice = voicesList.find(voice => voice.lang.includes('vi-VN'));
+            if (viVoice) {
+                utterance.voice = viVoice;
+            }
+            utterance.rate = 0.95; // Slightly slower speed for professional voiceovers
+
+            utterance.onend = () => {
+                element.classList.remove('playing');
+                element.querySelector('.play-icon').className = 'fa-solid fa-play play-icon';
+            };
+
+            utterance.onerror = () => {
+                element.classList.remove('playing');
+                element.querySelector('.play-icon').className = 'fa-solid fa-play play-icon';
+            };
+
+            // Set visual animation status
+            element.classList.add('playing');
+            element.querySelector('.play-icon').className = 'fa-solid fa-stop play-icon';
+            
+            // Speak
+            window.speechSynthesis.speak(utterance);
+        }
+
         // Render scenes to HTML feed
         function renderStoryboard(scenes) {
             const feed = document.getElementById('storyboardFeed');
@@ -1028,11 +1104,12 @@ HINH ANH DUOC PHEP (Off-plan guide):
                 const card = document.createElement('div');
                 card.className = 'scene-card';
                 
-                // Audio Waveform bars simulator HTML
+                // Audio Waveform bars simulator HTML with random animation delay
                 let waveHtml = '';
                 for (let i = 0; i < 28; i++) {
                     let h = Math.floor(Math.random() * 18) + 6;
-                    waveHtml += `<div class="wave-bar" style="height: ${h}px;"></div>`;
+                    let delay = (Math.random() * 0.5).toFixed(2);
+                    waveHtml += `<div class="wave-bar" style="height: ${h}px; animation-delay: ${delay}s;"></div>`;
                 }
 
                 // Choose background based on scene type to simulate mobile ad preview
@@ -1042,6 +1119,9 @@ HINH ANH DUOC PHEP (Off-plan guide):
                 } else if (scene.stt % 3 === 2) {
                     bgStyle = `linear-gradient(135deg, rgba(20,24,35,0.85) 0%, rgba(10,12,18,0.95) 100%), url('./peninsula_interior.jpg')`;
                 }
+
+                // Double escape single quotes for safe event attributes
+                const escapedVo = scene.vo.replace(/'/g, "&#39;").replace(/"/g, "&quot;");
 
                 card.innerHTML = `
                     <div class="scene-header">
@@ -1061,9 +1141,9 @@ HINH ANH DUOC PHEP (Off-plan guide):
                             <div class="detail-block">
                                 <h5><i class="fa-solid fa-microphone"></i> Nội dung Voice-over (VO) thuyết minh của Host</h5>
                                 <div class="vo-content">
-                                    <div contenteditable="true">${scene.vo}</div>
-                                    <div class="audio-waveform-sim">
-                                        <i class="fa-solid fa-play" style="color: var(--accent-gold); font-size: 11px; margin-right: 5px; cursor: pointer;"></i>
+                                    <div contenteditable="true" id="voText_${scene.stt}">${scene.vo}</div>
+                                    <div class="audio-waveform-sim" onclick="playVoice(this, document.getElementById('voText_${scene.stt}').innerText)">
+                                        <i class="fa-solid fa-play play-icon" style="color: var(--accent-gold); font-size: 11px; margin-right: 8px;"></i>
                                         ${waveHtml}
                                     </div>
                                 </div>
