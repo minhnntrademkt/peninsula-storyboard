@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Peninsula Private – AI Storyboard Dashboard v8.0</title>
+    <title>Peninsula Private – AI Storyboard Dashboard v8.1 (Mobile Responsive)</title>
     
     <!-- Google Fonts & FontAwesome -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -657,6 +657,102 @@
                 background: none !important;
                 border: 1px solid #CCCCCC !important;
                 color: #000000 !important;
+            }
+        }
+
+        /* Mobile & Tablet Responsive Media Queries (v8.1 Mobile First) */
+        @media (max-width: 992px) {
+            .app-container {
+                display: flex;
+                flex-direction: column;
+                min-height: 100vh;
+            }
+
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+                top: 0;
+                border-right: none;
+                border-bottom: 1px solid var(--border-color);
+                padding: 20px;
+                gap: 16px;
+            }
+
+            .main-content {
+                width: 100%;
+                height: auto;
+                padding: 20px 15px;
+                overflow-y: visible;
+            }
+
+            .content-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+            }
+
+            .scene-card {
+                padding: 16px;
+                border-radius: 12px;
+            }
+
+            .scene-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+
+            .scene-body {
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .mobile-mockup {
+                width: 100%;
+                max-width: 320px;
+                height: 500px;
+                margin: 0 auto;
+                border-width: 6px;
+                border-radius: 28px;
+            }
+
+            .form-input {
+                font-size: 16px; /* Prevents auto-zoom on mobile iOS Safari */
+            }
+
+            .btn {
+                padding: 12px;
+                font-size: 14px;
+            }
+
+            .empty-state {
+                margin: 30px auto;
+                padding: 40px 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .brand h2 {
+                font-size: 17px;
+            }
+
+            .content-header-info h2 {
+                font-size: 22px;
+            }
+
+            .scene-badge-group {
+                flex-wrap: wrap;
+            }
+
+            .mobile-mockup {
+                height: 440px;
+            }
+
+            .text-overlay-preview {
+                font-size: 12px;
+                padding: 10px;
             }
         }
     </style>
