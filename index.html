@@ -1369,8 +1369,38 @@ HINH ANH DUOC PHEP (Off-plan guide):
             }
         }
 
-        // Direct Fetch HTTP request to Gemini API
+        // Direct Fetch HTTP request to Gemini API (with Serverless Backend Proxy support)
         async function callGeminiAPI(systemPrompt, userMessage, apiKey) {
+            // Priority 1: Call Vercel Serverless API Backend (Bypasses browser CORS & 401 errors)
+            if (window.location.protocol.startsWith('http')) {
+                try {
+                    const res = await fetch('/api/generate', {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({
+                            systemInstruction: systemPrompt,
+                            userMessage: userMessage
+                        })
+                    });
+                    if (res.ok) {
+                        const data = await res.json();
+                        const parts = data.candidates[0].content.parts;
+                        for (let p = 0; p < parts.length; p++) {
+                            if (parts[p].text && !parts[p].thought) return parts[p].text;
+                        }
+                        for (let q = parts.length - 1; q >= 0; q--) {
+                            if (parts[q].text) return parts[q].text;
+                        }
+                    } else {
+                        const errText = await res.text();
+                        console.warn("Serverless API route error:", errText);
+                    }
+                } catch (e) {
+                    console.warn("Serverless fetch error:", e);
+                }
+            }
+
+            // Fallback: Direct client fetch (for file:// protocol)
             const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
             
             const payload = {
