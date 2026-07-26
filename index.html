@@ -894,8 +894,8 @@ HINH ANH DUOC PHEP (Off-plan guide):
                     duration: "15 giây",
                     message: "Trình bày chính sách đòn bẩy tài chính ưu việt giảm nhẹ dòng tiền.",
                     visual: "Host đứng bên cạnh màn hình LED lớn mô tả chính sách hỗ trợ vay 70%, lãi suất 0% và ân hạn nợ gốc.",
-                    textOverlay: "ĐÒN BẨY ƯU VIỆT\nVốn ban đầu chỉ 30%\nLãi suất 0% đến 24 tháng\nMiễn phí 3 năm vận hành",
-                    vo: "Sở hữu ngay chỉ với 30% vốn tự có, ngân hàng hỗ trợ cho vay 70% with lãi suất 0% lên tới 24 tháng và ân hạn nợ gốc. Đặc biệt, miễn phí quản lý vận hành 3 năm giúp tối đa hóa lợi nhuận."
+                    textOverlay: "ĐÒN BẨY ƯU VIỆT\nVỐN BAN ĐẦU CHỈ 30%\nLÃI SUẤT 0% ĐẾN 24 THÁNG\nMIỄN PHÍ 3 NĂM VẬN HÀNH",
+                    vo: "Sở hữu ngay chỉ với 30% vốn tự có, ngân hàng hỗ trợ cho vay 70% với lãi suất 0% lên tới 24 tháng và ân hạn nợ gốc. Đặc biệt, miễn phí quản lý vận hành 3 năm giúp tối đa hóa lợi nhuận."
                 },
                 {
                     stt: 5,
@@ -1014,6 +1014,13 @@ HINH ANH DUOC PHEP (Off-plan guide):
             if (window.speechSynthesis) {
                 window.speechSynthesis.cancel();
             }
+            // Stop any playing google audio
+            document.querySelectorAll('.audio-waveform-sim').forEach(el => {
+                if (el.currentAudio) {
+                    el.currentAudio.pause();
+                    el.currentAudio = null;
+                }
+            });
 
             // Clear inputs
             document.getElementById('targetAudience').value = '';
@@ -1042,38 +1049,12 @@ HINH ANH DUOC PHEP (Off-plan guide):
             `;
         }
 
-        // Browser TTS Voice Synthesis Player (FORCED VIETNAMESE LANGUAGE MAPPING)
-        function playVoice(element, text) {
-            if (!window.speechSynthesis) {
-                alert("Trình duyệt của bạn không hỗ trợ công nghệ đọc văn bản SpeechSynthesis.");
-                return;
-            }
-
-            // If already playing this wave, stop it
-            if (element.classList.contains('playing')) {
-                window.speechSynthesis.cancel();
-                element.classList.remove('playing');
-                element.querySelector('.play-icon').className = 'fa-solid fa-play play-icon';
-                return;
-            }
-
-            // Cancel any current speaking
-            window.speechSynthesis.cancel();
-
-            // Reset all waves back to idle icon
-            document.querySelectorAll('.audio-waveform-sim.playing').forEach(el => {
-                el.classList.remove('playing');
-                el.querySelector('.play-icon').className = 'fa-solid fa-play play-icon';
-            });
-
-            // Clean up content-editable text
+        // Native TTS Fallback function
+        function fallbackToNativeTTS(text, element) {
             const cleanedText = text.replace(/<[^>]*>/g, '').trim();
             const utterance = new SpeechSynthesisUtterance(cleanedText);
-            
-            // CRITICAL: Force language parameter to Vietnamese (vi-VN) so browser defaults to local voice
             utterance.lang = "vi-VN"; 
 
-            // Load voices list dynamically to handle lazy loading in Chrome/Edge
             const currentVoices = window.speechSynthesis.getVoices();
             const viVoice = currentVoices.find(voice => 
                 voice.lang.toLowerCase().replace('_', '-').includes('vi-vn') || 
@@ -1083,8 +1064,7 @@ HINH ANH DUOC PHEP (Off-plan guide):
             if (viVoice) {
                 utterance.voice = viVoice;
             }
-            
-            utterance.rate = 0.92; // Slightly slower speed for premium luxury real estate tone
+            utterance.rate = 0.92;
 
             utterance.onend = () => {
                 element.classList.remove('playing');
@@ -1096,12 +1076,109 @@ HINH ANH DUOC PHEP (Off-plan guide):
                 element.querySelector('.play-icon').className = 'fa-solid fa-play play-icon';
             };
 
-            // Set visual animation status
             element.classList.add('playing');
             element.querySelector('.play-icon').className = 'fa-solid fa-stop play-icon';
-            
-            // Speak
             window.speechSynthesis.speak(utterance);
+        }
+
+        // Guaranteed Vietnamese Neural Voice synthesis via Google Translate TTS API (with length chunking)
+        function playVoice(element, text) {
+            // If already playing, stop everything
+            if (element.classList.contains('playing')) {
+                if (element.currentAudio) {
+                    element.currentAudio.pause();
+                    element.currentAudio = null;
+                }
+                if (window.speechSynthesis) {
+                    window.speechSynthesis.cancel();
+                }
+                element.classList.remove('playing');
+                element.querySelector('.play-icon').className = 'fa-solid fa-play play-icon';
+                return;
+            }
+
+            // Stop any other currently playing voices
+            document.querySelectorAll('.audio-waveform-sim.playing').forEach(el => {
+                el.classList.remove('playing');
+                el.querySelector('.play-icon').className = 'fa-solid fa-play play-icon';
+                if (el.currentAudio) {
+                    el.currentAudio.pause();
+                    el.currentAudio = null;
+                }
+            });
+            if (window.speechSynthesis) {
+                window.speechSynthesis.cancel();
+            }
+
+            // Clean up text
+            const cleanedText = text.replace(/<[^>]*>/g, '').trim();
+
+            // Split text into chunks of <= 150 characters to prevent API truncation
+            const sentences = cleanedText.match(/[^.!?]+[.!?]*/g) || [cleanedText];
+            let chunks = [];
+            
+            sentences.forEach(s => {
+                let str = s.trim();
+                if (!str) return;
+                
+                // If a sentence is extremely long, split by comma
+                if (str.length > 150) {
+                    let subparts = str.split(',');
+                    subparts.forEach(sp => {
+                        let trimmed = sp.trim();
+                        if (trimmed) chunks.push(trimmed);
+                    });
+                } else {
+                    chunks.push(str);
+                }
+            });
+
+            if (chunks.length === 0) {
+                fallbackToNativeTTS(cleanedText, element);
+                return;
+            }
+
+            let currentChunkIndex = 0;
+
+            function playNextChunk() {
+                if (currentChunkIndex >= chunks.length) {
+                    element.classList.remove('playing');
+                    element.querySelector('.play-icon').className = 'fa-solid fa-play play-icon';
+                    return;
+                }
+
+                // If playback was cancelled during chunk transition
+                if (!element.classList.contains('playing')) {
+                    return;
+                }
+
+                const chunk = chunks[currentChunkIndex];
+                // Google TTS URL
+                const url = `https://translate.google.com/translate_tts?ie=UTF-8&tl=vi&client=tw-ob&q=${encodeURIComponent(chunk)}`;
+                
+                const audio = new Audio(url);
+                element.currentAudio = audio;
+
+                audio.onended = () => {
+                    currentChunkIndex++;
+                    playNextChunk();
+                };
+
+                audio.onerror = () => {
+                    console.warn("Google TTS failed, falling back to Native browser SpeechSynthesis...");
+                    fallbackToNativeTTS(cleanedText, element);
+                };
+
+                audio.play().catch(err => {
+                    console.warn("Audio play blocked/failed, falling back to Native browser SpeechSynthesis...");
+                    fallbackToNativeTTS(cleanedText, element);
+                });
+            }
+
+            // Set state to playing and start
+            element.classList.add('playing');
+            element.querySelector('.play-icon').className = 'fa-solid fa-stop play-icon';
+            playNextChunk();
         }
 
         // Render scenes to HTML feed
