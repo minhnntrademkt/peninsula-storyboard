@@ -895,7 +895,7 @@ HINH ANH DUOC PHEP (Off-plan guide):
                     message: "Trình bày chính sách đòn bẩy tài chính ưu việt giảm nhẹ dòng tiền.",
                     visual: "Host đứng bên cạnh màn hình LED lớn mô tả chính sách hỗ trợ vay 70%, lãi suất 0% và ân hạn nợ gốc.",
                     textOverlay: "ĐÒN BẨY ƯU VIỆT\nVốn ban đầu chỉ 30%\nLãi suất 0% đến 24 tháng\nMiễn phí 3 năm vận hành",
-                    vo: "Sở hữu ngay chỉ với 30% vốn tự có, ngân hàng hỗ trợ cho vay 70% với lãi suất 0% lên tới 24 tháng và ân hạn nợ gốc. Đặc biệt, miễn phí quản lý vận hành 3 năm giúp tối đa hóa lợi nhuận."
+                    vo: "Sở hữu ngay chỉ với 30% vốn tự có, ngân hàng hỗ trợ cho vay 70% with lãi suất 0% lên tới 24 tháng và ân hạn nợ gốc. Đặc biệt, miễn phí quản lý vận hành 3 năm giúp tối đa hóa lợi nhuận."
                 },
                 {
                     stt: 5,
@@ -952,7 +952,7 @@ HINH ANH DUOC PHEP (Off-plan guide):
                     duration: "10 giây",
                     message: "Nhắc nhở thời gian đếm ngược.",
                     visual: "Màn hình chuyển sang đồ họa đếm ngược ngày cất nóc dự án, lồng ghép cảnh thực tế công nhân công trường đang hối hả đổ bê tông.",
-                    textOverlay: "ĐỀM NGƯỢC CẤT NÓC\nGiới hạn số lượng căn đẹp\nGiá gốc trực tiếp chủ đầu tư",
+                    textOverlay: "ĐẾM NGƯỢC CẤT NÓC\nGiới hạn số lượng căn đẹp\nGiá gốc trực tiếp chủ đầu tư",
                     vo: "Chỉ còn vài tuần trước khi dự án chính thức cất nóc và đóng giỏ hàng ưu đãi đợt cuối. Mua lúc rẻ bán lúc cất nóc hoàn thành!"
                 },
                 {
@@ -1042,7 +1042,7 @@ HINH ANH DUOC PHEP (Off-plan guide):
             `;
         }
 
-        // Browser TTS Voice Synthesis Player
+        // Browser TTS Voice Synthesis Player (FORCED VIETNAMESE LANGUAGE MAPPING)
         function playVoice(element, text) {
             if (!window.speechSynthesis) {
                 alert("Trình duyệt của bạn không hỗ trợ công nghệ đọc văn bản SpeechSynthesis.");
@@ -1070,12 +1070,21 @@ HINH ANH DUOC PHEP (Off-plan guide):
             const cleanedText = text.replace(/<[^>]*>/g, '').trim();
             const utterance = new SpeechSynthesisUtterance(cleanedText);
             
-            // Explicitly look for high-quality Vietnamese Neural voices (Edge/Chrome)
-            const viVoice = voicesList.find(voice => voice.lang.includes('vi-VN'));
+            // CRITICAL: Force language parameter to Vietnamese (vi-VN) so browser defaults to local voice
+            utterance.lang = "vi-VN"; 
+
+            // Load voices list dynamically to handle lazy loading in Chrome/Edge
+            const currentVoices = window.speechSynthesis.getVoices();
+            const viVoice = currentVoices.find(voice => 
+                voice.lang.toLowerCase().replace('_', '-').includes('vi-vn') || 
+                voice.lang.toLowerCase().startsWith('vi')
+            );
+            
             if (viVoice) {
                 utterance.voice = viVoice;
             }
-            utterance.rate = 0.95; // Slightly slower speed for professional voiceovers
+            
+            utterance.rate = 0.92; // Slightly slower speed for premium luxury real estate tone
 
             utterance.onend = () => {
                 element.classList.remove('playing');
@@ -1119,9 +1128,6 @@ HINH ANH DUOC PHEP (Off-plan guide):
                 } else if (scene.stt % 3 === 2) {
                     bgStyle = `linear-gradient(135deg, rgba(20,24,35,0.85) 0%, rgba(10,12,18,0.95) 100%), url('./peninsula_interior.jpg')`;
                 }
-
-                // Double escape single quotes for safe event attributes
-                const escapedVo = scene.vo.replace(/'/g, "&#39;").replace(/"/g, "&quot;");
 
                 card.innerHTML = `
                     <div class="scene-header">
