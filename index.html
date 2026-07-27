@@ -810,6 +810,17 @@
                 </div>
             </div>
 
+            <div class="form-group">
+                <label for="aiModel">Mô Hình Gemini AI</label>
+                <div class="select-wrapper">
+                    <select id="aiModel" class="form-input">
+                        <option value="gemini-3.6-flash" selected>Gemini 3.6 Flash (Mới nhất & Nhanh nhất)</option>
+                        <option value="gemini-3.5-flash">Gemini 3.5 Flash (Tiêu chuẩn)</option>
+                        <option value="gemini-3.1-pro">Gemini 3.1 Pro (Chuyên sâu)</option>
+                    </select>
+                </div>
+            </div>
+
             <!-- Actions grouped in Grid -->
             <div class="btn-group">
                 <button class="btn" id="btnGenerate" onclick="generateStoryboard()">
@@ -1359,6 +1370,7 @@ HINH ANH DUOC PHEP (Off-plan guide):
             const message = document.getElementById('message').value.trim();
             const hook = document.getElementById('hook').value.trim();
             const duration = document.getElementById('duration').value;
+            const selectedModel = document.getElementById('aiModel') ? document.getElementById('aiModel').value : 'gemini-3.6-flash';
 
             if (!target || !message || !hook) {
                 alert("Vui lòng điền đầy đủ thông tin chiến dịch (Target, Thông điệp, Ý tưởng Hook)!");
@@ -1370,7 +1382,7 @@ HINH ANH DUOC PHEP (Off-plan guide):
 
             // Set loading state
             statusIndicator.className = "status-badge loading";
-            statusIndicator.innerHTML = `<i class="fa-solid fa-spinner"></i> Đang tạo Prompt chiến dịch...`;
+            statusIndicator.innerHTML = `<i class="fa-solid fa-spinner"></i> Đang kết nối mô hình ${selectedModel}...`;
             
             // Render Skeleton loaders
             feed.innerHTML = `
@@ -1407,10 +1419,10 @@ HINH ANH DUOC PHEP (Off-plan guide):
                 const csbhCanho = "Chính sách Peninsula Private: Booking 50 triệu (hoàn phí), CK đến 15.5% thanh toán nhanh, 0% lãi suất vay 70% từ 18-24 tháng, ân hạn nợ gốc, miễn phí vận hành 2-3 năm.";
                 const userMsg1 = `BO DU LIEU DU AN:\n${DATA_PENINSULA_PRIVATE}\n\nCHIEN DICH CAN VIET KICH BAN:\nLoai can ho: ${apartment}\nCSBH: ${csbhCanho}\nTarget doi tuong: ${target}\nThong diep: ${message}\nHook: ${hook}\nThoi luong: ${duration}`;
 
-                const promptChuan = await callGeminiAPI(sysAssistant1, userMsg1, apiKey);
+                const promptChuan = await callGeminiAPI(sysAssistant1, userMsg1, apiKey, selectedModel);
 
                 // Update loader status
-                statusIndicator.innerHTML = `<i class="fa-solid fa-spinner"></i> Đang viết kịch bản phân cảnh...`;
+                statusIndicator.innerHTML = `<i class="fa-solid fa-spinner"></i> Đang tạo kịch bản phân cảnh...`;
 
                 // STEP 2: Storyboard Creator
                 const sysCreator = 
@@ -1433,18 +1445,18 @@ HINH ANH DUOC PHEP (Off-plan guide):
 
                 const userMsg2 = `BO DU LIEU DU AN:\n${DATA_PENINSULA_PRIVATE}\n\nPROMPT CHIEN LUOC TU ASSIST ASSISTANT 1:\n${promptChuan}`;
 
-                const jsonRaw = await callGeminiAPI(sysCreator, userMsg2, apiKey);
+                const jsonRaw = await callGeminiAPI(sysCreator, userMsg2, apiKey, selectedModel);
                 
                 // Parse and render
                 const scenes = repairJson(jsonRaw);
                 renderStoryboard(scenes);
 
                 // Update campaign title text
-                document.getElementById('campaignInfoText').innerHTML = `Chiến dịch cho: <strong>${apartment}</strong> | Đối tượng: ${target.substring(0, 50)}...`;
+                document.getElementById('campaignInfoText').innerHTML = `Chiến dịch cho: <strong>${apartment}</strong> | Model: <strong>${selectedModel}</strong>`;
 
                 // Set success state
                 statusIndicator.className = "status-badge";
-                statusIndicator.innerHTML = `<i class="fa-solid fa-check-circle"></i> Đã hoàn thành (${scenes.length} cảnh)`;
+                statusIndicator.innerHTML = `<i class="fa-solid fa-check-circle"></i> Đã hoàn thành (${scenes.length} cảnh - ${selectedModel})`;
 
             } catch (err) {
                 console.error(err);
@@ -1466,7 +1478,7 @@ HINH ANH DUOC PHEP (Off-plan guide):
         }
 
         // Direct Fetch HTTP request to Gemini API (with Serverless Backend Proxy support)
-        async function callGeminiAPI(systemPrompt, userMessage, apiKey) {
+        async function callGeminiAPI(systemPrompt, userMessage, apiKey, model = 'gemini-3.6-flash') {
             // Priority 1: Call Vercel Serverless API Backend (Bypasses browser CORS & 401 errors)
             if (window.location.protocol.startsWith('http')) {
                 try {
@@ -1475,7 +1487,8 @@ HINH ANH DUOC PHEP (Off-plan guide):
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify({
                             systemInstruction: systemPrompt,
-                            userMessage: userMessage
+                            userMessage: userMessage,
+                            model: model
                         })
                     });
                     if (res.ok) {
@@ -1497,7 +1510,7 @@ HINH ANH DUOC PHEP (Off-plan guide):
             }
 
             // Fallback: Direct client fetch (for file:// protocol)
-            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent`;
+            const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`;
             
             const payload = {
                 systemInstruction: {
