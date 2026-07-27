@@ -763,12 +763,23 @@
         
         <!-- SIDEBAR CONTROLS -->
         <aside class="sidebar">
-            <div class="brand">
+            <div class="brand" id="brandTitle">
                 <i class="fa-solid fa-clapperboard brand-logo"></i>
                 <h2>Peninsula <span>Private</span></h2>
             </div>
 
-            <!-- API Configuration is fully hidden in this version -->
+            <!-- Project Selector Dropdown -->
+            <div class="form-group" style="margin-bottom: 20px; background: rgba(201, 160, 69, 0.08); padding: 12px; border-radius: 8px; border: 1px solid rgba(201, 160, 69, 0.25);">
+                <label for="projectSelector" style="color: var(--accent-gold); font-weight: 600; display: flex; align-items: center; gap: 8px;">
+                    <i class="fa-solid fa-city"></i> CHỌN DỰ ÁN BẮT ĐẦU
+                </label>
+                <div class="select-wrapper" style="margin-top: 6px;">
+                    <select id="projectSelector" class="form-input" onchange="switchProject()" style="border-color: var(--accent-gold); font-weight: 600;">
+                        <option value="peninsula_private" selected>Peninsula Private (Đà Nẵng)</option>
+                        <option value="hue_heritage">Huế Heritage (Cố Đô Huế)</option>
+                    </select>
+                </div>
+            </div>
 
             <!-- Storyboard Options -->
             <div class="form-group">
@@ -908,16 +919,30 @@ CHINH SACH BAN HANG DU KIEN (Thang 07/2026):
   - Qua tang: Mien phi quan ly van hanh tu 2 den 3 nam.
 
 BOI CANH GIAI DOAN 3 (GIO HANG CUOI CUNG - SAP CAT NOC):
-  Day la dot mo ban cuoi cung. Co hoi cuoi cung de mua gia goc tu chu dau tu truoc khi cat noc. Sau khi cat noc gia se tang manh.
+  Day la dot mo ban cuoi cung. Co hoi cuoi cung de mua gia goc tu chu dau tu truoc khi cat noc. Sau khi cat noc gia se tang manh.`;
 
-HINH ANH DUOC PHEP (Off-plan guide):
-  - Phoi canh 3D ngoai khu va noi that can ho (bat buoc ghi chu 'Hinh anh phoi canh minh hoa').
-  - Chuyen dong cong truong dang thi cong thuc te (crane, cot be tong, tien do xay dung).
-  - Drone/aerial view: song Han, cau Thuan Phuoc, ban dao Son Tra, Da Nang Downtown.
-  - Location shots thuc te: song Han, Da Nang Downtown, Lotte Mart, trung tam Da Nang.
-  - Infographic ve CSBH, chiet khau, mat bang mat dung.
-  - KHONG DUOC DUNG: Hinh anh can ho hoan thien thuc te cua du an, anh ho boi vo cuc hoan thien thuc te (chua ton tai).
-  - Meta Ads policy: Khong cam ket tuyet doi thoi gian ban giao.`;
+        // Project Database for Huế Heritage
+        const DATA_HUE_HERITAGE = 
+            `DU AN: HUE HERITAGE (TP. Hue, Thua Thien Hue)
+Chu dau tu & Don vi phat trien: Tap doan Bat dong san Di san Viet Nam.
+Vi tri: Trung tam Co do Hue, ke ben dong song Huong tho mong, ket noi nhanh chong den Dai Noi (5 phut), Cau Trang Tien, Chua Thien Mu va quan the di san van hoa Hue.
+Quy mo: To hop Biet thu di san & Can ho luxury mang kien truc Royal Heritage tan co dien sang trong giao thoa giua net dep vuong gia Trieu Nguyen va phong cach thuong luu hien dai.
+So luong san pham: Gio hang doc ban gioi han.
+Co cau dien tich:
+  - Can ho Heritage 1PN: Can ~52m2.
+  - Can ho Heritage 2PN (View song Huong): Can ~78m2 den 85m2.
+  - Can ho Heritage 3PN Executive Villa: Can ~135m2.
+  - Biet thu di san Royal Villa: Can ~250m2 den 450m2.
+Tieu chuan ban giao: Full noi that mang dam tinh hoa van hoa Hue, op da tu nhien, kinh Low-E 27.5mm cach am can UV. Thiet bi ve sinh & bep cao cap nhap khau chau Au.
+Gia ban: Tu 55 trieu dong/m2.
+
+CHINH SACH BAN HANG DU KIEN:
+  - Nhan dat cho uu tien (Booking): 50 trieu dong/suat (co hoan phi).
+  - Chiet khau thanh toan nhanh: Dat muc tu 12% den 15%.
+  - Ho tro vay von: Ngan hang cho vay 70%, 0% lai suat tu 18 den 24 thang.
+  - Uu dai dac quyen: Mien phi quan ly van hanh 3 nam va the thanh vien Royal Heritage Club.
+
+BOI CANH CHỦ ĐẠO: Bat dong san di san truyen doi, gia san gia toc vinh quy bai to, noi tro ve yen binh va kieu hanh cua nguoi con xu Hue.`;
 
         // Preloaded Static Demos (No API Key required to test)
         const STATIC_DEMOS = {
@@ -1068,10 +1093,96 @@ HINH ANH DUOC PHEP (Off-plan guide):
                     message: "Kêu gọi hành động chọn căn vị trí đẹp.",
                     visual: "Host đứng trước logo dự án Peninsula Private Đà Nẵng, chỉ tay ra hiệu đăng ký tư vấn.",
                     textOverlay: "ĐẶT CHỖ ƯU TIÊN 50TR\nHoàn phí 100% nếu đổi ý\nNhận bảng hàng ngoại giao",
-                    vo: "Liên hệ đặt chỗ ưu tiên ngay hôm nay chỉ với 50 triệu để chọn căn đẹp nhất, hoàn tiền 100% nếu không giao dịch thành công!"
+                    vo: "Liên hệ đặt chỗ ưu tiên ngay hôm nay chỉ với 50 triệu để chọn căn đẹp nhất, hoàn tiền 100% không mất phí!"
+                }
+            ],
+            hue_heritage_vinhquy: [
+                {
+                    stt: 1,
+                    duration: "3 giây",
+                    message: "Chạm vào cảm xúc cội nguồn và vinh quy bái tổ.",
+                    visual: "Host đứng bên dòng sông Hương thơ mộng, phía xa là cầu Tràng Tiền hoài niệm. Host mỉm cười nhẹ nhàng nhìn vào ống kính.",
+                    textOverlay: "HUẾ HERITAGE\nNƠI TRỞ VỀ CỦA NGƯỜI CON XỨ HUẾ\nDI SẢN TRUYỀN ĐỜI",
+                    vo: "Dù đi xa muôn phương, đâu là nơi chốn bình yên nhất để người con xứ Huế hướng về và tạo dựng gia sản truyền đời cho thế hệ mai sau?"
+                },
+                {
+                    stt: 2,
+                    duration: "12 giây",
+                    message: "Khắc họa vị trí di sản kề bên sông Hương.",
+                    visual: "Cảnh flycam từ trên cao lia dọc dòng sông Hương thơ mộng ôm trọn tòa tháp Huế Heritage. Host di chuyển lịch lãm trong khuôn viên sảnh Royal Heritage.",
+                    textOverlay: "KỀ BÊN SÔNG HƯƠNG\n5 phút đến Đại Nội\nTâm điểm di sản Cố Đô\nKiến trúc Royal Heritage",
+                    vo: "Tọa lạc ngay trung tâm Cố Đô Huế kề sát dòng sông Hương di sản. Từ đây chỉ vài phút để kết nối đến Đại Nội, cầu Tràng Tiền và các danh thắng linh thiêng."
+                },
+                {
+                    stt: 3,
+                    duration: "15 giây",
+                    message: "Tôn vinh chất sống hoàng gia và không gian riêng tư.",
+                    visual: "Host bước vào căn hộ mẫu 2PN view sông Hương, lướt nhẹ tay trên chất liệu gỗ tự nhiên và mặt kính Low-E tràn viền ngắm hoàng hôn sông Hương.",
+                    textOverlay: "TÌNH HOÀN MỸ CỐ ĐÔ\nKính Low-E cản UV cách âm\nView trực diện Sông Hương\nNội thất Châu Âu nhập khẩu",
+                    vo: "Mỗi không gian tại Huế Heritage là một kiệt tác kiến trúc giao thoa giữa nét vương giả triều Nguyễn và phong cách sống hiện đại. Mang đến sự tĩnh tại và riêng tư tuyệt đối."
+                },
+                {
+                    stt: 4,
+                    duration: "15 giây",
+                    message: "Trình bày chính sách đòn bẩy và ưu đãi đặc quyền.",
+                    visual: "Host đứng tại sảnh đón sang trọng, trình bày biểu đồ ưu đãi chiết khấu 15% và chính sách hỗ trợ lãi suất 0%.",
+                    textOverlay: "ĐẶC QUYỀN ĐỢT 1\nChiết khấu đến 15%\nVốn ban đầu chỉ 30%\nLãi suất 0% 18-24 tháng",
+                    vo: "Sở hữu ngay đợt 1 với mức chiết khấu hấp dẫn đến 15%, ngân hàng hỗ trợ cho vay 70% với 0% lãi suất lên tới 24 tháng. Cơ hội tích lũy tài sản di sản độc bản."
+                },
+                {
+                    stt: 5,
+                    duration: "5 giây",
+                    message: "Kêu gọi hành động nhận thông tin giỏ hàng ưu tiên.",
+                    visual: "Host mỉm cười nhẹ nhàng vẫy tay chào, màn hình xuất hiện nút đăng ký nhận thông tin giỏ hàng đợt 1.",
+                    textOverlay: "ĐĂNG KÝ NGAY\nNhận bảng giá đợt 1\nƯu tiên chọn căn view Sông Hương",
+                    vo: "Hãy liên hệ ngay hôm nay để nhận thông tin chi tiết và sở hữu căn hộ di sản view sông Hương đẹp nhất!"
                 }
             ]
         };
+
+        // Project Switcher Logic
+        function switchProject() {
+            const project = document.getElementById('projectSelector').value;
+            const aptSelect = document.getElementById('apartmentType');
+            const targetInput = document.getElementById('targetAudience');
+            const msgInput = document.getElementById('message');
+            const hookInput = document.getElementById('hook');
+
+            if (project === 'hue_heritage') {
+                document.getElementById('brandTitle').innerHTML = `
+                    <i class="fa-solid fa-crown brand-logo" style="color: var(--accent-gold);"></i>
+                    <h2>Huế <span>Heritage</span></h2>
+                `;
+                aptSelect.innerHTML = `
+                    <option value="Can ho Heritage 1PN">Căn hộ Heritage 1PN (~52m²)</option>
+                    <option value="Can ho Heritage 2PN View Song Huong" selected>Căn hộ Heritage 2PN - View Sông Hương (~78m²)</option>
+                    <option value="Can ho Heritage 3PN Executive Villa">Căn hộ Heritage 3PN Executive Villa (~135m²)</option>
+                    <option value="Biet thu di san Royal Villa">Biệt thự di sản Royal Villa (~250m² - 450m²)</option>
+                `;
+                targetInput.value = "Khách hàng kiều bào & người con xứ Huế xa quê muốn mua tài sản di sản vinh quy bái tổ / báo hiếu cha mẹ.";
+                msgInput.value = "Sở hữu bất động sản di sản truyền đời kề bên Sông Hương với chiết khấu đợt 1 đến 15%.";
+                hookInput.value = "Đâu là gia sản truyền đời giá trị nhất mà người con xứ Huế luôn tự hào hướng về?";
+                
+                loadSample('hue_heritage_vinhquy');
+            } else {
+                document.getElementById('brandTitle').innerHTML = `
+                    <i class="fa-solid fa-clapperboard brand-logo"></i>
+                    <h2>Peninsula <span>Private</span></h2>
+                `;
+                aptSelect.innerHTML = `
+                    <option value="Căn Studio">Căn Studio (~36m²)</option>
+                    <option value="Can ho 1 Phong Ngu">Căn hộ 1 Phòng Ngủ (~47m²)</option>
+                    <option value="Can ho 2 Phong Ngu" selected>Căn hộ 2 Phòng Ngủ (~72m² - 79m²)</option>
+                    <option value="Can ho 3 Phong Ngu">Căn hộ 3 Phòng Ngủ (~121m² - 170m²)</option>
+                    <option value="Can ho 4 Phong Ngu">Căn hộ 4 Phòng Ngủ (~210m² - 280m²)</option>
+                `;
+                targetInput.value = "Khách hàng thượng lưu mua căn hộ thứ hai (Second Home) ngắm sông Hàn Đà Nẵng.";
+                msgInput.value = "Sở hữu căn hộ đợt cuối Peninsula Private nhận chiết khấu đến 15.5% trước thềm cất nóc.";
+                hookInput.value = "65 triệu/m2 sở hữu căn hộ 5 sao trung tâm Hải Châu Đà Nẵng?";
+                
+                loadSample('second_home');
+            }
+        }
 
         // Cache browser TTS voices
         let voicesList = [];
@@ -1372,6 +1483,9 @@ HINH ANH DUOC PHEP (Off-plan guide):
             const duration = document.getElementById('duration').value;
             const selectedModel = document.getElementById('aiModel') ? document.getElementById('aiModel').value : 'gemini-3.6-flash';
 
+            const selectedProject = document.getElementById('projectSelector') ? document.getElementById('projectSelector').value : 'peninsula_private';
+            const DATA_PROJECT = (selectedProject === 'hue_heritage') ? DATA_HUE_HERITAGE : DATA_PENINSULA_PRIVATE;
+
             if (!target || !message || !hook) {
                 alert("Vui lòng điền đầy đủ thông tin chiến dịch (Target, Thông điệp, Ý tưởng Hook)!");
                 return;
@@ -1407,17 +1521,17 @@ HINH ANH DUOC PHEP (Off-plan guide):
                     "1. Đầu tư cho thuê: Khao khát dòng tiền bền vững, sợ lạm phát mất giá tiền tệ.\n" +
                     "2. Đầu tư bán lại: Muốn tối ưu biên lợi nhuận trước cất nóc, mua lúc rẻ bán lúc cất nóc xong/hoàn thiện.\n" +
                     "3. Mua ở nội đô: Muốn nâng cấp không gian sống cao cấp, sợ nhà ngõ chật hẹp, ẩm mốc, thiếu tiện ích.\n" +
-                    "4. Khách xa quê (người Đà Nẵng/quê miền Trung ở HN/SG/Kiều bào): Hướng về nguồn cội, báo hiếu cha mẹ, mua tài sản di sản truyền đời để làm nơi trở về.\n" +
-                    "5. Khách mua lưu trú (thường ghé Đà Nẵng): Muốn có căn hộ trú ẩn 5 sao riêng tư tuyệt đối của riêng mình thay thế sự phiền toái, thiếu an toàn tại khách sạn công cộng.\n\n" +
+                    "4. Khách xa quê (người miền Trung / xứ Huế / Kiều bào): Hướng về nguồn cội, báo hiếu cha mẹ, mua tài sản di sản truyền đời để làm nơi trở về.\n" +
+                    "5. Khách mua lưu trú: Muốn có căn hộ trú ẩn 5 sao riêng tư tuyệt đối của riêng mình thay thế sự phiền toái tại khách sạn công cộng.\n\n" +
                     "YÊU CẦU PROMPT CHIẾN LƯỢC CHO CREATOR:\n" +
                     "- Phải tạo ra các Hook (0-3s) đánh trúng tử huyệt tâm lý của nhóm đối tượng nhận diện được ở trên (legacy, vinh quy bái tổ, dòng tiền bền vững, đặc quyền chủ tịch riêng tư...).\n" +
-                    "- Cài đặt sự thúc giục: Giỏ hàng đợt cuối và mốc cất nóc đang đếm ngược ngày.\n" +
-                    "- Chỉ ra cách lồng ghép giá rumor và chiết khấu (đến 15.5%) một cách tinh tế để lọc khách hàng không đủ tài chính.\n" +
+                    "- Cài đặt sự thúc giục: Giỏ hàng ưu đãi đợt 1 và mốc thời gian giới hạn đếm ngược.\n" +
+                    "- Chỉ ra cách lồng ghép giá rumor và chiết khấu một cách tinh tế để lọc khách hàng không đủ tài chính.\n" +
                     "- TẬP TRUNG THIẾT KẾ QUAY VỚI HOST (NGƯỜI THẬT) DẪN DẮT xuyên suốt video để tối ưu watch-time.\n\n" +
                     "CHI tra ve doan prompt chien luoc bang tieng Viet. Khong giai thich, khong bat ky thong tin nao khac.";
 
-                const csbhCanho = "Chính sách Peninsula Private: Booking 50 triệu (hoàn phí), CK đến 15.5% thanh toán nhanh, 0% lãi suất vay 70% từ 18-24 tháng, ân hạn nợ gốc, miễn phí vận hành 2-3 năm.";
-                const userMsg1 = `BO DU LIEU DU AN:\n${DATA_PENINSULA_PRIVATE}\n\nCHIEN DICH CAN VIET KICH BAN:\nLoai can ho: ${apartment}\nCSBH: ${csbhCanho}\nTarget doi tuong: ${target}\nThong diep: ${message}\nHook: ${hook}\nThoi luong: ${duration}`;
+                const csbhCanho = (selectedProject === 'hue_heritage') ? "Chính sách Huế Heritage: Booking 50 triệu (hoàn phí), CK đợt 1 đến 15% thanh toán nhanh, 0% lãi suất vay 70% từ 18-24 tháng, tặng thẻ Royal Heritage Club." : "Chính sách Peninsula Private: Booking 50 triệu (hoàn phí), CK đến 15.5% thanh toán nhanh, 0% lãi suất vay 70% từ 18-24 tháng, ân hạn nợ gốc, miễn phí vận hành 2-3 năm.";
+                const userMsg1 = `BO DU LIEU DU AN:\n${DATA_PROJECT}\n\nCHIEN DICH CAN VIET KICH BAN:\nLoai san pham: ${apartment}\nCSBH: ${csbhCanho}\nTarget doi tuong: ${target}\nThong diep: ${message}\nHook: ${hook}\nThoi luong: ${duration}`;
 
                 const promptChuan = await callGeminiAPI(sysAssistant1, userMsg1, apiKey, selectedModel);
 
@@ -1429,11 +1543,11 @@ HINH ANH DUOC PHEP (Off-plan guide):
                     "Ban la Creative Director va chuyen gia viet ad copy bat dong san sieu sang Viet Nam.\n\n" +
                     "QUY TAC TAO HOOK & PHAN CANH (UGC HOST OPTIMIZED):\n" +
                     "- YEU CAU BẮT BUỘC: Kịch bản phải được thiết kế xoay quanh một HOST (người dẫn chương trình/KOC/Reviewer thực tế) xuất hiện xuyên suốt cả video.\n" +
-                    "- Canh 1 (0-3s) bat buoc dung Hook tam ly cuc sau đánh thẳng vào tử huyệt đối tượng. Mô tả rõ góc máy quay Host (VD: Host nhìn trực tiếp camera nói biểu cảm, hoặc Host đang đứng ngắm ban công rồi quay lại nói chuyện với ống kính).\n" +
-                    "- Các phân cảnh tiếp theo phải miêu tả rõ hành động tương tác vật lý của Host với không gian (VD: Host đi lại trong nhà mẫu, chạm vào kính hộp Low-E cách âm, Host đứng trước công trình đang thi công đội mũ bảo hộ chỉ tay về tiến độ cất nóc, Host đứng tại sảnh đón đá Marble chia sẻ trực tiếp).\n" +
+                    "- Canh 1 (0-3s) bat buoc dung Hook tam ly cuc sau đánh thẳng vào tử huyệt đối tượng. Mô tả rõ góc máy quay Host (VD: Host nhìn trực tiếp camera nói biểu cảm, hoặc Host đang đứng ngắm sông Hương/ban công rồi quay lại nói chuyện với ống kính).\n" +
+                    "- Các phân cảnh tiếp theo phải miêu tả rõ hành động tương tác vật lý của Host với không gian.\n" +
                     "- Tránh tuyệt đối các hook sáo rỗng. Phải dùng các câu thoại của Host chạm vào tâm tư, khiến người xem phải dừng lại suy ngẫm.\n" +
-                    "- Visual: Mô tả hình ảnh có sự xuất hiện của Host phối hợp với bối cảnh dự án (chỉ dùng visual được phép của off-plan).\n" +
-                    "- Audio: Voiceover của Host trầm ấm, truyền cảm, nhịp điệu kể chuyện tự nhiên (Native). Nhạc nền Classical/Luxury Cinematic.\n\n" +
+                    "- Visual: Mô tả hình ảnh có sự xuất hiện của Host phối hợp với bối cảnh dự án.\n" +
+                    "- Audio: Voiceover của Host trầm ấm, truyền cảm, nhịp điệu kể chuyện tự nhiên (Native). Nhạc nền Classical/Luxury Cinematic/Di sản.\n\n" +
                     "Xuat DUNG MOT JSON ARRAY [] voi 6-8 phan canh. Moi phan canh co dung 6 truong sau (viet dung ten truong bang chu thuong):\n" +
                     "  'stt'         : so thu tu phan canh (so nguyen: 1, 2, 3...)\n" +
                     "  'duration'    : thoi luong cua phan canh (VD: '3s', '12s' hoac bo trong)\n" +
@@ -1443,7 +1557,7 @@ HINH ANH DUOC PHEP (Off-plan guide):
                     "  'vo'          : noi dung voice-over (VO) thuyet minh cua Host\n\n" +
                     "YEU CAU TUYET DOI: Chi tra ve JSON thuan bat dau [ va ket thuc ]. Khong dung markdown, khong chu thich ngoai JSON.";
 
-                const userMsg2 = `BO DU LIEU DU AN:\n${DATA_PENINSULA_PRIVATE}\n\nPROMPT CHIEN LUOC TU ASSIST ASSISTANT 1:\n${promptChuan}`;
+                const userMsg2 = `BO DU LIEU DU AN:\n${DATA_PROJECT}\n\nPROMPT CHIEN LUOC TU ASSIST ASSISTANT 1:\n${promptChuan}`;
 
                 const jsonRaw = await callGeminiAPI(sysCreator, userMsg2, apiKey, selectedModel);
                 
