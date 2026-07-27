@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Peninsula Private – AI Storyboard Dashboard v8.1 (Mobile Responsive)</title>
+    <title>Peninsula Private – AI Storyboard Dashboard v10.0</title>
     
     <!-- Google Fonts & FontAwesome -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -52,45 +52,42 @@
             min-height: 100vh;
         }
 
-        /* Sidebar Control Panel */
+        /* Sidebar */
         .sidebar {
             background-color: var(--bg-secondary);
             border-right: 1px solid var(--border-color);
-            padding: 30px;
+            padding: 28px;
             display: flex;
             flex-direction: column;
-            gap: 25px;
-            height: 100vh;
+            gap: 20px;
+            overflow-y: auto;
             position: sticky;
             top: 0;
-            overflow-y: auto;
+            height: 100vh;
         }
 
         .brand {
             display: flex;
             align-items: center;
             gap: 12px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            padding-bottom: 16px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         .brand-logo {
             font-size: 24px;
             color: var(--accent-gold);
-            text-shadow: 0 0 10px rgba(201, 160, 69, 0.3);
         }
 
         .brand h2 {
             font-size: 20px;
-            letter-spacing: 1px;
-            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
-        .brand span {
+        .brand h2 span {
             color: var(--accent-gold);
         }
 
-        /* Forms */
         .form-group {
             display: flex;
             flex-direction: column;
@@ -99,42 +96,36 @@
 
         .form-group label {
             font-size: 12px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: var(--accent-gold);
             font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         .form-input {
             background-color: var(--bg-tertiary);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 8px;
-            padding: 12px;
-            color: #FFFFFF;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 6px;
+            padding: 10px 14px;
+            color: var(--text-main);
             font-family: inherit;
             font-size: 14px;
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
         }
 
         .form-input:focus {
             outline: none;
             border-color: var(--accent-gold);
-            box-shadow: 0 0 0 2px rgba(201, 160, 69, 0.15);
+            box-shadow: 0 0 0 2px rgba(201, 160, 69, 0.2);
         }
 
         textarea.form-input {
             resize: vertical;
-            min-height: 80px;
+            min-height: 70px;
         }
 
         .select-wrapper {
             position: relative;
-        }
-
-        select.form-input {
-            width: 100%;
-            appearance: none;
-            cursor: pointer;
         }
 
         .select-wrapper::after {
@@ -142,60 +133,58 @@
             font-family: 'Font Awesome 6 Free';
             font-weight: 900;
             position: absolute;
-            right: 15px;
+            right: 14px;
             top: 50%;
             transform: translateY(-50%);
-            color: var(--accent-gold);
+            color: var(--text-muted);
             pointer-events: none;
         }
 
-        /* Buttons */
-        .btn {
-            background: linear-gradient(135deg, var(--accent-gold), #997325);
-            color: #0A0B0E;
-            border: none;
-            border-radius: 8px;
-            padding: 14px;
-            font-family: 'Outfit', sans-serif;
-            font-weight: 700;
-            font-size: 15px;
+        select.form-input {
+            appearance: none;
+            width: 100%;
             cursor: pointer;
-            transition: all 0.3s ease;
+        }
+
+        /* Buttons */
+        .btn-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .btn {
+            background-color: var(--accent-gold);
+            color: #000000;
+            border: none;
+            border-radius: 6px;
+            padding: 12px;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s ease;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+            gap: 8px;
         }
 
         .btn:hover {
-            background: linear-gradient(135deg, var(--accent-gold-hover), var(--accent-gold));
-            box-shadow: 0 4px 15px rgba(201, 160, 69, 0.25);
+            background-color: var(--accent-gold-hover);
             transform: translateY(-1px);
         }
 
-        .btn:active {
-            transform: translateY(1px);
-        }
-
         .btn-secondary {
-            background: transparent;
-            border: 1px solid var(--accent-gold);
-            color: var(--accent-gold);
-            padding: 10px;
-            font-size: 13px;
+            background-color: var(--bg-tertiary);
+            color: var(--text-main);
+            border: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         .btn-secondary:hover {
-            background: rgba(201, 160, 69, 0.08);
-            color: var(--accent-gold-hover);
-        }
-
-        .btn-group {
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 10px;
+            background-color: rgba(255, 255, 255, 0.05);
+            border-color: var(--accent-gold);
         }
 
         /* Quick Samples */
@@ -242,35 +231,27 @@
         .sample-btn i {
             color: var(--accent-gold);
             opacity: 0.6;
-            transition: all 0.2s ease;
         }
 
-        .sample-btn:hover i {
-            opacity: 1;
-            transform: translateX(3px);
-        }
-
-        /* Main Storyboard Content */
+        /* Main Content View */
         .main-content {
-            padding: 40px;
-            height: 100vh;
+            padding: 32px 40px;
             overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            gap: 30px;
+            height: 100vh;
         }
 
         .content-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            margin-bottom: 24px;
+            padding-bottom: 16px;
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            padding-bottom: 20px;
         }
 
         .content-header-info h2 {
-            font-size: 28px;
-            margin-bottom: 5px;
+            font-size: 24px;
+            margin-bottom: 4px;
         }
 
         .content-header-info p {
@@ -279,91 +260,75 @@
         }
 
         .status-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
             background-color: rgba(201, 160, 69, 0.1);
             border: 1px solid var(--accent-gold);
+            color: var(--accent-gold);
+            padding: 6px 14px;
             border-radius: 20px;
-            padding: 6px 16px;
-            font-size: 13px;
-            color: var(--accent-gold-hover);
-        }
-
-        .status-badge.loading {
-            background-color: rgba(255, 255, 255, 0.05);
-            border-color: var(--text-muted);
-            color: var(--text-muted);
+            font-size: 12px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
 
         .status-badge.loading i {
             animation: spin 1s linear infinite;
         }
 
-        /* Storyboard Grid */
+        /* Feed Layout */
         .storyboard-feed {
             display: flex;
             flex-direction: column;
-            gap: 25px;
+            gap: 24px;
         }
 
+        /* Scene Card */
         .scene-card {
-            background-color: var(--card-glass);
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            background: var(--card-glass);
+            border: 1px solid var(--border-color);
             border-radius: 16px;
             padding: 24px;
-            box-shadow: var(--shadow-gold);
             backdrop-filter: blur(10px);
-            transition: border-color 0.3s ease;
-        }
-
-        .scene-card:hover {
-            border-color: rgba(201, 160, 69, 0.3);
+            box-shadow: var(--shadow-gold);
         }
 
         .scene-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 18px;
+            margin-bottom: 16px;
             padding-bottom: 12px;
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         .scene-badge-group {
             display: flex;
-            gap: 10px;
             align-items: center;
+            gap: 10px;
         }
 
         .scene-number {
             background-color: var(--accent-gold);
-            color: #0A0B0E;
+            color: #000000;
             font-family: 'Outfit', sans-serif;
             font-weight: 700;
-            padding: 4px 12px;
-            border-radius: 6px;
-            font-size: 14px;
+            font-size: 12px;
+            padding: 2px 8px;
+            border-radius: 4px;
         }
 
         .scene-duration {
-            background-color: var(--bg-tertiary);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            color: #FFFFFF;
-            font-weight: 600;
-            padding: 4px 12px;
-            border-radius: 6px;
+            color: var(--text-muted);
             font-size: 13px;
         }
 
         .scene-touchpoint {
-            font-size: 14px;
-            color: var(--accent-gold-hover);
-            font-style: italic;
+            color: var(--accent-gold);
+            font-size: 13px;
             font-weight: 500;
         }
 
-        /* Split Scene Grid */
         .scene-body {
             display: grid;
             grid-template-columns: 1fr 280px;
@@ -373,90 +338,77 @@
         .scene-details {
             display: flex;
             flex-direction: column;
-            gap: 20px;
-        }
-
-        .detail-block {
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
+            gap: 16px;
         }
 
         .detail-block h5 {
-            font-size: 11px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            font-size: 12px;
             color: var(--text-muted);
-            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
         }
 
         .detail-content {
-            background-color: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.03);
-            border-radius: 10px;
-            padding: 16px;
-            font-size: 14.5px;
+            background-color: var(--bg-tertiary);
+            border-radius: 6px;
+            padding: 12px;
+            font-size: 14px;
             color: var(--text-main);
-            white-space: pre-line;
+            border: 1px solid rgba(255, 255, 255, 0.02);
         }
 
-        /* Voice-over Audio Style */
         .vo-content {
-            position: relative;
-            background: linear-gradient(135deg, rgba(201, 160, 69, 0.03), rgba(255,255,255,0.01));
-            border: 1px solid rgba(201, 160, 69, 0.08);
-            border-radius: 10px;
-            padding: 16px;
-            font-size: 14.5px;
+            background-color: rgba(201, 160, 69, 0.05);
+            border: 1px dashed rgba(201, 160, 69, 0.2);
+            border-radius: 6px;
+            padding: 12px;
+            font-size: 14px;
             color: #FFFFFF;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
+            font-style: italic;
         }
 
+        /* Voice Waveform Simulator */
         .audio-waveform-sim {
             display: flex;
             align-items: center;
-            gap: 4px;
-            height: 24px;
-            padding-left: 5px;
+            gap: 3px;
+            margin-top: 10px;
+            background: rgba(0,0,0,0.3);
+            padding: 6px 12px;
+            border-radius: 20px;
+            width: fit-content;
             cursor: pointer;
-            user-select: none;
+        }
+
+        .audio-waveform-sim:hover {
+            background: rgba(201, 160, 69, 0.2);
         }
 
         .wave-bar {
             width: 3px;
             background-color: var(--accent-gold);
             border-radius: 3px;
-            opacity: 0.4;
-            transition: all 0.2s ease;
         }
 
-        .scene-card:hover .wave-bar {
-            opacity: 0.6;
-        }
-
-        /* Audio simulation animation when playing */
         .audio-waveform-sim.playing .wave-bar {
-            opacity: 0.95;
-            animation: bounce 0.8s ease infinite alternate;
+            animation: pulse-wave 0.6s ease-in-out infinite alternate;
         }
 
-        @keyframes bounce {
-            0% { transform: scaleY(0.3); }
-            100% { transform: scaleY(1.1); }
+        @keyframes pulse-wave {
+            0% { transform: scaleY(0.4); }
+            100% { transform: scaleY(1.3); }
         }
 
         /* Mobile Mockup Preview */
         .mobile-mockup {
-            width: 280px;
+            background-color: #12141C;
+            border-radius: 20px;
+            border: 6px solid #2A2E3D;
             height: 480px;
-            background-color: #000000;
-            border: 8px solid #2D3139;
-            border-radius: 32px;
-            overflow: hidden;
             position: relative;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+            overflow: hidden;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.4);
             display: flex;
             flex-direction: column;
             justify-content: flex-end;
@@ -467,12 +419,12 @@
         .mobile-mockup::before {
             content: '';
             position: absolute;
-            top: 10px;
+            top: 8px;
             left: 50%;
             transform: translateX(-50%);
-            width: 80px;
-            height: 18px;
-            background-color: #2D3139;
+            width: 70px;
+            height: 14px;
+            background-color: #2A2E3D;
             border-radius: 10px;
             z-index: 10;
         }
@@ -490,21 +442,19 @@
         .mockup-content {
             position: relative;
             z-index: 2;
-            padding: 20px;
+            padding: 16px;
             display: flex;
             flex-direction: column;
             justify-content: flex-end;
             height: 100%;
-            pointer-events: none;
         }
 
-        /* Mockup Overlay Text Design */
         .text-overlay-preview {
             background-color: rgba(0, 0, 0, 0.65);
             border: 1px solid rgba(255, 255, 255, 0.15);
             backdrop-filter: blur(5px);
             border-radius: 8px;
-            padding: 12px;
+            padding: 10px;
             color: #FFFFFF;
             font-family: 'Outfit', sans-serif;
             font-weight: 700;
@@ -512,82 +462,40 @@
             line-height: 1.4;
             text-align: center;
             margin-bottom: 12px;
-            letter-spacing: 0.5px;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
             border-left: 4px solid var(--accent-gold);
         }
 
         .mockup-header-branding {
             position: absolute;
-            top: 40px;
-            left: 20px;
+            top: 30px;
+            left: 0;
+            width: 100%;
+            text-align: center;
             z-index: 2;
-            display: flex;
-            align-items: center;
-            gap: 6px;
         }
 
         .mockup-header-branding span {
-            font-family: 'Outfit', sans-serif;
+            font-size: 12px;
             font-weight: 600;
-            font-size: 11px;
             letter-spacing: 1px;
-            color: #FFFFFF;
+            color: var(--accent-gold);
             text-transform: uppercase;
-            background-color: rgba(201, 160, 69, 0.85);
-            padding: 3px 8px;
-            border-radius: 4px;
+            background: rgba(0,0,0,0.4);
+            padding: 4px 10px;
+            border-radius: 10px;
         }
 
-        .mockup-social-info {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 5px;
-        }
-
-        .avatar-sim {
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
-            background-color: var(--accent-gold);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 9px;
-            color: #000000;
-            font-weight: 700;
-        }
-
-        .username-sim {
-            font-size: 11px;
-            font-weight: 600;
-            color: #FFFFFF;
-        }
-
-        .desc-sim {
-            font-size: 10px;
-            color: #DDDDDD;
-            line-height: 1.3;
-        }
-
-        /* Empty State */
+        /* Empty state */
         .empty-state {
-            background-color: var(--bg-secondary);
-            border: 1px dashed rgba(201, 160, 69, 0.2);
-            border-radius: 20px;
-            padding: 80px 40px;
             text-align: center;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 20px;
-            max-width: 600px;
-            margin: 80px auto;
+            padding: 60px 20px;
+            background: var(--card-glass);
+            border: 1px dashed var(--border-color);
+            border-radius: 16px;
         }
 
         .empty-icon {
-            font-size: 64px;
+            font-size: 48px;
             color: var(--accent-gold);
             opacity: 0.3;
             margin-bottom: 10px;
@@ -597,70 +505,10 @@
             color: var(--text-muted);
             font-size: 15px;
             max-width: 400px;
+            margin: 0 auto 20px auto;
         }
 
-        /* Skeleton Loading */
-        .skeleton-card {
-            background-color: var(--bg-secondary);
-            border-radius: 16px;
-            padding: 24px;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            border: 1px solid rgba(255,255,255,0.02);
-        }
-
-        .skeleton-line {
-            height: 15px;
-            background: linear-gradient(90deg, #181B26 25%, #252A3B 50%, #181B26 75%);
-            background-size: 200% 100%;
-            animation: loading-shine 1.5s infinite;
-            border-radius: 4px;
-        }
-
-        /* Animations */
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        @keyframes loading-shine {
-            0% { background-position: 200% 0; }
-            100% { background-position: -200% 0; }
-        }
-
-        /* Print friendly style */
-        @media print {
-            .app-container {
-                display: block;
-            }
-            .sidebar {
-                display: none;
-            }
-            .main-content {
-                padding: 0;
-                height: auto;
-            }
-            .scene-card {
-                page-break-inside: avoid;
-                border: 1px solid #000000 !important;
-                background-color: #FFFFFF !important;
-                color: #000000 !important;
-                box-shadow: none !important;
-                margin-bottom: 30px;
-            }
-            .mobile-mockup {
-                border: 1px solid #000000 !important;
-                height: 350px !important;
-            }
-            .detail-content, .vo-content {
-                background: none !important;
-                border: 1px solid #CCCCCC !important;
-                color: #000000 !important;
-            }
-        }
-
-        /* Mobile & Tablet Responsive Media Queries (v8.1 Mobile First) */
+        /* Responsive Media Queries */
         @media (max-width: 992px) {
             .app-container {
                 display: flex;
@@ -676,31 +524,12 @@
                 border-right: none;
                 border-bottom: 1px solid var(--border-color);
                 padding: 20px;
-                gap: 16px;
             }
 
             .main-content {
                 width: 100%;
                 height: auto;
                 padding: 20px 15px;
-                overflow-y: visible;
-            }
-
-            .content-header {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 12px;
-            }
-
-            .scene-card {
-                padding: 16px;
-                border-radius: 12px;
-            }
-
-            .scene-header {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 8px;
             }
 
             .scene-body {
@@ -712,47 +541,12 @@
             .mobile-mockup {
                 width: 100%;
                 max-width: 320px;
-                height: 500px;
+                height: 480px;
                 margin: 0 auto;
-                border-width: 6px;
-                border-radius: 28px;
             }
 
             .form-input {
-                font-size: 16px; /* Prevents auto-zoom on mobile iOS Safari */
-            }
-
-            .btn {
-                padding: 12px;
-                font-size: 14px;
-            }
-
-            .empty-state {
-                margin: 30px auto;
-                padding: 40px 20px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .brand h2 {
-                font-size: 17px;
-            }
-
-            .content-header-info h2 {
-                font-size: 22px;
-            }
-
-            .scene-badge-group {
-                flex-wrap: wrap;
-            }
-
-            .mobile-mockup {
-                height: 440px;
-            }
-
-            .text-overlay-preview {
-                font-size: 12px;
-                padding: 10px;
+                font-size: 16px;
             }
         }
     </style>
@@ -763,22 +557,9 @@
         
         <!-- SIDEBAR CONTROLS -->
         <aside class="sidebar">
-            <div class="brand" id="brandTitle">
+            <div class="brand">
                 <i class="fa-solid fa-clapperboard brand-logo"></i>
                 <h2>Peninsula <span>Private</span></h2>
-            </div>
-
-            <!-- Project Selector Dropdown -->
-            <div class="form-group" style="margin-bottom: 20px; background: rgba(201, 160, 69, 0.08); padding: 12px; border-radius: 8px; border: 1px solid rgba(201, 160, 69, 0.25);">
-                <label for="projectSelector" style="color: var(--accent-gold); font-weight: 600; display: flex; align-items: center; gap: 8px;">
-                    <i class="fa-solid fa-city"></i> CHỌN DỰ ÁN BẮT ĐẦU
-                </label>
-                <div class="select-wrapper" style="margin-top: 6px;">
-                    <select id="projectSelector" class="form-input" onchange="switchProject()" style="border-color: var(--accent-gold); font-weight: 600;">
-                        <option value="peninsula_private" selected>Peninsula Private (Đà Nẵng)</option>
-                        <option value="hue_heritage">Huế Heritage (Cố Đô Huế)</option>
-                    </select>
-                </div>
             </div>
 
             <!-- Storyboard Options -->
@@ -832,7 +613,7 @@
                 </div>
             </div>
 
-            <!-- Actions grouped in Grid -->
+            <!-- Actions Grid -->
             <div class="btn-group">
                 <button class="btn" id="btnGenerate" onclick="generateStoryboard()">
                     <i class="fa-solid fa-wand-magic-sparkles"></i> Tạo Kịch Bản
@@ -874,9 +655,7 @@
                 </div>
             </header>
 
-            <!-- Grid container where scenes are outputted -->
             <section class="storyboard-feed" id="storyboardFeed">
-                <!-- Welcome Empty State -->
                 <div class="empty-state">
                     <i class="fa-solid fa-film empty-icon"></i>
                     <h3>Chào mừng đến với Peninsula Storyboard</h3>
@@ -890,7 +669,7 @@
 
     <!-- JAVASCRIPT LOGIC -->
     <script>
-        // Obfuscated API Key (Base64 of the key provided by the user)
+        // Dedicated Obfuscated API Key for Peninsula Private (Base64)
         const OBFUSCATED_KEY = "QVEuQWI4Uk42S09tU2pWaVJMVkhTbzVMNWVNUEhtck9IeDdtb2dkRER1dlZFZXdYTndEZFE=";
 
         // Project Database matching design file
@@ -921,30 +700,7 @@ CHINH SACH BAN HANG DU KIEN (Thang 07/2026):
 BOI CANH GIAI DOAN 3 (GIO HANG CUOI CUNG - SAP CAT NOC):
   Day la dot mo ban cuoi cung. Co hoi cuoi cung de mua gia goc tu chu dau tu truoc khi cat noc. Sau khi cat noc gia se tang manh.`;
 
-        // Project Database for Huế Heritage
-        const DATA_HUE_HERITAGE = 
-            `DU AN: HUE HERITAGE (TP. Hue, Thua Thien Hue)
-Chu dau tu & Don vi phat trien: Tap doan Bat dong san Di san Viet Nam.
-Vi tri: Trung tam Co do Hue, ke ben dong song Huong tho mong, ket noi nhanh chong den Dai Noi (5 phut), Cau Trang Tien, Chua Thien Mu va quan the di san van hoa Hue.
-Quy mo: To hop Biet thu di san & Can ho luxury mang kien truc Royal Heritage tan co dien sang trong giao thoa giua net dep vuong gia Trieu Nguyen va phong cach thuong luu hien dai.
-So luong san pham: Gio hang doc ban gioi han.
-Co cau dien tich:
-  - Can ho Heritage 1PN: Can ~52m2.
-  - Can ho Heritage 2PN (View song Huong): Can ~78m2 den 85m2.
-  - Can ho Heritage 3PN Executive Villa: Can ~135m2.
-  - Biet thu di san Royal Villa: Can ~250m2 den 450m2.
-Tieu chuan ban giao: Full noi that mang dam tinh hoa van hoa Hue, op da tu nhien, kinh Low-E 27.5mm cach am can UV. Thiet bi ve sinh & bep cao cap nhap khau chau Au.
-Gia ban: Tu 55 trieu dong/m2.
-
-CHINH SACH BAN HANG DU KIEN:
-  - Nhan dat cho uu tien (Booking): 50 trieu dong/suat (co hoan phi).
-  - Chiet khau thanh toan nhanh: Dat muc tu 12% den 15%.
-  - Ho tro vay von: Ngan hang cho vay 70%, 0% lai suat tu 18 den 24 thang.
-  - Uu dai dac quyen: Mien phi quan ly van hanh 3 nam va the thanh vien Royal Heritage Club.
-
-BOI CANH CHỦ ĐẠO: Bat dong san di san truyen doi, gia san gia toc vinh quy bai to, noi tro ve yen binh va kieu hanh cua nguoi con xu Hue.`;
-
-        // Preloaded Static Demos (No API Key required to test)
+        // Preloaded Static Demos for Peninsula Private
         const STATIC_DEMOS = {
             second_home: [
                 {
@@ -1095,104 +851,8 @@ BOI CANH CHỦ ĐẠO: Bat dong san di san truyen doi, gia san gia toc vinh quy 
                     textOverlay: "ĐẶT CHỖ ƯU TIÊN 50TR\nHoàn phí 100% nếu đổi ý\nNhận bảng hàng ngoại giao",
                     vo: "Liên hệ đặt chỗ ưu tiên ngay hôm nay chỉ với 50 triệu để chọn căn đẹp nhất, hoàn tiền 100% không mất phí!"
                 }
-            ],
-            hue_heritage_vinhquy: [
-                {
-                    stt: 1,
-                    duration: "3 giây",
-                    message: "Chạm vào cảm xúc cội nguồn và vinh quy bái tổ.",
-                    visual: "Host đứng bên dòng sông Hương thơ mộng, phía xa là cầu Tràng Tiền hoài niệm. Host mỉm cười nhẹ nhàng nhìn vào ống kính.",
-                    textOverlay: "HUẾ HERITAGE\nNƠI TRỞ VỀ CỦA NGƯỜI CON XỨ HUẾ\nDI SẢN TRUYỀN ĐỜI",
-                    vo: "Dù đi xa muôn phương, đâu là nơi chốn bình yên nhất để người con xứ Huế hướng về và tạo dựng gia sản truyền đời cho thế hệ mai sau?"
-                },
-                {
-                    stt: 2,
-                    duration: "12 giây",
-                    message: "Khắc họa vị trí di sản kề bên sông Hương.",
-                    visual: "Cảnh flycam từ trên cao lia dọc dòng sông Hương thơ mộng ôm trọn tòa tháp Huế Heritage. Host di chuyển lịch lãm trong khuôn viên sảnh Royal Heritage.",
-                    textOverlay: "KỀ BÊN SÔNG HƯƠNG\n5 phút đến Đại Nội\nTâm điểm di sản Cố Đô\nKiến trúc Royal Heritage",
-                    vo: "Tọa lạc ngay trung tâm Cố Đô Huế kề sát dòng sông Hương di sản. Từ đây chỉ vài phút để kết nối đến Đại Nội, cầu Tràng Tiền và các danh thắng linh thiêng."
-                },
-                {
-                    stt: 3,
-                    duration: "15 giây",
-                    message: "Tôn vinh chất sống hoàng gia và không gian riêng tư.",
-                    visual: "Host bước vào căn hộ mẫu 2PN view sông Hương, lướt nhẹ tay trên chất liệu gỗ tự nhiên và mặt kính Low-E tràn viền ngắm hoàng hôn sông Hương.",
-                    textOverlay: "TÌNH HOÀN MỸ CỐ ĐÔ\nKính Low-E cản UV cách âm\nView trực diện Sông Hương\nNội thất Châu Âu nhập khẩu",
-                    vo: "Mỗi không gian tại Huế Heritage là một kiệt tác kiến trúc giao thoa giữa nét vương giả triều Nguyễn và phong cách sống hiện đại. Mang đến sự tĩnh tại và riêng tư tuyệt đối."
-                },
-                {
-                    stt: 4,
-                    duration: "15 giây",
-                    message: "Trình bày chính sách đòn bẩy và ưu đãi đặc quyền.",
-                    visual: "Host đứng tại sảnh đón sang trọng, trình bày biểu đồ ưu đãi chiết khấu 15% và chính sách hỗ trợ lãi suất 0%.",
-                    textOverlay: "ĐẶC QUYỀN ĐỢT 1\nChiết khấu đến 15%\nVốn ban đầu chỉ 30%\nLãi suất 0% 18-24 tháng",
-                    vo: "Sở hữu ngay đợt 1 với mức chiết khấu hấp dẫn đến 15%, ngân hàng hỗ trợ cho vay 70% với 0% lãi suất lên tới 24 tháng. Cơ hội tích lũy tài sản di sản độc bản."
-                },
-                {
-                    stt: 5,
-                    duration: "5 giây",
-                    message: "Kêu gọi hành động nhận thông tin giỏ hàng ưu tiên.",
-                    visual: "Host mỉm cười nhẹ nhàng vẫy tay chào, màn hình xuất hiện nút đăng ký nhận thông tin giỏ hàng đợt 1.",
-                    textOverlay: "ĐĂNG KÝ NGAY\nNhận bảng giá đợt 1\nƯu tiên chọn căn view Sông Hương",
-                    vo: "Hãy liên hệ ngay hôm nay để nhận thông tin chi tiết và sở hữu căn hộ di sản view sông Hương đẹp nhất!"
-                }
             ]
         };
-
-        // Project Switcher Logic
-        function switchProject() {
-            const project = document.getElementById('projectSelector').value;
-            const aptSelect = document.getElementById('apartmentType');
-            const targetInput = document.getElementById('targetAudience');
-            const msgInput = document.getElementById('message');
-            const hookInput = document.getElementById('hook');
-
-            if (project === 'hue_heritage') {
-                document.getElementById('brandTitle').innerHTML = `
-                    <i class="fa-solid fa-crown brand-logo" style="color: var(--accent-gold);"></i>
-                    <h2>Huế <span>Heritage</span></h2>
-                `;
-                aptSelect.innerHTML = `
-                    <option value="Can ho Heritage 1PN">Căn hộ Heritage 1PN (~52m²)</option>
-                    <option value="Can ho Heritage 2PN View Song Huong" selected>Căn hộ Heritage 2PN - View Sông Hương (~78m²)</option>
-                    <option value="Can ho Heritage 3PN Executive Villa">Căn hộ Heritage 3PN Executive Villa (~135m²)</option>
-                    <option value="Biet thu di san Royal Villa">Biệt thự di sản Royal Villa (~250m² - 450m²)</option>
-                `;
-                targetInput.value = "Khách hàng kiều bào & người con xứ Huế xa quê muốn mua tài sản di sản vinh quy bái tổ / báo hiếu cha mẹ.";
-                msgInput.value = "Sở hữu bất động sản di sản truyền đời kề bên Sông Hương với chiết khấu đợt 1 đến 15%.";
-                hookInput.value = "Đâu là gia sản truyền đời giá trị nhất mà người con xứ Huế luôn tự hào hướng về?";
-                
-                loadSample('hue_heritage_vinhquy');
-            } else {
-                document.getElementById('brandTitle').innerHTML = `
-                    <i class="fa-solid fa-clapperboard brand-logo"></i>
-                    <h2>Peninsula <span>Private</span></h2>
-                `;
-                aptSelect.innerHTML = `
-                    <option value="Căn Studio">Căn Studio (~36m²)</option>
-                    <option value="Can ho 1 Phong Ngu">Căn hộ 1 Phòng Ngủ (~47m²)</option>
-                    <option value="Can ho 2 Phong Ngu" selected>Căn hộ 2 Phòng Ngủ (~72m² - 79m²)</option>
-                    <option value="Can ho 3 Phong Ngu">Căn hộ 3 Phòng Ngủ (~121m² - 170m²)</option>
-                    <option value="Can ho 4 Phong Ngu">Căn hộ 4 Phòng Ngủ (~210m² - 280m²)</option>
-                `;
-                targetInput.value = "Khách hàng thượng lưu mua căn hộ thứ hai (Second Home) ngắm sông Hàn Đà Nẵng.";
-                msgInput.value = "Sở hữu căn hộ đợt cuối Peninsula Private nhận chiết khấu đến 15.5% trước thềm cất nóc.";
-                hookInput.value = "65 triệu/m2 sở hữu căn hộ 5 sao trung tâm Hải Châu Đà Nẵng?";
-                
-                loadSample('second_home');
-            }
-        }
-
-        // Cache browser TTS voices
-        let voicesList = [];
-        function loadVoices() {
-            voicesList = window.speechSynthesis.getVoices();
-        }
-        if (window.speechSynthesis) {
-            loadVoices();
-            window.speechSynthesis.onvoiceschanged = loadVoices;
-        }
 
         // Load Campaign Details helper
         function loadSample(type) {
@@ -1207,57 +867,34 @@ BOI CANH CHỦ ĐẠO: Bat dong san di san truyen doi, gia san gia toc vinh quy 
             document.getElementById('campaignInfoText').innerHTML = `Đang xem kịch bản mẫu: <strong>${campaignName}</strong> (Tải sẵn)`;
             renderStoryboard(scenes);
             
-            // Populate form with realistic inputs corresponding to sample
             if (type === 'second_home') {
-                document.getElementById('targetAudience').value = "Khách hàng thượng lưu thường ghé Đà Nẵng công tác/nghỉ dưỡng muốn sở hữu căn hộ 5 sao riêng tư để ở thay thế khách sạn.";
-                document.getElementById('apartmentType').value = "Can ho 3 Phong Ngu";
-                document.getElementById('message').value = "Peninsula Private căn hộ di sản bờ Đông sông Hàn, vị thế riêng tư tuyệt đối cho chủ nhân tinh hoa.";
-                document.getElementById('hook').value = "Người giàu không chọn ở khách sạn mỗi khi ghé thăm Đà Nẵng.";
+                document.getElementById('targetAudience').value = "Khách hàng thượng lưu mua căn hộ thứ hai (Second Home) ngắm sông Hàn Đà Nẵng.";
+                document.getElementById('apartmentType').value = "Can ho 2 Phong Ngu";
+                document.getElementById('message').value = "Sở hữu căn hộ đợt cuối Peninsula Private nhận chiết khấu đến 15.5% trước thềm cất nóc.";
+                document.getElementById('hook').value = "65 triệu/m2 sở hữu căn hộ 5 sao trung tâm Hải Châu Đà Nẵng?";
             } else if (type === 'rental') {
-                document.getElementById('targetAudience').value = "Nhà đầu tư tài chính muốn tối ưu dòng tiền thụ động bằng cách mua căn hộ Hải Châu đón tệp chuyên gia nước ngoài thuê lâu dài.";
+                document.getElementById('targetAudience').value = "Nhà đầu tư tìm kiếm dòng tiền cho thuê chuyên gia nước ngoài tại trung tâm Đà Nẵng.";
                 document.getElementById('apartmentType').value = "Can ho 2 Phong Ngu";
-                document.getElementById('message').value = "Sở hữu căn hộ tổ hợp Đà Nẵng Downtown đợt cuối nhận chiết khấu đến 15.5% và hỗ trợ 0% lãi suất vay.";
-                document.getElementById('hook').value = "Lãi suất tiết kiệm chạm đáy, dòng tiền của bạn đang đi về đâu?";
-            } else if (type === 'resale') {
-                document.getElementById('targetAudience').value = "Nhà đầu tư lướt sóng/trung hạn muốn tối ưu lợi nhuận đón đầu mốc cất nóc tháp căn hộ biểu tượng.";
-                document.getElementById('apartmentType').value = "Can ho 2 Phong Ngu";
-                document.getElementById('message').value = "Mua giá gốc đợt cuối Peninsula Private Hải Châu trước thềm cất nóc tăng giá trị vượt trội.";
-                document.getElementById('hook').value = "Mốc thời gian vàng để tối đa hóa biên lợi nhuận đầu tư căn hộ.";
+                document.getElementById('message').value = "Tối ưu đòn bẩy tài chính với 0% lãi suất 24 tháng, miễn phí quản lý vận hành 3 năm.";
+                document.getElementById('hook').value = "Lạm phát tăng cao, dòng tiền thụ động từ bất động sản cho thuê 5 sao?";
+            } else {
+                document.getElementById('targetAudience').value = "Nhà đầu tư lướt sóng và bán lại tối ưu biên lợi nhuận trước mốc cất nóc.";
+                document.getElementById('apartmentType').value = "Can ho 1 Phong Ngu";
+                document.getElementById('message').value = "Mua đợt cuối giá gốc chủ đầu tư, hưởng chiết khấu 15.5% đón đầu sóng tăng giá cất nóc.";
+                document.getElementById('hook').value = "Thời điểm vàng mua bất động sản dễ thanh khoản sinh lời trước cất nóc?";
             }
         }
 
-        // Reset App back to original Welcome empty state
+        // Reset App Form
         function resetApp() {
-            // Stop speech synthesis if running
-            if (window.speechSynthesis) {
-                window.speechSynthesis.cancel();
-            }
-            // Stop any playing google audio
-            document.querySelectorAll('.audio-waveform-sim').forEach(el => {
-                if (el.currentAudio) {
-                    el.currentAudio.pause();
-                    el.currentAudio = null;
-                }
-            });
-
-            // Clear inputs
             document.getElementById('targetAudience').value = '';
             document.getElementById('message').value = '';
             document.getElementById('hook').value = '';
-            document.getElementById('apartmentType').value = 'Can ho 2 Phong Ngu';
-            document.getElementById('duration').value = '60 giây';
-            
-            // Reset campaign header text
             document.getElementById('campaignInfoText').innerText = 'Hãy điền thông tin bên trái và nhấn Tạo Kịch Bản, hoặc nhấp vào Kịch bản mẫu cài sẵn.';
-            
-            // Reset status badge
-            const statusIndicator = document.getElementById('statusIndicator');
-            statusIndicator.className = 'status-badge';
-            statusIndicator.innerHTML = '<i class="fa-solid fa-check-circle"></i> Sẵn sàng';
-            
-            // Restore empty state welcome screen
-            const feed = document.getElementById('storyboardFeed');
-            feed.innerHTML = `
+            document.getElementById('statusIndicator').className = 'status-badge';
+            document.getElementById('statusIndicator').innerHTML = '<i class="fa-solid fa-check-circle"></i> Sẵn sàng';
+
+            document.getElementById('storyboardFeed').innerHTML = `
                 <div class="empty-state">
                     <i class="fa-solid fa-film empty-icon"></i>
                     <h3>Chào mừng đến với Peninsula Storyboard</h3>
@@ -1267,7 +904,7 @@ BOI CANH CHỦ ĐẠO: Bat dong san di san truyen doi, gia san gia toc vinh quy 
             `;
         }
 
-        // Native TTS Fallback function
+        // Native TTS Fallback
         function fallbackToNativeTTS(text, element) {
             const cleanedText = text.replace(/<[^>]*>/g, '').trim();
             const utterance = new SpeechSynthesisUtterance(cleanedText);
@@ -1279,9 +916,7 @@ BOI CANH CHỦ ĐẠO: Bat dong san di san truyen doi, gia san gia toc vinh quy 
                 voice.lang.toLowerCase().startsWith('vi')
             );
             
-            if (viVoice) {
-                utterance.voice = viVoice;
-            }
+            if (viVoice) utterance.voice = viVoice;
             utterance.rate = 0.92;
 
             utterance.onend = () => {
@@ -1299,23 +934,19 @@ BOI CANH CHỦ ĐẠO: Bat dong san di san truyen doi, gia san gia toc vinh quy 
             window.speechSynthesis.speak(utterance);
         }
 
-        // Guaranteed Vietnamese Neural Voice synthesis via Google Translate TTS API (with length chunking)
+        // Play Vietnamese Voice Synthesis
         function playVoice(element, text) {
-            // If already playing, stop everything
             if (element.classList.contains('playing')) {
                 if (element.currentAudio) {
                     element.currentAudio.pause();
                     element.currentAudio = null;
                 }
-                if (window.speechSynthesis) {
-                    window.speechSynthesis.cancel();
-                }
+                if (window.speechSynthesis) window.speechSynthesis.cancel();
                 element.classList.remove('playing');
                 element.querySelector('.play-icon').className = 'fa-solid fa-play play-icon';
                 return;
             }
 
-            // Stop any other currently playing voices
             document.querySelectorAll('.audio-waveform-sim.playing').forEach(el => {
                 el.classList.remove('playing');
                 el.querySelector('.play-icon').className = 'fa-solid fa-play play-icon';
@@ -1324,22 +955,15 @@ BOI CANH CHỦ ĐẠO: Bat dong san di san truyen doi, gia san gia toc vinh quy 
                     el.currentAudio = null;
                 }
             });
-            if (window.speechSynthesis) {
-                window.speechSynthesis.cancel();
-            }
+            if (window.speechSynthesis) window.speechSynthesis.cancel();
 
-            // Clean up text
             const cleanedText = text.replace(/<[^>]*>/g, '').trim();
-
-            // Split text into chunks of <= 150 characters to prevent API truncation
             const sentences = cleanedText.match(/[^.!?]+[.!?]*/g) || [cleanedText];
             let chunks = [];
             
             sentences.forEach(s => {
                 let str = s.trim();
                 if (!str) return;
-                
-                // If a sentence is extremely long, split by comma
                 if (str.length > 150) {
                     let subparts = str.split(',');
                     subparts.forEach(sp => {
@@ -1357,49 +981,37 @@ BOI CANH CHỦ ĐẠO: Bat dong san di san truyen doi, gia san gia toc vinh quy 
             }
 
             let currentChunkIndex = 0;
-
             function playNextChunk() {
-                if (currentChunkIndex >= chunks.length) {
+                if (currentChunkIndex >= chunks.length || !element.classList.contains('playing')) {
                     element.classList.remove('playing');
                     element.querySelector('.play-icon').className = 'fa-solid fa-play play-icon';
+                    element.currentAudio = null;
                     return;
                 }
 
-                // If playback was cancelled during chunk transition
-                if (!element.classList.contains('playing')) {
-                    return;
-                }
+                const encodeText = encodeURIComponent(chunks[currentChunkIndex]);
+                const ttsUrl = `https://translate.google.com/translate_tts?ie=UTF-8&q=${encodeText}&tl=vi&client=tw-ob`;
 
-                const chunk = chunks[currentChunkIndex];
-                // Google TTS URL
-                const url = `https://translate.google.com/translate_tts?ie=UTF-8&tl=vi&client=tw-ob&q=${encodeURIComponent(chunk)}`;
-                
-                const audio = new Audio(url);
+                const audio = new Audio(ttsUrl);
                 element.currentAudio = audio;
 
-                audio.onended = () => {
-                    currentChunkIndex++;
-                    playNextChunk();
-                };
-
-                audio.onerror = () => {
-                    console.warn("Google TTS failed, falling back to Native browser SpeechSynthesis...");
-                    fallbackToNativeTTS(cleanedText, element);
-                };
-
-                audio.play().catch(err => {
-                    console.warn("Audio play blocked/failed, falling back to Native browser SpeechSynthesis...");
+                audio.play().then(() => {
+                    audio.onended = () => {
+                        currentChunkIndex++;
+                        playNextChunk();
+                    };
+                }).catch(err => {
+                    console.warn("Audio stream blocked, fallback to Native TTS");
                     fallbackToNativeTTS(cleanedText, element);
                 });
             }
 
-            // Set state to playing and start
             element.classList.add('playing');
             element.querySelector('.play-icon').className = 'fa-solid fa-stop play-icon';
             playNextChunk();
         }
 
-        // Render scenes to HTML feed
+        // Render Storyboard Cards
         function renderStoryboard(scenes) {
             const feed = document.getElementById('storyboardFeed');
             feed.innerHTML = '';
@@ -1408,7 +1020,6 @@ BOI CANH CHỦ ĐẠO: Bat dong san di san truyen doi, gia san gia toc vinh quy 
                 const card = document.createElement('div');
                 card.className = 'scene-card';
                 
-                // Audio Waveform bars simulator HTML with random animation delay
                 let waveHtml = '';
                 for (let i = 0; i < 28; i++) {
                     let h = Math.floor(Math.random() * 18) + 6;
@@ -1416,7 +1027,6 @@ BOI CANH CHỦ ĐẠO: Bat dong san di san truyen doi, gia san gia toc vinh quy 
                     waveHtml += `<div class="wave-bar" style="height: ${h}px; animation-delay: ${delay}s;"></div>`;
                 }
 
-                // Choose background based on scene type to simulate mobile ad preview
                 let bgStyle = 'linear-gradient(135deg, #1b2030 0%, #0d0f15 100%)';
                 if (scene.stt % 3 === 1) {
                     bgStyle = `linear-gradient(135deg, rgba(20,24,35,0.8) 0%, rgba(10,12,18,0.9) 100%), url('./peninsula_exterior.jpg?v=8.0')`;
@@ -1433,7 +1043,6 @@ BOI CANH CHỦ ĐẠO: Bat dong san di san truyen doi, gia san gia toc vinh quy 
                         <span class="scene-touchpoint"><i class="fa-solid fa-heart"></i> ${scene.message}</span>
                     </div>
                     <div class="scene-body">
-                        <!-- Details on Left -->
                         <div class="scene-details">
                             <div class="detail-block">
                                 <h5><i class="fa-solid fa-camera"></i> Hình ảnh / Ghi chú quay (Visual)</h5>
@@ -1450,7 +1059,6 @@ BOI CANH CHỦ ĐẠO: Bat dong san di san truyen doi, gia san gia toc vinh quy 
                                 </div>
                             </div>
                         </div>
-                        <!-- Smartphone Preview on Right -->
                         <div class="mobile-mockup" style="background-image: ${bgStyle};">
                             <div class="mockup-overlay-grad"></div>
                             <div class="mockup-header-branding">
@@ -1460,11 +1068,11 @@ BOI CANH CHỦ ĐẠO: Bat dong san di san truyen doi, gia san gia toc vinh quy 
                                 <div class="text-overlay-preview">
                                     ${scene.textOverlay.replace(/\n/g, '<br>')}
                                 </div>
-                                <div class="mockup-social-info">
-                                    <div class="avatar-sim">P</div>
-                                    <div class="username-sim">peninsula.private</div>
+                                <div style="display:flex; align-items:center; gap:8px; margin-bottom:6px;">
+                                    <div style="width:24px; height:24px; border-radius:50%; background:var(--accent-gold); color:#000; font-weight:bold; font-size:11px; display:flex; align-items:center; justify-content:center;">P</div>
+                                    <div style="font-size:12px; font-weight:600; color:#FFF;">peninsula.private</div>
                                 </div>
-                                <div class="desc-sim">Đăng ký nhận bảng hàng ngoại giao đợt cuối... #peninsula #danang</div>
+                                <div style="font-size:11px; color:#AAA;">Đăng ký nhận bảng hàng ngoại giao đợt cuối... #peninsula #danang</div>
                             </div>
                         </div>
                     </div>
@@ -1473,18 +1081,15 @@ BOI CANH CHỦ ĐẠO: Bat dong san di san truyen doi, gia san gia toc vinh quy 
             });
         }
 
-        // Call Gemini API silently with hardcoded API key
+        // Call Gemini API
         async function generateStoryboard() {
-            const apiKey = atob(OBFUSCATED_KEY); // Decrypt obfuscated key in background
+            const apiKey = atob(OBFUSCATED_KEY);
             const target = document.getElementById('targetAudience').value.trim();
             const apartment = document.getElementById('apartmentType').value;
             const message = document.getElementById('message').value.trim();
             const hook = document.getElementById('hook').value.trim();
             const duration = document.getElementById('duration').value;
             const selectedModel = document.getElementById('aiModel') ? document.getElementById('aiModel').value : 'gemini-3.6-flash';
-
-            const selectedProject = document.getElementById('projectSelector') ? document.getElementById('projectSelector').value : 'peninsula_private';
-            const DATA_PROJECT = (selectedProject === 'hue_heritage') ? DATA_HUE_HERITAGE : DATA_PENINSULA_PRIVATE;
 
             if (!target || !message || !hook) {
                 alert("Vui lòng điền đầy đủ thông tin chiến dịch (Target, Thông điệp, Ý tưởng Hook)!");
@@ -1494,26 +1099,18 @@ BOI CANH CHỦ ĐẠO: Bat dong san di san truyen doi, gia san gia toc vinh quy 
             const statusIndicator = document.getElementById('statusIndicator');
             const feed = document.getElementById('storyboardFeed');
 
-            // Set loading state
             statusIndicator.className = "status-badge loading";
             statusIndicator.innerHTML = `<i class="fa-solid fa-spinner"></i> Đang kết nối mô hình ${selectedModel}...`;
             
-            // Render Skeleton loaders
             feed.innerHTML = `
                 <div class="skeleton-card">
                     <div class="skeleton-line" style="width: 30%; height: 25px;"></div>
                     <div class="skeleton-line" style="width: 90%; height: 80px;"></div>
                     <div class="skeleton-line" style="width: 100%; height: 120px;"></div>
                 </div>
-                <div class="skeleton-card">
-                    <div class="skeleton-line" style="width: 30%; height: 25px;"></div>
-                    <div class="skeleton-line" style="width: 80%; height: 80px;"></div>
-                    <div class="skeleton-line" style="width: 95%; height: 120px;"></div>
-                </div>
             `;
 
             try {
-                // STEP 1: Persona Engine (Assistant 1)
                 const sysAssistant1 = 
                     "Ban la Senior Copywriter va chuyen gia tam ly hoc hanh vi khach hang cao cap (HNWIs) tai Viet Nam.\n\n" +
                     "NHIEM VU CHINH:\n" +
@@ -1521,54 +1118,38 @@ BOI CANH CHỦ ĐẠO: Bat dong san di san truyen doi, gia san gia toc vinh quy 
                     "1. Đầu tư cho thuê: Khao khát dòng tiền bền vững, sợ lạm phát mất giá tiền tệ.\n" +
                     "2. Đầu tư bán lại: Muốn tối ưu biên lợi nhuận trước cất nóc, mua lúc rẻ bán lúc cất nóc xong/hoàn thiện.\n" +
                     "3. Mua ở nội đô: Muốn nâng cấp không gian sống cao cấp, sợ nhà ngõ chật hẹp, ẩm mốc, thiếu tiện ích.\n" +
-                    "4. Khách xa quê (người miền Trung / xứ Huế / Kiều bào): Hướng về nguồn cội, báo hiếu cha mẹ, mua tài sản di sản truyền đời để làm nơi trở về.\n" +
-                    "5. Khách mua lưu trú: Muốn có căn hộ trú ẩn 5 sao riêng tư tuyệt đối của riêng mình thay thế sự phiền toái tại khách sạn công cộng.\n\n" +
+                    "4. Khách xa quê (người Đà Nẵng/quê miền Trung ở HN/SG/Kiều bào): Hướng về nguồn cội, báo hiếu cha mẹ, mua tài sản di sản truyền đời để làm nơi trở về.\n" +
+                    "5. Khách mua lưu trú (thường ghé Đà Nẵng): Muốn có căn hộ trú ẩn 5 sao riêng tư tuyệt đối của riêng mình thay thế sự phiền toái, thiếu an toàn tại khách sạn công cộng.\n\n" +
                     "YÊU CẦU PROMPT CHIẾN LƯỢC CHO CREATOR:\n" +
-                    "- Phải tạo ra các Hook (0-3s) đánh trúng tử huyệt tâm lý của nhóm đối tượng nhận diện được ở trên (legacy, vinh quy bái tổ, dòng tiền bền vững, đặc quyền chủ tịch riêng tư...).\n" +
-                    "- Cài đặt sự thúc giục: Giỏ hàng ưu đãi đợt 1 và mốc thời gian giới hạn đếm ngược.\n" +
-                    "- Chỉ ra cách lồng ghép giá rumor và chiết khấu một cách tinh tế để lọc khách hàng không đủ tài chính.\n" +
-                    "- TẬP TRUNG THIẾT KẾ QUAY VỚI HOST (NGƯỜI THẬT) DẪN DẮT xuyên suốt video để tối ưu watch-time.\n\n" +
+                    "- Phải tạo ra các Hook (0-3s) đánh trúng tử huyệt tâm lý của nhóm đối tượng nhận diện được ở trên.\n" +
+                    "- Cài đặt sự thúc giục: Giỏ hàng đợt cuối và mốc cất nóc đang đếm ngược ngày.\n" +
+                    "- TẬP TRUNG THIẾT KẾ QUAY VỚI HOST (NGƯỜI THẬT) DẪN DẮT xuyên suốt video.\n\n" +
                     "CHI tra ve doan prompt chien luoc bang tieng Viet. Khong giai thich, khong bat ky thong tin nao khac.";
 
-                const csbhCanho = (selectedProject === 'hue_heritage') ? "Chính sách Huế Heritage: Booking 50 triệu (hoàn phí), CK đợt 1 đến 15% thanh toán nhanh, 0% lãi suất vay 70% từ 18-24 tháng, tặng thẻ Royal Heritage Club." : "Chính sách Peninsula Private: Booking 50 triệu (hoàn phí), CK đến 15.5% thanh toán nhanh, 0% lãi suất vay 70% từ 18-24 tháng, ân hạn nợ gốc, miễn phí vận hành 2-3 năm.";
-                const userMsg1 = `BO DU LIEU DU AN:\n${DATA_PROJECT}\n\nCHIEN DICH CAN VIET KICH BAN:\nLoai san pham: ${apartment}\nCSBH: ${csbhCanho}\nTarget doi tuong: ${target}\nThong diep: ${message}\nHook: ${hook}\nThoi luong: ${duration}`;
+                const csbhCanho = "Chính sách Peninsula Private: Booking 50 triệu (hoàn phí), CK đến 15.5% thanh toán nhanh, 0% lãi suất vay 70% từ 18-24 tháng, ân hạn nợ gốc, miễn phí vận hành 2-3 năm.";
+                const userMsg1 = `BO DU LIEU DU AN:\n${DATA_PENINSULA_PRIVATE}\n\nCHIEN DICH CAN VIET KICH BAN:\nLoai can ho: ${apartment}\nCSBH: ${csbhCanho}\nTarget doi tuong: ${target}\nThong diep: ${message}\nHook: ${hook}\nThoi luong: ${duration}`;
 
-                const promptChuan = await callGeminiAPI(sysAssistant1, userMsg1, apiKey, selectedModel, selectedProject);
+                const promptChuan = await callGeminiAPI(sysAssistant1, userMsg1, apiKey, selectedModel);
 
-                // Update loader status
                 statusIndicator.innerHTML = `<i class="fa-solid fa-spinner"></i> Đang tạo kịch bản phân cảnh...`;
 
-                // STEP 2: Storyboard Creator
                 const sysCreator = 
                     "Ban la Creative Director va chuyen gia viet ad copy bat dong san sieu sang Viet Nam.\n\n" +
                     "QUY TAC TAO HOOK & PHAN CANH (UGC HOST OPTIMIZED):\n" +
                     "- YEU CAU BẮT BUỘC: Kịch bản phải được thiết kế xoay quanh một HOST (người dẫn chương trình/KOC/Reviewer thực tế) xuất hiện xuyên suốt cả video.\n" +
-                    "- Canh 1 (0-3s) bat buoc dung Hook tam ly cuc sau đánh thẳng vào tử huyệt đối tượng. Mô tả rõ góc máy quay Host (VD: Host nhìn trực tiếp camera nói biểu cảm, hoặc Host đang đứng ngắm sông Hương/ban công rồi quay lại nói chuyện với ống kính).\n" +
-                    "- Các phân cảnh tiếp theo phải miêu tả rõ hành động tương tác vật lý của Host với không gian.\n" +
-                    "- Tránh tuyệt đối các hook sáo rỗng. Phải dùng các câu thoại của Host chạm vào tâm tư, khiến người xem phải dừng lại suy ngẫm.\n" +
-                    "- Visual: Mô tả hình ảnh có sự xuất hiện của Host phối hợp với bối cảnh dự án.\n" +
-                    "- Audio: Voiceover của Host trầm ấm, truyền cảm, nhịp điệu kể chuyện tự nhiên (Native). Nhạc nền Classical/Luxury Cinematic/Di sản.\n\n" +
+                    "- Canh 1 (0-3s) bat buoc dung Hook tam ly cuc sau đánh thẳng vào tử huyệt đối tượng.\n" +
                     "Xuat DUNG MOT JSON ARRAY [] voi 6-8 phan canh. Moi phan canh co dung 6 truong sau (viet dung ten truong bang chu thuong):\n" +
-                    "  'stt'         : so thu tu phan canh (so nguyen: 1, 2, 3...)\n" +
-                    "  'duration'    : thoi luong cua phan canh (VD: '3s', '12s' hoac bo trong)\n" +
-                    "  'message'     : thong diep muon gui den KH (tao ra nhung diem cham ve cam xuc)\n" +
-                    "  'visual'      : hinh anh / ghi chu quay (visual mo ta hanh dong cua Host tuong tac voi bo canh)\n" +
-                    "  'textOverlay' : text tren man hinh (in hoa, chia dong bang \\n neu can thiet)\n" +
-                    "  'vo'          : noi dung voice-over (VO) thuyet minh cua Host\n\n" +
+                    "  'stt', 'duration', 'message', 'visual', 'textOverlay', 'vo'.\n\n" +
                     "YEU CAU TUYET DOI: Chi tra ve JSON thuan bat dau [ va ket thuc ]. Khong dung markdown, khong chu thich ngoai JSON.";
 
-                const userMsg2 = `BO DU LIEU DU AN:\n${DATA_PROJECT}\n\nPROMPT CHIEN LUOC TU ASSIST ASSISTANT 1:\n${promptChuan}`;
+                const userMsg2 = `BO DU LIEU DU AN:\n${DATA_PENINSULA_PRIVATE}\n\nPROMPT CHIEN LUOC TU ASSIST ASSISTANT 1:\n${promptChuan}`;
 
-                const jsonRaw = await callGeminiAPI(sysCreator, userMsg2, apiKey, selectedModel, selectedProject);
+                const jsonRaw = await callGeminiAPI(sysCreator, userMsg2, apiKey, selectedModel);
                 
-                // Parse and render
                 const scenes = repairJson(jsonRaw);
                 renderStoryboard(scenes);
 
-                // Update campaign title text
-                document.getElementById('campaignInfoText').innerHTML = `Chiến dịch: <strong>${selectedProject === 'hue_heritage' ? 'Huế Heritage' : 'Peninsula Private'}</strong> (${apartment}) | Model: <strong>${selectedModel}</strong>`;
-
-                // Set success state
+                document.getElementById('campaignInfoText').innerHTML = `Chiến dịch Peninsula Private (${apartment}) | Model: <strong>${selectedModel}</strong>`;
                 statusIndicator.className = "status-badge";
                 statusIndicator.innerHTML = `<i class="fa-solid fa-check-circle"></i> Đã hoàn thành (${scenes.length} cảnh - ${selectedModel})`;
 
@@ -1580,20 +1161,10 @@ BOI CANH CHỦ ĐẠO: Bat dong san di san truyen doi, gia san gia toc vinh quy 
                 statusIndicator.innerHTML = `<i class="fa-solid fa-exclamation-triangle"></i> Gặp lỗi`;
                 
                 alert("Đã xảy ra lỗi trong quá trình xử lý:\n\n" + err.message);
-                feed.innerHTML = `
-                    <div class="empty-state" style="border-color: red;">
-                        <i class="fa-solid fa-triangle-exclamation empty-icon" style="color: red;"></i>
-                        <h3>Khởi tạo thất bại</h3>
-                        <p>${err.message}</p>
-                        <button class="btn btn-secondary" onclick="loadSample('second_home')">Quay lại xem kịch bản mẫu</button>
-                    </div>
-                `;
             }
         }
 
-        // Direct Fetch HTTP request to Gemini API (with Serverless Backend Proxy support)
-        async function callGeminiAPI(systemPrompt, userMessage, apiKey, model = 'gemini-3.6-flash', project = 'peninsula_private') {
-            // Priority 1: Call Vercel Serverless API Backend (Bypasses browser CORS & 401 errors)
+        async function callGeminiAPI(systemPrompt, userMessage, apiKey, model = 'gemini-3.6-flash') {
             if (window.location.protocol.startsWith('http')) {
                 try {
                     const res = await fetch('/api/generate', {
@@ -1602,8 +1173,7 @@ BOI CANH CHỦ ĐẠO: Bat dong san di san truyen doi, gia san gia toc vinh quy 
                         body: JSON.stringify({
                             systemInstruction: systemPrompt,
                             userMessage: userMessage,
-                            model: model,
-                            project: project
+                            model: model
                         })
                     });
                     if (res.ok) {
@@ -1615,30 +1185,17 @@ BOI CANH CHỦ ĐẠO: Bat dong san di san truyen doi, gia san gia toc vinh quy 
                         for (let q = parts.length - 1; q >= 0; q--) {
                             if (parts[q].text) return parts[q].text;
                         }
-                    } else {
-                        const errText = await res.text();
-                        console.warn("Serverless API route error:", errText);
                     }
                 } catch (e) {
                     console.warn("Serverless fetch error:", e);
                 }
             }
 
-            // Fallback: Direct client fetch (for file:// protocol)
             const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`;
-            
             const payload = {
-                systemInstruction: {
-                    parts: [{ text: systemPrompt }]
-                },
-                contents: [{
-                    role: "user",
-                    parts: [{ text: userMessage }]
-                }],
-                generationConfig: {
-                    temperature: 0.85,
-                    maxOutputTokens: 16384
-                }
+                systemInstruction: { parts: [{ text: systemPrompt }] },
+                contents: [{ role: "user", parts: [{ text: userMessage }] }],
+                generationConfig: { temperature: 0.85, maxOutputTokens: 16384 }
             };
 
             const response = await fetch(url, {
@@ -1656,69 +1213,30 @@ BOI CANH CHỦ ĐẠO: Bat dong san di san truyen doi, gia san gia toc vinh quy 
             }
 
             const data = await response.json();
-            try {
-                const parts = data.candidates[0].content.parts;
-                for (let p = 0; p < parts.length; p++) {
-                    if (parts[p].text && !parts[p].thought) {
-                        return parts[p].text;
-                    }
-                }
-                for (let q = parts.length - 1; q >= 0; q--) {
-                    if (parts[q].text) return parts[q].text;
-                }
-                throw new Error("Không tìm thấy nội dung văn bản trả về.");
-            } catch (err) {
-                throw new Error("Cấu trúc phản hồi AI không đúng định dạng: " + err.message);
+            const parts = data.candidates[0].content.parts;
+            for (let p = 0; p < parts.length; p++) {
+                if (parts[p].text && !parts[p].thought) return parts[p].text;
             }
+            for (let q = parts.length - 1; q >= 0; q--) {
+                if (parts[q].text) return parts[q].text;
+            }
+            throw new Error("Không tìm thấy nội dung văn bản.");
         }
 
-        // Clean and repair JSON string
-        function repairJson(raw) {
-            let s = raw.replace(/```json/gi, '').replace(/```/g, '').trim();
-
-            try {
-                const parsed = JSON.parse(s);
-                if (Array.isArray(parsed) && parsed.length > 0) return parsed;
-            } catch(e) {}
-
-            const start = s.indexOf('[');
-            if (start === -1) throw new Error('Không tìm thấy định dạng kịch bản JSON Array trong phản hồi.');
-            s = s.substring(start);
-
-            try {
-                const p2 = JSON.parse(s);
-                if (Array.isArray(p2) && p2.length > 0) return p2;
-            } catch(e) {}
-
-            // Fallback manual regex parser if JSON is broken slightly
-            const results = [];
-            let depth = 0;
-            let inStr = false;
-            let escape = false;
-            let objStart = -1;
-
-            for (let i = 0; i < s.length; i++) {
-                let ch = s[i];
-                if (escape) { escape = false; continue; }
-                if (ch === '\\' && inStr) { escape = true; continue; }
-                if (ch === '"') { inStr = !inStr; continue; }
-                if (inStr) continue;
-                if (ch === '{') { if (depth === 0) objStart = i; depth++; }
-                else if (ch === '}') {
-                    depth--;
-                    if (depth === 0 && objStart !== -1) {
-                        try {
-                            const obj = JSON.parse(s.substring(objStart, i + 1));
-                            results.push(obj);
-                        } catch(ex) {}
-                        objStart = -1;
-                    }
-                }
+        function repairJson(jsonRaw) {
+            let clean = jsonRaw.replace(/```json/gi, '').replace(/```/g, '').trim();
+            const firstBracket = clean.indexOf('[');
+            const lastBracket = clean.lastIndexOf(']');
+            if (firstBracket !== -1 && lastBracket !== -1) {
+                clean = clean.substring(firstBracket, lastBracket + 1);
             }
-
-            if (results.length === 0) throw new Error('Không thể bóc tách dữ liệu JSON phân cảnh.');
-            return results;
+            return JSON.parse(clean);
         }
+
+        // Auto load initial demo
+        window.addEventListener('DOMContentLoaded', () => {
+            loadSample('second_home');
+        });
     </script>
 </body>
 </html>
