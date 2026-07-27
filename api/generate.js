@@ -16,13 +16,17 @@ export default async function handler(req, res) {
         return res.status(405).json({ error: 'Method Not Allowed' });
     }
 
-    const OBFUSCATED_KEY = "QVEuQWI4Uk42S09tU2pWaVJMVkhTbzVMNWVNUEhtck9IeDdtb2dkRER1dlZFZXdYTndEZFE=";
-    const apiKey = process.env.GEMINI_API_KEY || Buffer.from(OBFUSCATED_KEY, 'base64').toString('utf-8').trim();
+    // Obfuscated Project Keys
+    const KEY_PENINSULA = "QVEuQWI4Uk42S09tU2pWaVJMVkhTbzVMNWVNUEhtck9IeDdtb2dkRER1dlZFZXdYTndEZFE=";
+    const KEY_HUE_HERITAGE = "QVEuQWI4Uk42SUN1Q3daUjV4LUdEY1FDdkpacUFkcFlLSTkyYjh6d0xVNm1LYlY1TDh5UGc=";
 
     try {
-        const { systemInstruction, userMessage, model } = req.body;
-        // Default to the latest Gemini 3.6 Flash model
+        const { systemInstruction, userMessage, model, project } = req.body;
         const targetModel = model || 'gemini-3.6-flash';
+
+        // Select specific project API Key
+        const targetObfuscatedKey = (project === 'hue_heritage') ? KEY_HUE_HERITAGE : KEY_PENINSULA;
+        const apiKey = process.env.GEMINI_API_KEY || Buffer.from(targetObfuscatedKey, 'base64').toString('utf-8').trim();
 
         const url = `https://generativelanguage.googleapis.com/v1beta/models/${targetModel}:generateContent`;
 

@@ -1533,7 +1533,7 @@ BOI CANH CHỦ ĐẠO: Bat dong san di san truyen doi, gia san gia toc vinh quy 
                 const csbhCanho = (selectedProject === 'hue_heritage') ? "Chính sách Huế Heritage: Booking 50 triệu (hoàn phí), CK đợt 1 đến 15% thanh toán nhanh, 0% lãi suất vay 70% từ 18-24 tháng, tặng thẻ Royal Heritage Club." : "Chính sách Peninsula Private: Booking 50 triệu (hoàn phí), CK đến 15.5% thanh toán nhanh, 0% lãi suất vay 70% từ 18-24 tháng, ân hạn nợ gốc, miễn phí vận hành 2-3 năm.";
                 const userMsg1 = `BO DU LIEU DU AN:\n${DATA_PROJECT}\n\nCHIEN DICH CAN VIET KICH BAN:\nLoai san pham: ${apartment}\nCSBH: ${csbhCanho}\nTarget doi tuong: ${target}\nThong diep: ${message}\nHook: ${hook}\nThoi luong: ${duration}`;
 
-                const promptChuan = await callGeminiAPI(sysAssistant1, userMsg1, apiKey, selectedModel);
+                const promptChuan = await callGeminiAPI(sysAssistant1, userMsg1, apiKey, selectedModel, selectedProject);
 
                 // Update loader status
                 statusIndicator.innerHTML = `<i class="fa-solid fa-spinner"></i> Đang tạo kịch bản phân cảnh...`;
@@ -1559,14 +1559,14 @@ BOI CANH CHỦ ĐẠO: Bat dong san di san truyen doi, gia san gia toc vinh quy 
 
                 const userMsg2 = `BO DU LIEU DU AN:\n${DATA_PROJECT}\n\nPROMPT CHIEN LUOC TU ASSIST ASSISTANT 1:\n${promptChuan}`;
 
-                const jsonRaw = await callGeminiAPI(sysCreator, userMsg2, apiKey, selectedModel);
+                const jsonRaw = await callGeminiAPI(sysCreator, userMsg2, apiKey, selectedModel, selectedProject);
                 
                 // Parse and render
                 const scenes = repairJson(jsonRaw);
                 renderStoryboard(scenes);
 
                 // Update campaign title text
-                document.getElementById('campaignInfoText').innerHTML = `Chiến dịch cho: <strong>${apartment}</strong> | Model: <strong>${selectedModel}</strong>`;
+                document.getElementById('campaignInfoText').innerHTML = `Chiến dịch: <strong>${selectedProject === 'hue_heritage' ? 'Huế Heritage' : 'Peninsula Private'}</strong> (${apartment}) | Model: <strong>${selectedModel}</strong>`;
 
                 // Set success state
                 statusIndicator.className = "status-badge";
@@ -1592,7 +1592,7 @@ BOI CANH CHỦ ĐẠO: Bat dong san di san truyen doi, gia san gia toc vinh quy 
         }
 
         // Direct Fetch HTTP request to Gemini API (with Serverless Backend Proxy support)
-        async function callGeminiAPI(systemPrompt, userMessage, apiKey, model = 'gemini-3.6-flash') {
+        async function callGeminiAPI(systemPrompt, userMessage, apiKey, model = 'gemini-3.6-flash', project = 'peninsula_private') {
             // Priority 1: Call Vercel Serverless API Backend (Bypasses browser CORS & 401 errors)
             if (window.location.protocol.startsWith('http')) {
                 try {
@@ -1602,7 +1602,8 @@ BOI CANH CHỦ ĐẠO: Bat dong san di san truyen doi, gia san gia toc vinh quy 
                         body: JSON.stringify({
                             systemInstruction: systemPrompt,
                             userMessage: userMessage,
-                            model: model
+                            model: model,
+                            project: project
                         })
                     });
                     if (res.ok) {
