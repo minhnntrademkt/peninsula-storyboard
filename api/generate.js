@@ -27,9 +27,9 @@ export default async function handler(req, res) {
         return res.status(400).json({ error: 'Missing required fields: target, message, hook' });
     }
 
-    // SERVER-SIDE HIDDEN DATA & SYSTEM PROMPTS FOR PENINSULA PRIVATE (GIAI ĐOẠN 1: MỞ BOOKING - CHƯA CÓ NHÀ MẪU & CHƯA CÓ SA BÀN)
+    // SERVER-SIDE OFFICIAL DATA & SYSTEM PROMPTS FOR PENINSULA PRIVATE DA NANG
     const DATA_PENINSULA_PRIVATE = 
-        `DU AN: PENINSULA PRIVATE (TP. Da Nang)
+        `DU AN: PENINSULA PRIVATE DA NANG (Ra mat can ho cao cap lien ke Da Nang Downtown)
 Chu dau tu: Lien danh Cong ty CP Tap doan Dong Do & Cong ty TNHH MTV Dau tu Athena Luxury. Don vi phan phoi chien luoc: Dat Xanh Mien Trung.
 Vi tri: To hop Da Nang Downtown, trung tam Quan Hai Chau, TP. Da Nang. Ket noi nhanh chong den song Han (3 phut), Lotte Mart, truong hoc, benh vien, san bay va bien My Khe.
 Quy mo: Thap can ho bieu tuong cao 39 tang noi (chieu cao gan 150m: 149.8m), mat do xay dung chi 40%, 3 tang ham do xe thong minh.
@@ -42,53 +42,57 @@ Co cau dien tich:
   - Can ho 4PN: Can lon ~210-280m2 (5 can).
   - Sieu can ho/Sky Villa/Penthouse: Can ~430-460m2 (3 can), Can ~540-590m2 (2 can).
 Tieu chuan ban giao: Full noi that lien tuong cao cap. Su dung kinh hop Low-E day 27.5mm cach am, cach nhiet va ngan tia UV vuot troi. Thiet bi ve sinh va bep tu cac thuong hieu hang dau (Bosch, Hafele, Kohler/Grohe). Cua chong chay American Doors, sanh don sang trong op da Marble tu nhien.
-Gia ban: Tu 65 trieu dong/m2 (da bao gom VAT).
 
-CHINH SACH BAN HANG (GIAI DOAN 1 - MO BOOKING GIỮ CHỖ ĐẦU TIÊN):
-  - Nhan dat cho uu tien (Booking đợt 1): 50 trieu dong/suat (hoan phi 100% neu khong mua).
-  - Chiet khau thanh toan nhanh: Dat muc tu 13.5% den 15.5% (uu dai gia goc tot nhat dot 1).
-  - Chiet khau thanh toan tien do: Tu 6% den 7.5%.
-  - Ho tro vay von: Ngan hang lien ket ho tro cho vay toi da 70% gia tri can ho.
-  - Uu dai lai suat & An han goc: Lai suat 0% tu 18 den 24 thang, an han no goc den khi nhan ban giao nha.
-  - Qua tang: Mien phi quan ly van hanh tu 2 den 3 nam.
+BANG CHINH SACH BAN HANG CHINHTHUC (CHUAN 100% TU CĐT - NHO CON SO NAY, KHONG DUNG BAT KY CON SO SAI LECH NAO KHAC):
+  - Gia du kien: 65 trieu dong/m2 (da bao gom VAT).
+  - Voucher Dat cho / Booking uu tien 5 cap do:
+    + Uu tien 5: Voucher Dat cho len den 50 Trieu.
+    + Uu tien 4: Voucher Dat cho 40 Trieu.
+    + Uu tien 3: Voucher Dat cho 30 Trieu.
+    + Uu tien 2: Voucher Dat cho 20 Trieu.
+  - Chiet khau Khach hang Booking: Giam truc tiep 3%.
+  - Chiet khau Khach hang than thiet: Giam them 2%.
+  - Chiet khau Khach hang Mua si:
+    + Mua si tu 2 den 4 can: Giam them 1.5%.
+    + Mua si tu 5 can tro len: Giam them 2%.
 
 BOI CANH DỰ ÁN & QUY TẮC QUAY DỰNG (RẤT QUAN TRỌNG - CHƯA CÓ NHÀ MẪU VÀ CHƯA CÓ SA BÀN):
-  - DỰ ÁN ĐANG Ở GIAI ĐOẠN 1: Mở Booking nhận đặt chỗ đợt đầu tiên để chọn vị trí căn tầng đẹp nhất.
+  - DỰ ÁN ĐANG Ở GIAI ĐOẠN 1: Mở Booking nhận đặt chỗ đợt đầu tiên để nhận Voucher ưu tiên đến 50 triệu và chiết khấu Booking 3%.
   - THỰC TRẠNG HIỆN TẠI: Dự án CHƯA CÓ NHÀ MẪU và CHƯA CÓ SA BÀN. Hiện tại vị trí dự án chỉ mới là MẢNH ĐẤT TRỐNG kề bên sông Hàn.
   - TUYỆT ĐỐI KHÔNG DÙNG: Không mô tả Host đứng trong nhà mẫu, không tương tác với nội thất nhà mẫu, không đứng chỉ sa bàn.
   - BỐI CẢNH QUAY THỰC TẾ & KỸ THUẬT VISUAL THAY THẾ:
     + Host đứng quay thực tế ngay tại mảnh đất trống kề bên bờ sông Hàn, chỉ tay hướng về vị trí quỹ đất và view dòng sông Hàn / trung tâm Hải Châu.
     + Flycam 4K quay góc rộng từ trên cao xuống mảnh đất trống kề sông Hàn, sau đó lồng ghép phối cảnh 3D render kiến trúc tháp 39 tầng cao 149.8m mọc lên hùng vĩ (Matchmove 3D / AR VFX).
-    + Lồng ghép hình ảnh 3D render thiết kế không gian căn hộ 5 sao, map animation 3D kết nối hạ tầng và đồ họa infographic chính sách Booking 50 triệu (hoàn phí 100%).`;
+    + Lồng ghép hình ảnh 3D render thiết kế không gian căn hộ 5 sao, map animation 3D kết nối hạ tầng và đồ họa infographic chính sách chuẩn: Booking giảm 3%, Voucher đến 50tr, KH thân thiết thêm 2%, Mua sỉ thêm 1.5% - 2%.`;
 
     const sysAssistant1 = 
         "Ban la Senior Copywriter va chuyen gia tam ly hoc hanh vi khach hang cao cap (HNWIs) tai Viet Nam.\n\n" +
         "NHIEM VU CHINH:\n" +
         "Dựa vào Target doi tuong, hãy tự động nhận diện họ thuộc nhóm nào trong 5 nhóm sau để viết PROMPT chiến lược cho GIAI ĐOẠN MỞ BOOKING ĐỢT 1:\n" +
-        "1. Đầu tư cho thuê: Khao khát dòng tiền bền vững tại trung tâm Đà Nẵng, muốn giữ chỗ đợt 1 chọn căn view đẹp cho thuê được giá cao.\n" +
-        "2. Đầu tư bán lại: Muốn mua giá gốc đợt 1 rẻ nhất từ CĐT, nhận chiết khấu đến 15.5% để tối ưu biên lợi nhuận khi dự án tăng giá các đợt sau.\n" +
-        "3. Mua ở nội đô: Muốn nâng cấp không gian sống cao cấp tại trung tâm Hải Châu, sợ nhà ngõ chật hẹp, chọn căn hướng sông đẹp nhất đợt đầu.\n" +
-        "4. Khách xa quê (người Đà Nẵng/quê miền Trung ở HN/SG/Kiều bào): Hướng về nguồn cội, booking đợt 1 để sở hữu tài sản biểu tượng bên sông Hàn.\n" +
-        "5. Khách mua lưu trú (thường ghé Đà Nẵng): Muốn có căn hộ trú ẩn 5 sao riêng tư tại Đà Nẵng Downtown với chi phí ưu đãi đợt 1.\n\n" +
+        "1. Đầu tư cho thuê: Khao khát dòng tiền bền vững tại trung tâm Đà Nẵng, muốn booking chọn căn view đẹp đợt 1 nhận ưu đãi giảm 3%.\n" +
+        "2. Đầu tư bán lại / Mua sỉ: Muốn mua giá gốc 65tr/m2 đợt 1, cộng dồn chiết khấu Booking 3%, KH thân thiết 2%, Mua sỉ 1.5% - 2% để tối ưu biên lợi nhuận.\n" +
+        "3. Mua ở nội đô: Muốn nâng cấp không gian sống cao cấp tại trung tâm Hải Châu, chọn căn hướng sông đẹp nhất đợt đầu.\n" +
+        "4. Khách xa quê (người Đà Nẵng/quê miền Trung ở HN/SG/Kiều bào): Hướng về nguồn cội, booking đợt 1 nhận voucher ưu tiên đến 50 triệu.\n" +
+        "5. Khách mua lưu trú (thường ghé Đà Nẵng): Muốn có căn hộ trú ẩn 5 sao riêng tư tại Đà Nẵng Downtown với giá dự kiến 65tr/m2.\n\n" +
         "YÊU CẦU PROMPT CHIẾN LƯỢC CHO CREATOR:\n" +
         "- Phải tạo ra các Hook (0-3s) đánh trúng tử huyệt tâm lý của nhóm đối tượng nhận diện được ở trên.\n" +
-        "- Cài đặt sự thúc giục: Suất Booking 50 triệu (hoàn phí 100%) đợt 1 đang được săn đón để lấy quyền ưu tiên chọn căn đẹp trước khi mở bán chính thức.\n" +
-        "- LƯU Ý BỐI CẢNH BẮT BUỘC: CHƯA CÓ NHÀ MẪU VÀ CHƯA CÓ SA BÀN (Hiện tại vị trí dự án chỉ mới là MẢNH ĐẤT TRỐNG kề sông Hàn). Hướng dẫn Creator quay Host trực tiếp tại mảnh đất trống kề bờ sông Hàn, lồng ghép hiệu ứng 3D render kiến trúc tháp 39 tầng mọc lên trên mảnh đất và infographic chính sách.\n\n" +
+        "- Cài đặt sự thúc giục: Suất Booking nhận Voucher đến 50 triệu và giảm ngay 3% đang được săn đón để lấy quyền ưu tiên chọn căn đẹp đợt 1.\n" +
+        "- LƯU Ý BỐI CẢNH BẮT BUỘC: CHƯA CÓ NHÀ MẪU VÀ CHƯA CÓ SA BÀN (Hiện tại vị trí dự án chỉ mới là MẢNH ĐẤT TRỐNG kề sông Hàn). Hướng dẫn Creator quay Host trực tiếp tại mảnh đất trống kề bờ sông Hàn, lồng ghép hiệu ứng 3D render kiến trúc tháp 39 tầng mọc lên trên mảnh đất và infographic chính sách chuẩn CĐT.\n\n" +
         "CHI tra ve doan prompt chien luoc bang tieng Viet. Khong giai thich, khong bat ky thong tin nao khac.";
 
     const sysCreator = 
         "Ban la Creative Director va Chuyen gia Viet Ad Copy Biet Thu & Bat Dong San Sieu Sang Viet Nam.\n\n" +
         "KHUNG HƯỚNG DẪN MARKETING 4 GIAI ĐOẠN (ĐỊNH HƯỚNG CHIẾN LƯỢC CHO GIAI ĐOẠN 1 - MỞ BOOKING ĐỢT 1 - CHƯA CÓ NHÀ MẪU & CHƯA CÓ SA BÀN):\n" +
         "1. [GIAI ĐOẠN 1: HOOK & NỖI ĐẦU] (Mốc [0:00 - 0:06]): Chạm vào nỗi đau/sự tò mò của KH (áp lực tài chính, sợ bỏ lỡ suất chọn căn đợt 1, đầu tư kém hiệu quả, khát khao sở hữu căn hộ sông Hàn). Hook 0-3s cực mạnh để ngắt nhịp cuộn Meta (Pattern Interrupt).\n" +
-        "2. [GIAI ĐOẠN 2: BỐI CẢNH & GIẢI PHÁP] (Mốc [0:06 - 0:20]): Giúp KH hình dung vị trí đắc địa Hải Châu kề sông Hàn, lồng ghép phối cảnh 3D tháp 39 tầng mọc lên từ mảnh đất trống, tiện ích 5 sao như giải pháp hoàn hảo cho Cảnh 1.\n" +
-        "3. [GIAI ĐOẠN 3: CẢM XÚC SỞ HỮU & TÀI CHÍNH] (Mốc [0:20 - 0:45]): Đánh mạnh cảm xúc mong muốn sở hữu đợt 1, an tâm tài chính, booking 50 triệu hoàn phí 100%, chiết khấu đợt 1 cao nhất đến 15.5%, 0% lãi suất 24 tháng.\n" +
-        "4. [GIAI ĐOẠN 4: CẤP BÁCH & KÊU GỌI HÀNH ĐỘNG] (Mốc [0:45 - Hết]): Tạo cảm giác cấp bách suất booking ưu tiên chọn căn tầng đẹp đợt 1 có giới hạn, thúc đẩy Đăng ký/Gọi Hotline giữ chỗ ngay.\n\n" +
+        "2. [GIAI ĐOẠN 2: BỐI CẢNH & GIẢI PHÁP] (Mốc [0:06 - 0:20]): Giúp KH hình dung vị trí đắc địa Hải Châu kề sông Hàn 65tr/m2, lồng ghép phối cảnh 3D tháp 39 tầng mọc lên từ mảnh đất trống, tiện ích 5 sao như giải pháp hoàn hảo cho Cảnh 1.\n" +
+        "3. [GIAI ĐOẠN 3: CẢM XÚC SỞ HỮU & TÀI CHÍNH] (Mốc [0:20 - 0:45]): Đánh mạnh cảm xúc mong muốn sở hữu đợt 1, an tâm tài chính với Voucher đặt chỗ đến 50 triệu, chiết khấu Booking giảm trực tiếp 3%, KH thân thiết giảm thêm 2%, mua sỉ từ 2 căn giảm thêm 1.5% - 2%.\n" +
+        "4. [GIAI ĐOẠN 4: CẤP BÁCH & KÊU GỌI HÀNH ĐỘNG] (Mốc [0:45 - Hết]): Tạo cảm giác cấp bách suất voucher booking ưu tiên chọn căn tầng đẹp đợt 1 có giới hạn, thúc đẩy Đăng ký/Gọi Hotline giữ chỗ ngay.\n\n" +
         "YÊU CẦU QUAY DỰNG (BẮT BUỘC TUÂN THỦ TRUYỀN THÔNG):\n" +
         "- CHƯA CÓ NHÀ MẪU VÀ CHƯA CÓ SA BÀN: Tuyệt đối không mô tả Host đứng trong nhà mẫu hay chỉ vào sa bàn. Vị trí hiện tại chỉ là MẢNH ĐẤT TRỐNG kề bên sông Hàn.\n" +
         "- HƯỚNG DẪN VISUAL SÁNG TẠO THAY THẾ:\n" +
         "  1. Host đứng quay thực tế ngay tại mảnh đất trống kề bờ sông Hàn, view toàn cảnh sông Hàn & trung tâm Hải Châu sôi động.\n" +
         "  2. Cảnh Flycam từ trên cao lia xuống mảnh đất trống, lồng ghép hiệu ứng matchmove 3D render tòa tháp 39 tầng cao 149.8m mọc lên đầy kiêu hãnh.\n" +
-        "  3. Lồng ghép hình ảnh 3D render thiết kế không gian nội thất 5 sao, map animation 3D kết nối hạ tầng và đồ họa motion graphics chính sách Booking 50 triệu (hoàn phí 100%).\n" +
+        "  3. Lồng ghép hình ảnh 3D render thiết kế không gian nội thất 5 sao, map animation 3D kết nối hạ tầng và đồ họa motion graphics chính sách chuẩn: Booking giảm 3%, Voucher đến 50tr, KH thân thiết thêm 2%, Mua sỉ thêm 1.5% - 2%.\n" +
         "- TỐI ƯU THUẬT TOÁN META ADS: 5 đến 8 cảnh phân phối dồn dập, Text Overlay ngắn gọn nổi bật dành cho người xem tắt tiếng (Sound-off viewers), Host người thật dẫn dắt sinh động.\n\n" +
         "YÊU CẦU ĐẦU RA: Xuất ĐÚNG MỘT JSON ARRAY [] gồm 5-8 phân cảnh. Mỗi phân cảnh có 6 trường:\n" +
         "  'stt' (số nguyên 1, 2, 3, 4...), 'duration' (VD: '5 giây', '10 giây'...), 'message', 'visual', 'textOverlay', 'vo'.\n" +
@@ -102,7 +106,7 @@ BOI CANH DỰ ÁN & QUY TẮC QUAY DỰNG (RẤT QUAN TRỌNG - CHƯA CÓ NHÀ M
         benchmarkInfo += "(Hãy học theo tông giọng, phong cách dẫn của Host và nhịp điệu Hook từ Mẫu Tham Khảo trên khi tạo kịch bản mới!).\n";
     }
 
-    const csbhCanho = "Chính sách Peninsula Private Đợt 1: Booking 50 triệu (hoàn phí 100%), CK đến 15.5% thanh toán nhanh đợt 1, 0% lãi suất vay 70% từ 18-24 tháng, ân hạn nợ gốc, miễn phí vận hành 2-3 năm.";
+    const csbhCanho = "Chính sách chính thức Peninsula Private: Giá 65 triệu/m², Voucher đặt chỗ đến 50 triệu (ưu tiên 5 cấp độ), Giảm trực tiếp 3% cho KH Booking, Giảm thêm 2% cho KH thân thiết, Giảm thêm 1.5% - 2% cho KH mua sỉ.";
     const userMsg1 = `BO DU LIEU DU AN:\n${DATA_PENINSULA_PRIVATE}\n\nCHIEN DICH CAN VIET KICH BAN:\nLoai can ho: ${apartment}\nCSBH: ${csbhCanho}\nTarget doi tuong: ${target}\nThong diep: ${message}\nHook: ${hook}\nThoi luong: ${duration}${benchmarkInfo}`;
 
     try {
