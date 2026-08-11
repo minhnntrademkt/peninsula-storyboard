@@ -638,10 +638,9 @@
             </div>
 
             <div class="form-group">
-                <label for="aiModel">Mô Hình AI Sáng Tạo</label>
+                <label for="aiModel">Mô Hình Gemini AI</label>
                 <div class="select-wrapper">
                     <select id="aiModel" class="form-input">
-                        <option value="claude-3.5-sonnet">Claude 3.5 Sonnet (Chuyên Gia Copywriting Đẳng Cấp)</option>
                         <option value="gemini-3.6-flash" selected>Gemini 3.6 Flash (Mới nhất & Nhanh nhất)</option>
                         <option value="gemini-3.5-flash">Gemini 3.5 Flash (Tiêu chuẩn)</option>
                         <option value="gemini-3.1-pro">Gemini 3.1 Pro (Chuyên sâu)</option>
@@ -663,10 +662,6 @@
             <div class="samples-section">
                 <h4>Kịch bản mẫu cài sẵn (Xem ngay)</h4>
                 <div class="sample-buttons">
-                    <button class="sample-btn" style="border: 1px solid var(--accent-gold); background: rgba(212, 175, 55, 0.15);" onclick="loadSample('claude_peninsula')">
-                        <span><i class="fa-solid fa-brain" style="color:var(--accent-gold);"></i> 🤖 Claude 3.5 Sonnet – Đỉnh Cao Sông Hàn</span>
-                        <i class="fa-solid fa-chevron-right" style="color:var(--accent-gold);"></i>
-                    </button>
                     <button class="sample-btn" onclick="loadSample('second_home')">
                         <span><i class="fa-solid fa-umbrella-beach"></i> Nghỉ dưỡng/Lưu trú (Chủ tịch)</span>
                         <i class="fa-solid fa-chevron-right"></i>
@@ -719,64 +714,6 @@
 
         // Preloaded Static Demos for Peninsula Private (Chuẩn Marketing 4 Giai Đoạn)
         const STATIC_DEMOS = {
-            claude_peninsula: [
-                {
-                    stt: 1,
-                    duration: "3 giây",
-                    message: "🧠 CLAUDE PATTERN INTERRUPT – Đánh vào nỗi sợ lớn nhất của người có tiền: tiền đứng yên, thành phố chạy về phía trước mà không có mình.",
-                    visual: "Cắt đột ngột: Góc nhìn từ tầng 39 Peninsula Private nhìn xuống Đà Nẵng đêm lấp lánh. Timelapse thành phố thức trắng. Sau đó zoom vào một ô cửa sổ duy nhất đang sáng đèn — căn hộ mẫu Peninsula.",
-                    textOverlay: "ĐÀ NẴNG ĐANG CHẠY.",
-                    vo: "Mỗi năm, Đà Nẵng đón hơn 9 triệu khách quốc tế. Mỗi ngày, giá đất trung tâm Hải Châu tăng thêm. Và bạn — đang đứng đâu trong câu chuyện đó?"
-                },
-                {
-                    stt: 2,
-                    duration: "4 giây",
-                    message: "⚡ HOOK THỊ GIÁC – Gây sốc bằng tương phản: 149.8 mét chiều cao vs. mật độ xây dựng chỉ 40%. Con số nghịch lý tạo ra sự tò mò không thể bỏ qua.",
-                    visual: "Host đứng trên sân thượng tầng 39, tay chỉ ra bốn phía: sông Hàn, biển Mỹ Khê, sân bay, Lotte Mart. Máy quay xoay 360° với tốc độ chậm, rộng và hùng tráng.",
-                    textOverlay: "39 TẦNG – 149.8M\nMẬT ĐỘ XÂY DỰNG: CHỈ 40%\nBẠN SỞ HỮU CẢ BẦU TRỜI",
-                    vo: "149 mét chiều cao. Nhưng mật độ xây dựng chỉ 40%. Khi những tòa tháp khác chen chúc nhau — Peninsula Private tặng bạn không gian và tầm nhìn không ai cạnh tranh được."
-                },
-                {
-                    stt: 3,
-                    duration: "7 giây",
-                    message: "🏙️ VỊ TRÍ ĐỈNH CAO – Chứng minh vị trí là lợi thế không thể sao chép bằng animation kết nối sống động. Mọi điểm đến của Đà Nẵng đều nằm trong bán kính 5 phút.",
-                    visual: "Animation 3D map phóng to từ vệ tinh xuống vị trí Peninsula Private tại trung tâm Hải Châu. Các điểm kết nối sáng lên theo thứ tự: Sông Hàn 3 phút → Biển Mỹ Khê 8 phút → Sân bay 7 phút → Lotte Mart 2 phút → Bệnh viện 4 phút.",
-                    textOverlay: "TÂM ĐIỂM HẢI CHÂU\nSÔNG HÀN | BIỂN MỸ KHÊ | SÂN BAY\nTẤT CẢ TRONG 10 PHÚT",
-                    vo: "Trung tâm Hải Châu — không phải gần trung tâm, không phải cận trung tâm. Đây là trung tâm. Nơi mọi giá trị của Đà Nẵng hội tụ về một điểm duy nhất."
-                },
-                {
-                    stt: 4,
-                    duration: "9 giây",
-                    message: "🏛️ TIÊU CHUẨN 5 SAO – Đưa người xem vào trải nghiệm cảm giác sống bằng chi tiết cụ thể, không mơ hồ. Mỗi chất liệu là một lý do để quyết định.",
-                    visual: "Chuỗi cận cảnh mượt mà: Bàn tay host lướt trên mặt đá Marble ốp sảnh → Ngón tay gõ nhẹ vào kính hộp Low-E 27.5mm (nghe âm thanh cách âm tuyệt vời) → Cửa chống cháy American Door đóng êm → Bếp Bosch sáng đèn → Phòng tắm Kohler/Grohe bóng loáng.",
-                    textOverlay: "BÀN GIAO FULL NỘI THẤT\nĐÁ MARBLE | KÍNH LOW-E 27.5MM\nBOSCH | KOHLER | GROHE\nAMERICAN DOORS CHỐNG CHÁY",
-                    vo: "Không phải hứa hẹn — đây là những gì bạn nhận được khi ký hợp đồng: đá Marble tự nhiên, kính hộp cách âm cản UV, thiết bị Bosch, Kohler, Grohe. Sẵn sàng ở ngay, cho thuê ngay."
-                },
-                {
-                    stt: 5,
-                    duration: "8 giây",
-                    message: "💰 ĐÒN BẨY ĐẦU TƯ – Trình bày chính sách tài chính như một chiến lược đầu tư thông minh, không phải như một ưu đãi. Tạo cảm giác người xem đang đưa ra quyết định khôn ngoan.",
-                    visual: "Motion graphic tối giản trên nền đen: Các con số xuất hiện lần lượt như đang được tính toán trên bảng kế hoạch tài chính. Host ngồi tại bàn làm việc trong căn hộ mẫu, gật đầu như đang phân tích với đối tác.",
-                    textOverlay: "BOOKING: 50 TRIỆU\nCHIẾT KHẤU ĐẾN 15.5%\nVAY 70% | 0% LÃI 24 THÁNG\nÂN HẠN GỐC ĐẾN KHI NHẬN NHÀ",
-                    vo: "50 triệu booking. Chiết khấu 15.5%. Ngân hàng hỗ trợ 70% — 0% lãi suất, ân hạn nợ gốc đến tận khi nhận bàn giao. Miễn phí 3 năm phí vận hành. Đây không phải ưu đãi — đây là đòn bẩy tài chính thông minh nhất bạn có thể tận dụng lúc này."
-                },
-                {
-                    stt: 6,
-                    duration: "5 giây",
-                    message: "⏳ ĐIỂM KHÔNG THỂ QUAY LẠI – Cất nóc là ranh giới tâm lý quan trọng nhất trong bất động sản. Sau cột mốc đó, không có giá gốc CĐT, không có chiết khấu đợt 1.",
-                    visual: "Góc quay drone từ trên cao xuống công trình đang xây dựng: các tầng đang được hoàn thiện rõ ràng. Overlay đếm ngược số tầng còn lại đến nóc. Host đứng cạnh bảng 'ĐỢT CUỐI – SẮP CẮT NÓC'.",
-                    textOverlay: "ĐỢT MỞ BÁN CUỐI CÙNG\nSAU CẮT NÓC: GIÁ TĂNG MẠNH\nKHÔNG CÒN GIÁ GỐC CĐT\nQUỸ CĂN GIỚI HẠN",
-                    vo: "Đây là đợt mở bán cuối cùng trước khi cắt nóc. Sau cột mốc đó — không còn giá gốc từ chủ đầu tư. Không còn chiết khấu đợt 1. Không còn lựa chọn tầng đẹp. Chỉ còn thị trường thứ cấp với giá cao hơn."
-                },
-                {
-                    stt: 7,
-                    duration: "4 giây",
-                    message: "📞 CTA QUYẾT ĐOÁN – Kết thúc bằng lời kêu gọi hành động rõ ràng, tạo cảm giác cấp bách nhưng không thúc ép. Người xem tự cảm thấy cần liên hệ ngay.",
-                    visual: "Host nhìn thẳng camera với nụ cười tự tin, giơ điện thoại lên. Background là toàn cảnh sông Hàn nhìn từ tầng cao Peninsula trong ánh sáng vàng buổi chiều.",
-                    textOverlay: "GỌI NGAY – CHỌN CĂN TRƯỚC\nNHẬN BẢNG GIÁ TRỰC TIẾP CĐT\nHotline: 090x.xxx.xxx",
-                    vo: "Nhắn tin hoặc gọi Hotline ngay bây giờ để nhận bảng giá gốc và chọn căn view sông Hàn đẹp nhất còn lại. Quyết định hôm nay — hay để người khác quyết định thay bạn."
-                }
-            ],
             second_home: [
                 {
                     stt: 1,
