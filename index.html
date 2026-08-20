@@ -6,15 +6,15 @@
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
-    <title>Peninsula Private – AI Storyboard Dashboard v13.0</title>
+    <title>Peninsula Private – AI Storyboard Dashboard v14.0</title>
     
     <!-- Google Fonts & FontAwesome -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css?v=13.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css?v=14.0">
     <!-- SheetJS with full styling support for colors, borders, and fonts -->
-    <script src="https://cdn.jsdelivr.net/npm/xlsx-js-style@1.2.0/dist/xlsx.bundle.js?v=13.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/xlsx-js-style@1.2.0/dist/xlsx.bundle.js?v=14.0"></script>
 
     <style>
         :root {
@@ -564,13 +564,13 @@
         <aside class="sidebar">
             <div class="brand">
                 <i class="fa-solid fa-clapperboard brand-logo"></i>
-                <h2>Peninsula <span>Private</span> <small style="font-size: 11px; color: var(--accent-gold); opacity: 0.85; font-weight: normal; margin-left: 6px; border: 1px solid var(--border-color); padding: 2px 6px; border-radius: 4px; background: rgba(201,160,69,0.08);">v13.0</small></h2>
+                <h2>Peninsula <span>Private</span> <small style="font-size: 11px; color: var(--accent-gold); opacity: 0.85; font-weight: normal; margin-left: 6px; border: 1px solid var(--border-color); padding: 2px 6px; border-radius: 4px; background: rgba(201,160,69,0.08);">v14.0</small></h2>
             </div>
 
             <!-- Storyboard Options -->
             <div class="form-group">
-                <label for="targetAudience">Target Đối Tượng</label>
-                <textarea id="targetAudience" class="form-input" placeholder="Ví dụ: Khách hàng mua đầu tư cho thuê..."></textarea>
+                <label for="targetAudience">Target Đối Tượng Khách Hàng</label>
+                <textarea id="targetAudience" class="form-input" placeholder="Gợi ý: Khách hàng mua đầu tư cho thuê / Khách mua ở đợt 1 nhận voucher ưu tiên đến 50 triệu..."></textarea>
             </div>
 
             <div class="form-group">
@@ -587,13 +587,13 @@
             </div>
 
             <div class="form-group">
-                <label for="message">Thông Điệp Chủ Đạo</label>
-                <textarea id="message" class="form-input" placeholder="Ví dụ: Sở hữu căn hộ đợt cuối nhận chiết khấu đến 15.5%..."></textarea>
+                <label for="message">Thông Điệp Chủ Đạo Chiến Dịch</label>
+                <textarea id="message" class="form-input" placeholder="Gợi ý: Mở Booking đợt 1 nhận Voucher đến 50 triệu và chiết khấu Booking 3% trực tiếp từ CĐT..."></textarea>
             </div>
 
             <div class="form-group">
-                <label for="hook">Ý Tưởng Hook 3s đầu</label>
-                <textarea id="hook" class="form-input" placeholder="Ví dụ: Sự phiền toái của khách sạn 5 sao..."></textarea>
+                <label for="hook">Ý Tưởng Hook (0-3s đầu)</label>
+                <textarea id="hook" class="form-input" placeholder="Gợi ý: Giá dự kiến 65 triệu/m² đợt 1 sở hữu căn hộ ven sông Hàn trung tâm Hải Châu?..."></textarea>
             </div>
 
             <div class="form-group">
@@ -834,7 +834,7 @@
             ]
         };
 
-        // Load Campaign Details helper
+        // Load Campaign Details helper (Xem mẫu không ghi đè form nhập liệu)
         function loadSample(type) {
             const scenes = STATIC_DEMOS[type];
             if (!scenes) return;
@@ -842,27 +842,10 @@
             let campaignName = "";
             if (type === 'second_home') campaignName = "Nghỉ dưỡng & Lưu trú thượng lưu";
             if (type === 'rental') campaignName = "Đầu tư cho thuê dòng tiền";
-            if (type === 'resale') campaignName = "Đầu tư bán lại trước cất nóc";
+            if (type === 'resale') campaignName = "Đầu tư đợt 1 tích tài sản";
 
             document.getElementById('campaignInfoText').innerHTML = `Đang xem kịch bản mẫu: <strong>${campaignName}</strong> (Tải sẵn)`;
             renderStoryboard(scenes);
-            
-            if (type === 'second_home') {
-                document.getElementById('targetAudience').value = "Khách hàng thượng lưu mua căn hộ thứ hai (Second Home) ngắm sông Hàn Đà Nẵng.";
-                document.getElementById('apartmentType').value = "Can ho 2 Phong Ngu";
-                document.getElementById('message').value = "Sở hữu căn hộ đợt cuối Peninsula Private nhận chiết khấu đến 15.5% trước thềm cất nóc.";
-                document.getElementById('hook').value = "65 triệu/m2 sở hữu căn hộ 5 sao trung tâm Hải Châu Đà Nẵng?";
-            } else if (type === 'rental') {
-                document.getElementById('targetAudience').value = "Nhà đầu tư tìm kiếm dòng tiền cho thuê chuyên gia nước ngoài tại trung tâm Đà Nẵng.";
-                document.getElementById('apartmentType').value = "Can ho 2 Phong Ngu";
-                document.getElementById('message').value = "Tối ưu đòn bẩy tài chính với 0% lãi suất 24 tháng, miễn phí quản lý vận hành 3 năm.";
-                document.getElementById('hook').value = "Lạm phát tăng cao, dòng tiền thụ động từ bất động sản cho thuê 5 sao?";
-            } else {
-                document.getElementById('targetAudience').value = "Nhà đầu tư lướt sóng và bán lại tối ưu biên lợi nhuận trước mốc cất nóc.";
-                document.getElementById('apartmentType').value = "Can ho 1 Phong Ngu";
-                document.getElementById('message').value = "Mua đợt cuối giá gốc chủ đầu tư, hưởng chiết khấu 15.5% đón đầu sóng tăng giá cất nóc.";
-                document.getElementById('hook').value = "Thời điểm vàng mua bất động sản dễ thanh khoản sinh lời trước cất nóc?";
-            }
         }
 
         // Reset App Form
@@ -1289,7 +1272,7 @@
                                     <div style="width:24px; height:24px; border-radius:50%; background:var(--accent-gold); color:#000; font-weight:bold; font-size:11px; display:flex; align-items:center; justify-content:center;">P</div>
                                     <div style="font-size:12px; font-weight:600; color:#FFF;">peninsula.private</div>
                                 </div>
-                                <div style="font-size:11px; color:#AAA;">Đăng ký nhận bảng hàng ngoại giao đợt cuối... #peninsula #danang</div>
+                                <div style="font-size:11px; color:#AAA;">Đăng ký Booking Đợt 1 chọn vị trí đẹp... #peninsula #danang</div>
                             </div>
                         </div>
                     </div>
@@ -1369,21 +1352,21 @@
 
         // Call Gemini API
         async function generateStoryboard() {
-            // apiKey không còn cần — được xử lý bởi /api/generate serverless
-            const target = document.getElementById('targetAudience').value.trim();
+            // Read user inputs or fallback to clean placeholder guidance text (gợi ý)
+            const targetInput = document.getElementById('targetAudience').value.trim();
+            const messageInput = document.getElementById('message').value.trim();
+            const hookInput = document.getElementById('hook').value.trim();
+
+            const target = targetInput || document.getElementById('targetAudience').placeholder.replace(/^Gợi ý:\s*/, '');
+            const message = messageInput || document.getElementById('message').placeholder.replace(/^Gợi ý:\s*/, '');
+            const hook = hookInput || document.getElementById('hook').placeholder.replace(/^Gợi ý:\s*/, '');
+
             const apartment = document.getElementById('apartmentType').value;
-            const message = document.getElementById('message').value.trim();
-            const hook = document.getElementById('hook').value.trim();
             const duration = document.getElementById('duration').value;
             const selectedModel = document.getElementById('aiModel') ? document.getElementById('aiModel').value : 'gemini-3.6-flash';
             
             const refVideo = document.getElementById('refVideoUrl') ? document.getElementById('refVideoUrl').value.trim() : '';
             const refScript = document.getElementById('refScriptText') ? document.getElementById('refScriptText').value.trim() : '';
-
-            if (!target || !message || !hook) {
-                alert("Vui lòng điền đầy đủ thông tin chiến dịch (Target, Thông điệp, Ý tưởng Hook)!");
-                return;
-            }
 
             let benchmarkInfo = "";
             if (refVideo || refScript) {
