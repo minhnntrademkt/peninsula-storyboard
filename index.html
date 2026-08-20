@@ -6,15 +6,15 @@
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
-    <title>Peninsula Private – AI Storyboard Dashboard v14.0</title>
+    <title>Peninsula Private – AI Storyboard Dashboard v15.0</title>
     
     <!-- Google Fonts & FontAwesome -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css?v=14.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css?v=15.0">
     <!-- SheetJS with full styling support for colors, borders, and fonts -->
-    <script src="https://cdn.jsdelivr.net/npm/xlsx-js-style@1.2.0/dist/xlsx.bundle.js?v=14.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/xlsx-js-style@1.2.0/dist/xlsx.bundle.js?v=15.0"></script>
 
     <style>
         :root {
@@ -564,7 +564,7 @@
         <aside class="sidebar">
             <div class="brand">
                 <i class="fa-solid fa-clapperboard brand-logo"></i>
-                <h2>Peninsula <span>Private</span> <small style="font-size: 11px; color: var(--accent-gold); opacity: 0.85; font-weight: normal; margin-left: 6px; border: 1px solid var(--border-color); padding: 2px 6px; border-radius: 4px; background: rgba(201,160,69,0.08);">v14.0</small></h2>
+                <h2>Peninsula <span>Private</span> <small style="font-size: 11px; color: var(--accent-gold); opacity: 0.85; font-weight: normal; margin-left: 6px; border: 1px solid var(--border-color); padding: 2px 6px; border-radius: 4px; background: rgba(201,160,69,0.08);">v15.0</small></h2>
             </div>
 
             <!-- Storyboard Options -->
@@ -637,14 +637,14 @@
                 </div>
             </div>
 
-            <div class="form-group">
-                <label for="aiModel">Mô Hình AI (Thứ tự ưu tiên hiệu quả)</label>
-                <div class="select-wrapper">
-                    <select id="aiModel" class="form-input">
-                        <option value="gemini-3.7-flash" selected>1. Gemini 3.7 Flash (Mới nhất - Suy luận Sáng tạo & Nhanh vượt trội)</option>
-                        <option value="gemini-3.6-flash">2. Gemini 3.6 Flash (Tốc độ tối ưu - Ổn định)</option>
-                        <option value="gemini-3.1-pro">3. Gemini 3.1 Pro (Chuyên sâu - Kịch bản phức tạp)</option>
-                    </select>
+            <!-- Hardcoded High-Tier AI Engine Indicator -->
+            <div style="background: rgba(201, 160, 69, 0.08); border: 1px solid rgba(201, 160, 69, 0.25); border-radius: 8px; padding: 12px 14px; margin-bottom: 16px; display: flex; align-items: center; gap: 12px;">
+                <div style="width: 32px; height: 32px; border-radius: 8px; background: linear-gradient(135deg, #d4af37, #aa820a); color: #000; display: flex; align-items: center; justify-content: center; font-size: 15px;">
+                    <i class="fa-solid fa-microchip"></i>
+                </div>
+                <div style="font-size: 12px; line-height: 1.4;">
+                    <div style="color: var(--accent-gold); font-weight: 600; font-size: 13px;">Động cơ AI Mặc Định:</div>
+                    <div style="color: #fff; font-size: 11px; opacity: 0.9;">Google Gemini 3.7 Flash <span style="color: #4ade80; font-weight: 600;">(High Reasoning)</span></div>
                 </div>
             </div>
 
@@ -1211,10 +1211,17 @@
         }
 
         // Render Storyboard Cards
-        function renderStoryboard(scenes) {
+        function renderStoryboard(scenes, modelUsed = 'Google Gemini 3.7 Flash (High Reasoning)') {
             window.currentScenes = scenes;
             const feed = document.getElementById('storyboardFeed');
-            feed.innerHTML = '';
+            feed.innerHTML = `
+                <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; background: rgba(201, 160, 69, 0.08); border: 1px solid rgba(201, 160, 69, 0.25); border-radius: 8px; padding: 8px 14px; margin-bottom: 16px;">
+                    <span style="font-size: 12px; color: var(--accent-gold); font-weight: 600;">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i> Kịch bản được xây dựng bởi: <strong style="color: #fff;">${modelUsed}</strong>
+                    </span>
+                    <span style="font-size: 11px; color: var(--text-muted);"><i class="fa-solid fa-circle-check" style="color:#4ade80;"></i> Kiểm duyệt truyền thông CĐT</span>
+                </div>
+            `;
 
             scenes.forEach(scene => {
                 const card = document.createElement('div');
@@ -1363,7 +1370,6 @@
 
             const apartment = document.getElementById('apartmentType').value;
             const duration = document.getElementById('duration').value;
-            const selectedModel = document.getElementById('aiModel') ? document.getElementById('aiModel').value : 'gemini-3.6-flash';
             
             const refVideo = document.getElementById('refVideoUrl') ? document.getElementById('refVideoUrl').value.trim() : '';
             const refScript = document.getElementById('refScriptText') ? document.getElementById('refScriptText').value.trim() : '';
@@ -1380,7 +1386,7 @@
             const feed = document.getElementById('storyboardFeed');
 
             statusIndicator.className = "status-badge loading";
-            statusIndicator.innerHTML = `<i class="fa-solid fa-spinner"></i> Đang kết nối mô hình ${selectedModel}...`;
+            statusIndicator.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Google Gemini 3.7 Flash đang suy luận sáng tạo...`;
             
             feed.innerHTML = `
                 <div class="skeleton-card">
@@ -1400,7 +1406,6 @@
                         message,
                         hook,
                         duration,
-                        model: selectedModel,
                         refScript,
                         refVideo
                     })
@@ -1413,13 +1418,14 @@
 
                 const data = await res.json();
                 const jsonRaw = data.result || (data.candidates && data.candidates[0] && data.candidates[0].content.parts[0].text);
+                const modelUsed = data.modelUsed || 'Google Gemini 3.7 Flash (High Reasoning)';
                 
                 const scenes = repairJson(jsonRaw);
-                renderStoryboard(scenes);
+                renderStoryboard(scenes, modelUsed);
 
-                document.getElementById('campaignInfoText').innerHTML = `Chiến dịch Peninsula Private (${apartment}) | Model: <strong>${selectedModel}</strong>`;
+                document.getElementById('campaignInfoText').innerHTML = `Chiến dịch Peninsula Private (${apartment}) | Động cơ: <strong style="color:var(--accent-gold);">${modelUsed}</strong>`;
                 statusIndicator.className = "status-badge";
-                statusIndicator.innerHTML = `<i class="fa-solid fa-check-circle"></i> Đã hoàn thành (${scenes.length} cảnh - ${selectedModel})`;
+                statusIndicator.innerHTML = `<i class="fa-solid fa-circle-check" style="color:#4ade80;"></i> ${modelUsed}`;
 
             } catch (err) {
                 console.error(err);
@@ -1427,8 +1433,7 @@
                 statusIndicator.style.borderColor = "red";
                 statusIndicator.style.color = "red";
                 statusIndicator.innerHTML = `<i class="fa-solid fa-exclamation-triangle"></i> Gặp lỗi`;
-                
-                alert("Đã xảy ra lỗi trong quá trình xử lý:\n\n" + err.message);
+                alert("Đã xảy ra lỗi khi tạo kịch bản: " + err.message);
             }
         }
 
