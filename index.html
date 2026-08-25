@@ -704,108 +704,108 @@
 
     <!-- JAVASCRIPT LOGIC -->
     <script>
-        // Preloaded Static Demos for Peninsula Private (Sáng tạo bởi Gemini 3.7 Flash High Reasoning - Chuẩn CĐT 100%)
+        // Preloaded Static Demos for Peninsula Private (Được tinh chỉnh đỉnh cao theo phong cách GPT-4o - Chuẩn CĐT 100%)
         const STATIC_DEMOS = {
             second_home: [
                 {
                     stt: 1,
                     duration: "[0:00 - 0:06]",
-                    message: "GĐ 1: HOOK & NỖI ĐẦU - Khơi gợi khao khát chốn trú ẩn riêng tư tại tâm điểm sông Hàn.",
-                    visual: "Host đứng tại vị trí quỹ đất kề sông Hàn, đón gió sông lộng gió, phía sau là dòng sông Hàn êm đềm và cầu Trần Thị Lý. Host nhìn thẳng vào ống kính với phong thái lịch lãm.",
-                    textOverlay: "SECOND HOME SÔNG HÀN\nMỞ BOOKING ĐỢT 1\nVOUCHER ĐẾN 50 TRIỆU",
-                    vo: "Giữa nhịp sống hối hả, đâu là nơi bạn tìm về để tận hưởng sự riêng tư tuyệt đối và ngắm trọn hoàng hôn sông Hàn mỗi chiều?"
+                    message: "GĐ 1: HOOK & NỖI ĐAU - Khơi gợi khao khát chốn trú ẩn riêng tư tại tâm điểm sông Hàn.",
+                    visual: "Cận cảnh Host (phong thái đĩnh đạc, vest demi sang trọng) đứng tại bờ kè sông Hàn lộng gió kề quỹ đất vàng Hải Châu, ánh hoàng hôn dát vàng mặt sông. Host nhìn thẳng ống kính, mỉm cười điềm đạm.",
+                    textOverlay: "THƯỢNG LƯU ĐÀ NẴNG DOWNTOWN\nSECOND HOME VEN SÔNG HÀN\nMỞ BOOKING ĐỢT 1 - VOUCHER 50TR",
+                    vo: "Giữa những ồn ào phố thị, đâu là chốn bình yên riêng tư để bạn ngắm trọn hoàng hôn sông Hàn và tái tạo năng lượng mỗi cuối tuần?"
                 },
                 {
                     stt: 2,
                     duration: "[0:06 - 0:18]",
                     message: "GĐ 2: BỐI CẢNH & VỊ TRÍ - Tâm điểm Đà Nẵng Downtown kết nối mọi tiện ích.",
-                    visual: "Flycam 4K lia từ vị trí khu đất kề sông Hàn kết hợp Matchmove 3D Render tòa tháp 39 tầng cao 149.8m vươn cao kiêu hãnh giữa trung tâm Hải Châu. (Hình ảnh minh họa có sử dụng công nghệ AI).",
-                    textOverlay: "TÂM ĐIỂM HẢI CHÂU\nTổ hợp Đà Nẵng Downtown\n3 phút chạm sông Hàn\nKính Low-E cản UV 27.5mm",
-                    vo: "Tọa lạc ngay quỹ đất vàng Đà Nẵng Downtown, Peninsula Private mang đến tầm nhìn panorama ôm trọn sông Hàn thơ mộng và nhịp đập phồn hoa của trung tâm Hải Châu."
+                    visual: "Flycam 4K lia từ mặt sông Hàn mượt mà hướng vào quỹ đất dự án kết hợp Matchmove 3D Render kiệt tác tháp Peninsula 39 tầng cao gần 150m lung linh kề cầu Trần Thị Lý. (Hình ảnh minh họa có sử dụng công nghệ AI).",
+                    textOverlay: "TRỤC ĐÀ NẴNG DOWNTOWN\n3 phút chạm sông Hàn\nKính Low-E cản UV 27.5mm\nTháp 39 tầng cao 149.8m",
+                    vo: "Tọa lạc tại tâm điểm quận Hải Châu trong quần thể Đà Nẵng Downtown, Peninsula Private mở ra tầm nhìn panorama 360 độ ôm trọn dòng sông biểu tượng."
                 },
                 {
                     stt: 3,
                     duration: "[0:18 - 0:38]",
                     message: "GĐ 3: CẢM XÚC SỞ HỮU & NỘI THẤT - Không gian sống cao cấp & Hệ chính sách Booking đợt 1.",
-                    visual: "Phối cảnh 3D Render căn hộ 2PN kính Low-E tràn viền cách âm, ngập tràn ánh hoàng hôn, nội thất liền tường cao cấp từ Bosch, Hafele. Đồ họa motion chính sách: Booking giảm 3% + KH thân thiết 2%. (Hình ảnh minh họa có sử dụng công nghệ AI).",
-                    textOverlay: "GIÁ DỰ KIẾN TỪ 65 TR/M²\nBooking giảm trực tiếp 3%\nKhách thân thiết giảm 2%\nBàn giao cao cấp Châu Âu",
-                    vo: "Mỗi căn hộ được hoàn thiện với kính Low-E 27.5mm cách âm cản UV vượt trội và thiết bị châu Âu cao cấp. Mức giá dự kiến từ 65 triệu/m² cùng đặc quyền giảm ngay 3% cho khách hàng Booking đợt 1."
+                    visual: "3D Render không gian Căn hộ 2PN (~72m² - 79m²) kính Low-E tràn viền phản chiếu ánh hoàng hôn, nội thất liền tường cao cấp Hafele/Bosch. Motion graphics chính sách: Booking giảm 3% + KH thân thiết giảm 2%. (Hình ảnh minh họa có sử dụng công nghệ AI).",
+                    textOverlay: "GIÁ DỰ KIẾN TỪ 65 TR/M²\nBooking Đợt 1 giảm ngay 3%\nKhách thân thiết giảm thêm 2%\nBàn giao nội thất Châu Âu",
+                    vo: "Sở hữu không gian nghỉ dưỡng tinh tế với kính Low-E 27.5mm cách âm cách nhiệt hoàn hảo. Mức giá dự kiến từ 65 triệu/m² cùng đặc quyền chiết khấu đến 5% cho đợt Booking đầu tiên."
                 },
                 {
                     stt: 4,
                     duration: "[0:38 - 0:50]",
                     message: "GĐ 4: CẤP BÁCH & KÊU GỌI HÀNH ĐỘNG - Suất Voucher ưu tiên chọn căn tầng đẹp đợt đầu.",
-                    visual: "Host mỉm cười giơ chiếc máy tính bảng hiển thị sơ đồ mặt bằng tầng chọn căn đẹp, màn hình xuất hiện Logo Peninsula Private, thông điệp Voucher 50 triệu và Hotline.",
-                    textOverlay: "BOOKING NHẬN VOUCHER 50 TR\nƯu tiên 5 cấp độ chọn căn đẹp\nHotline: 090x.xxx.xxx",
-                    vo: "Số lượng suất Voucher ưu tiên đợt 1 lên đến 50 triệu đồng đang đón nhận sự quan tâm lớn. Đăng ký ngay hôm nay để giữ quyền chọn vị trí căn ưng ý nhất!"
+                    visual: "Host cầm máy tính bảng hiển thị sơ đồ tầng chọn căn view sông đẹp nhất, màn hình hiện logo Peninsula Private, chính sách Voucher 50 triệu và Hotline CĐT.",
+                    textOverlay: "BOOKING ĐỢT 1 NHẬN VOUCHER 50TR\nƯu tiên 5 cấp độ chọn căn đẹp\nHotline: 090x.xxx.xxx",
+                    vo: "Số lượng Voucher ưu tiên chọn căn đẹp đợt 1 lên đến 50 triệu đang được săn đón. Đăng ký ngay hôm nay để trở thành những chủ nhân đầu tiên!"
                 }
             ],
             rental: [
                 {
                     stt: 1,
                     duration: "[0:00 - 0:06]",
-                    message: "GĐ 1: HOOK & NỖI ĐẦU - Đánh trúng trăn trở tìm kênh giữ tiền và tạo dòng tiền thụ động.",
-                    visual: "Host đứng tại mảnh đất trống ven sông Hàn kề trung tâm Hải Châu, cầm máy tính bảng thể hiện sơ đồ kết nối du lịch và chuyên gia, biểu cảm tự tin nói với người xem.",
-                    textOverlay: "DÒNG TIỀN CHO THUÊ TRUNG TÂM?\nĐÀ NẴNG DOWNTOWN\nMỞ BOOKING ĐỢT 1",
-                    vo: "Khi lạm phát bào mòn tài sản, đâu là kênh đầu tư vừa bảo toàn giá trị vừa mang lại tiềm năng dòng tiền cho thuê chuyên gia nước ngoài bền vững tại Đà Nẵng?"
+                    message: "GĐ 1: HOOK & NỖI ĐAU - Đánh trúng trăn trở tìm kênh giữ tiền và tạo dòng tiền thụ động.",
+                    visual: "Host đứng tại mảnh đất trống ven sông Hàn Hải Châu, cầm máy tính bảng hiển thị dữ liệu tăng trưởng du lịch và làn sóng chuyên gia, ánh mắt sắc sảo, tự tin.",
+                    textOverlay: "DÒNG TIỀN CHO THUÊ TRUNG TÂM?\nĐÓN ĐẦU CHUYÊN GIA QUỐC TẾ\nMỞ BOOKING ĐỢT 1",
+                    vo: "Khi các kênh tài chính biến động, đâu là giải pháp vừa giữ vững giá trị tài sản vừa mang lại dòng tiền cho thuê chuyên gia bền vững tại trung tâm Đà Nẵng?"
                 },
                 {
                     stt: 2,
                     duration: "[0:06 - 0:18]",
                     message: "GĐ 2: BỐI CẢNH & TIỀM NĂNG - Tệp khách thuê chuyên gia tại Đà Nẵng Downtown.",
-                    visual: "Góc quay thực tế vị trí dự án kề cận Lotte Mart, cầu Rồng, sân bay quốc tế và các tòa nhà văn phòng trung tâm Hải Châu. Phối cảnh 3D Render tháp 39 tầng. (Hình ảnh minh họa có sử dụng công nghệ AI).",
-                    textOverlay: "TRUNG TÂM HẢI CHÂU\n3 phút đến sông Hàn\nKề Lotte Mart & Sân bay\nĐón đầu làn sóng chuyên gia",
-                    vo: "Sở hữu vị trí tâm điểm quận Hải Châu trong tổ hợp Đà Nẵng Downtown, Peninsula Private đón đầu nguồn cầu lưu trú cao cấp từ tệp chuyên gia quốc tế và du khách cao cấp."
+                    visual: "Flycam 4K quay góc nhìn kết nối từ dự án đến Lotte Mart, cầu Rồng và sân bay quốc tế. Kết hợp 3D Render tháp 39 tầng kiêu hãnh. (Hình ảnh minh họa có sử dụng công nghệ AI).",
+                    textOverlay: "TRUNG TÂM HẢI CHÂU KHAN HIẾM\nKề Lotte Mart & Sân bay Quốc tế\nĐón đầu tệp chuyên gia & Du khách\nTổ hợp Đà Nẵng Downtown",
+                    vo: "Tọa lạc tại lõi trung tâm Hải Châu, Peninsula Private đón trọn nguồn cầu lưu trú cao cấp từ hàng ngàn chuyên gia nước ngoài và du khách quốc tế."
                 },
                 {
                     stt: 3,
                     duration: "[0:18 - 0:38]",
-                    message: "GĐ 3: CẢM XÚC SỞ HỮU & TỐI ƯU CHI PHÍ - Bàn giao full nội thất cao cấp & Ưu đãi Booking.",
-                    visual: "Phối cảnh 3D Render không gian căn hộ Studio / 1PN tối ưu công năng cho thuê, full thiết bị bếp Bosch, thiết bị vệ sinh cao cấp. Motion graphics chính sách CĐT. (Hình ảnh minh họa có sử dụng công nghệ AI).",
+                    message: "GĐ 3: CẢM XÚC SỞ HỮU & CÔNG NĂNG - Bàn giao full nội thất cao cấp & Ưu đãi Booking.",
+                    visual: "Phối cảnh 3D Render căn Studio (~36m²) & 1PN (~47m²) tối ưu diện tích khai thác, full nội thất cao cấp. Motion graphics chính sách CĐT đợt 1. (Hình ảnh minh họa có sử dụng công nghệ AI).",
                     textOverlay: "FULL NỘI THẤT LIỀN TƯỜNG\nBooking giảm trực tiếp 3%\nVoucher ưu tiên đến 50 triệu\nGiá dự kiến từ 65 triệu/m²",
-                    vo: "Căn hộ bàn giao full nội thất liền tường cao cấp, sẵn sàng khai thác ngay mà không tốn chi phí đầu tư ban đầu. Giá dự kiến từ 65 triệu/m² cùng Voucher đặt chỗ lên đến 50 triệu."
+                    vo: "Thiết kế thông minh tối ưu công năng cho thuê, bàn giao nội thất liền tường tiêu chuẩn quốc tế giúp vận hành ngay lập tức với chi phí đầu tư ban đầu tối ưu."
                 },
                 {
                     stt: 4,
                     duration: "[0:38 - 0:50]",
                     message: "GĐ 4: CẤP BÁCH & KÊU GỌI HÀNH ĐỘNG - Đăng ký nhận bảng tính bài toán dòng tiền đợt 1.",
-                    visual: "Host mỉm cười cầm hồ sơ mặt bằng phân tích suất đầu tư, màn hình hiển thị nút Đăng ký nhận bảng phân tích tài chính và Hotline.",
-                    textOverlay: "NHẬN BẢNG PHÂN TÍCH DÒNG TIỀN\nƯu đãi Booking đợt 1 trực tiếp CĐT\nHotline: 090x.xxx.xxx",
-                    vo: "Liên hệ ngay hôm nay để nhận trọn bộ bài toán phân tích dòng tiền chi tiết và giữ suất Booking ưu tiên đợt 1 trực tiếp từ chủ đầu tư!"
+                    visual: "Host mỉm cười giơ hồ sơ bài toán dòng tiền, đồ họa Hotline và nút Nhận bảng phân tích lợi nhuận.",
+                    textOverlay: "NHẬN BẢNG TÍNH LỢI NHUẬN CHO THUÊ\nƯu đãi Booking đợt 1 trực tiếp CĐT\nHotline: 090x.xxx.xxx",
+                    vo: "Liên hệ ngay hôm nay để nhận trọn bộ bài toán phân tích dòng tiền thực tế và giữ quyền ưu tiên Booking đợt 1 trực tiếp từ chủ đầu tư!"
                 }
             ],
             resale: [
                 {
                     stt: 1,
                     duration: "[0:00 - 0:06]",
-                    message: "GĐ 1: HOOK & NỖI ĐẦU - Nhấn mạnh lợi thế mua giá gốc đợt 1 mở Booking.",
-                    visual: "Host đứng tại mảnh đất trống ven sông Hàn trung tâm Hải Châu, hướng tay chỉ về trục cảnh quan sông Hàn tuyệt đẹp, ánh mắt sắc sảo đầy tự tin.",
-                    textOverlay: "MUA ĐỢT 1 GIÁ GỐC CĐT\nBOOKING GIẢM TRỰC TIẾP 3%\nVOUCHER ĐẶT CHỖ 50 TRIỆU",
-                    vo: "Tại sao các nhà đầu tư kinh nghiệm luôn tìm kiếm cơ hội sở hữu bất động sản trung tâm ngay từ Giai đoạn Booking đợt 1 đầu tiên?"
+                    message: "GĐ 1: HOOK & NỖI ĐAU - Nhấn mạnh lợi thế mua giá gốc đợt 1 mở Booking.",
+                    visual: "Host đứng tại bờ sông Hàn hướng nhìn về cầu Trần Thị Lý, phong thái của một chuyên gia đầu tư sành sỏi, giọng nói đầy thuyết phục.",
+                    textOverlay: "BÍ QUYẾT MUA ĐỢT 1 GIÁ GỐC CĐT\nBOOKING GIẢM TRỰC TIẾP 3%\nVOUCHER ĐẶT CHỖ 50 TRIỆU",
+                    vo: "Tại sao các nhà đầu tư lão luyện luôn ra quyết định ở Giai đoạn Booking đợt 1 để gom trọn biên lợi nhuận và chọn được căn đẹp nhất?"
                 },
                 {
                     stt: 2,
                     duration: "[0:06 - 0:18]",
                     message: "GĐ 2: BỐI CẢNH & KHAN HIẾM - Quỹ đất cao tầng trung tâm Hải Châu kề sông Hàn.",
-                    visual: "Flycam lia góc rộng toàn cảnh mảnh đất trống kề sông Hàn kết hợp Matchmove 3D Render tháp 39 tầng cao 149.8m sừng sững mọc lên. (Hình ảnh minh họa có sử dụng công nghệ AI).",
-                    textOverlay: "THÁP BIỂU TƯỢNG 39 TẦNG\nCao gần 150m kề sông Hàn\nQuỹ đất trung tâm khan hiếm\nĐà Nẵng Downtown",
-                    vo: "Bởi Peninsula Private là tòa tháp 39 tầng biểu tượng tọa lạc tại quỹ đất vàng trung tâm Hải Châu hiếm hoi kề sông Hàn, nơi sở hữu tiềm năng gia tăng giá trị theo thời gian."
+                    visual: "Flycam lia toàn cảnh quỹ đất ven sông Hàn hiếm hoi còn sót lại của quận Hải Châu, Matchmove 3D Render tòa tháp 39 tầng cao 149.8m vươn lên. (Hình ảnh minh họa có sử dụng công nghệ AI).",
+                    textOverlay: "QUỸ ĐẤT SÔNG HÀN CÒN SÓT LẠI\nTháp 39 tầng cao 149.8m\nTrung tâm Đà Nẵng Downtown\nBiên độ tăng trưởng dài hạn",
+                    vo: "Bởi Peninsula Private sở hữu vị trí mặt tiền sông Hàn đắt giá không thể tái tạo tại trung tâm Hải Châu — bệ phóng vững chắc cho giá trị gia tăng theo thời gian."
                 },
                 {
                     stt: 3,
                     duration: "[0:18 - 0:38]",
                     message: "GĐ 3: CẢM XÚC SỞ HỮU & CHÍNH SÁCH MUA SỈ - Chiết khấu cộng dồn tối ưu dòng vốn.",
-                    visual: "Đồ họa Motion Graphics tổng hợp chính sách chuẩn CĐT: Chiết khấu Booking 3% + KH thân thiết 2% + Mua sỉ từ 2 căn giảm thêm 1.5% đến 2% + Voucher đến 50 triệu. (Hình ảnh minh họa có sử dụng công nghệ AI).",
-                    textOverlay: "CHÍNH SÁCH CHUẨN CĐT\nBooking giảm 3% + Thân thiết 2%\nMua sỉ giảm thêm 1.5% - 2%\nGiá dự kiến từ 65 triệu/m²",
-                    vo: "Đặc quyền Đợt 1: Giảm ngay 3% cho khách Booking, giảm thêm 2% cho khách hàng thân thiết, cùng ưu đãi mua sỉ đến 2% khi sở hữu từ 2 căn. Tổng ưu đãi cực kỳ vượt trội!"
+                    visual: "Đồ họa Motion Graphics bảng chính sách CĐT: Chiết khấu Booking 3% + KH thân thiết 2% + Mua sỉ từ 2 căn giảm thêm 1.5% đến 2% + Voucher 50 triệu. (Hình ảnh minh họa có sử dụng công nghệ AI).",
+                    textOverlay: "CHÍNH SÁCH CỘNG DỒN ĐỢT 1\nBooking 3% + Thân thiết 2%\nMua sỉ giảm thêm 1.5% - 2%\nGiá dự kiến từ 65 triệu/m²",
+                    vo: "Đặc quyền Đợt 1 mở ra cơ hội tối ưu dòng vốn: Giảm 3% Booking, giảm thêm 2% cho khách thân thiết và chiết khấu mua sỉ đến 2% khi sở hữu từ 2 căn trở lên."
                 },
                 {
                     stt: 4,
                     duration: "[0:38 - 0:50]",
                     message: "GĐ 4: CẤP BÁCH & KÊU GỌI HÀNH ĐỘNG - Đăng ký chọn quỹ căn đẹp đợt đầu.",
-                    visual: "Host mỉm cười chào kết nối, màn hình hiển thị Logo Peninsula Private, thông điệp đặt chỗ ưu tiên 5 cấp độ và số Hotline.",
-                    textOverlay: "ĐĂNG KÝ BOOKING ĐỢT 1\nNhận bảng giá gốc & Mặt bằng CĐT\nHotline: 090x.xxx.xxx",
-                    vo: "Cơ hội giữ quyền ưu tiên chọn quỹ căn đẹp đợt đầu với Voucher lên đến 50 triệu. Nhấn Đăng ký hoặc gọi Hotline ngay hôm nay để nhận thông tin trực tiếp!"
+                    visual: "Host thân thiện gửi lời mời kết nối, màn hình xuất hiện Logo mạ vàng Peninsula Private, sơ đồ 5 cấp độ chọn căn và Hotline CĐT.",
+                    textOverlay: "ĐĂNG KÝ SUẤT BOOKING ĐỢT 1\nNhận trọn bộ mặt bằng & giá gốc CĐT\nHotline: 090x.xxx.xxx",
+                    vo: "Cơ hội giữ chỗ ưu tiên chọn quỹ căn đẹp nhất tòa tháp với Voucher 50 triệu đang đếm ngược từng ngày. Hãy gọi ngay Hotline để được tư vấn trực tiếp!"
                 }
             ]
         };
