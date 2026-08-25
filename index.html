@@ -6,15 +6,15 @@
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
-    <title>Peninsula Private – AI Storyboard Dashboard v17.0</title>
+    <title>Peninsula Private – AI Storyboard Dashboard v18.0</title>
     
     <!-- Google Fonts & FontAwesome -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css?v=17.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css?v=18.0">
     <!-- SheetJS with full styling support for colors, borders, and fonts -->
-    <script src="https://cdn.jsdelivr.net/npm/xlsx-js-style@1.2.0/dist/xlsx.bundle.js?v=17.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/xlsx-js-style@1.2.0/dist/xlsx.bundle.js?v=18.0"></script>
 
     <style>
         :root {
@@ -564,7 +564,7 @@
         <aside class="sidebar">
             <div class="brand">
                 <i class="fa-solid fa-clapperboard brand-logo"></i>
-                <h2>Peninsula <span>Private</span> <small style="font-size: 11px; color: var(--accent-gold); opacity: 0.85; font-weight: normal; margin-left: 6px; border: 1px solid var(--border-color); padding: 2px 6px; border-radius: 4px; background: rgba(201,160,69,0.08);">v17.0</small></h2>
+                <h2>Peninsula <span>Private</span> <small style="font-size: 11px; color: var(--accent-gold); opacity: 0.85; font-weight: normal; margin-left: 6px; border: 1px solid var(--border-color); padding: 2px 6px; border-radius: 4px; background: rgba(201,160,69,0.08);">v18.0</small></h2>
             </div>
 
             <!-- Storyboard Options -->
@@ -1187,16 +1187,27 @@
             XLSX.writeFile(workbook, filename);
         }
 
-        // Render Storyboard Cards
+        // HTML Sanitizer to prevent XSS attacks
+        function escapeHtml(str) {
+            if (!str) return '';
+            return String(str)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#039;');
+        }
+
+        // Render Storyboard Cards (Safe XSS rendering)
         function renderStoryboard(scenes, modelUsed = 'Google Gemini 3.7 Flash (High Reasoning)') {
             window.currentScenes = scenes;
             const feed = document.getElementById('storyboardFeed');
             feed.innerHTML = `
                 <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; background: rgba(201, 160, 69, 0.08); border: 1px solid rgba(201, 160, 69, 0.25); border-radius: 8px; padding: 8px 14px; margin-bottom: 16px;">
                     <span style="font-size: 12px; color: var(--accent-gold); font-weight: 600;">
-                        <i class="fa-solid fa-wand-magic-sparkles"></i> Kịch bản được xây dựng bởi: <strong style="color: #fff;">${modelUsed}</strong>
+                        <i class="fa-solid fa-wand-magic-sparkles"></i> Kịch bản được xây dựng bởi: <strong style="color: #fff;">${escapeHtml(modelUsed)}</strong>
                     </span>
-                    <span style="font-size: 11px; color: var(--text-muted);"><i class="fa-solid fa-circle-check" style="color:#4ade80;"></i> Kiểm duyệt truyền thông CĐT</span>
+                    <span style="font-size: 11px; color: var(--text-muted);"><i class="fa-solid fa-shield-check" style="color:#4ade80;"></i> Đã bảo vệ an ninh & Kiểm duyệt CĐT</span>
                 </div>
             `;
 
@@ -1218,24 +1229,29 @@
                     bgStyle = `linear-gradient(135deg, rgba(20,24,35,0.85) 0%, rgba(10,12,18,0.95) 100%), url('./peninsula_interior.jpg?v=11.0')`;
                 }
 
+                const safeVisual = escapeHtml(scene.visual);
+                const safeVo = escapeHtml(scene.vo);
+                const safeMessage = escapeHtml(scene.message);
+                const safeTextOverlay = escapeHtml(scene.textOverlay).replace(/\n/g, '<br>');
+
                 card.innerHTML = `
                     <div class="scene-header">
                         <div class="scene-badge-group">
                             <span class="scene-number">CẢNH ${scene.stt}</span>
-                            <span class="scene-duration"><i class="fa-regular fa-clock"></i> ${scene.duration || '0-3s'}</span>
+                            <span class="scene-duration"><i class="fa-regular fa-clock"></i> ${escapeHtml(scene.duration || '0-3s')}</span>
                         </div>
-                        <span class="scene-touchpoint"><i class="fa-solid fa-heart"></i> ${scene.message}</span>
+                        <span class="scene-touchpoint"><i class="fa-solid fa-heart"></i> ${safeMessage}</span>
                     </div>
                     <div class="scene-body">
                         <div class="scene-details">
                             <div class="detail-block">
                                 <h5><i class="fa-solid fa-camera"></i> Hình ảnh / Ghi chú quay (Visual)</h5>
-                                <div class="detail-content" contenteditable="true">${scene.visual}</div>
+                                <div class="detail-content" contenteditable="true">${safeVisual}</div>
                             </div>
                             <div class="detail-block">
                                 <h5><i class="fa-solid fa-microphone"></i> Nội dung Voice-over (VO) thuyết minh của Host</h5>
                                 <div class="vo-content">
-                                    <div contenteditable="true" id="voText_${scene.stt}">${scene.vo}</div>
+                                    <div contenteditable="true" id="voText_${scene.stt}">${safeVo}</div>
                                     <div class="audio-waveform-sim" onclick="playVoice(this, document.getElementById('voText_${scene.stt}').innerText)">
                                         <i class="fa-solid fa-play play-icon" style="color: var(--accent-gold); font-size: 11px; margin-right: 8px;"></i>
                                         ${waveHtml}
@@ -1250,7 +1266,7 @@
                             </div>
                             <div class="mockup-content">
                                 <div class="text-overlay-preview">
-                                    ${scene.textOverlay.replace(/\n/g, '<br>')}
+                                    ${safeTextOverlay}
                                 </div>
                                 <div style="display:flex; align-items:center; gap:8px; margin-bottom:6px;">
                                     <div style="width:24px; height:24px; border-radius:50%; background:var(--accent-gold); color:#000; font-weight:bold; font-size:11px; display:flex; align-items:center; justify-content:center;">P</div>
