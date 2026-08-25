@@ -6,15 +6,15 @@
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
-    <title>Peninsula Private – AI Storyboard Dashboard v16.0</title>
+    <title>Peninsula Private – AI Storyboard Dashboard v17.0</title>
     
     <!-- Google Fonts & FontAwesome -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css?v=16.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css?v=17.0">
     <!-- SheetJS with full styling support for colors, borders, and fonts -->
-    <script src="https://cdn.jsdelivr.net/npm/xlsx-js-style@1.2.0/dist/xlsx.bundle.js?v=16.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/xlsx-js-style@1.2.0/dist/xlsx.bundle.js?v=17.0"></script>
 
     <style>
         :root {
@@ -564,7 +564,7 @@
         <aside class="sidebar">
             <div class="brand">
                 <i class="fa-solid fa-clapperboard brand-logo"></i>
-                <h2>Peninsula <span>Private</span> <small style="font-size: 11px; color: var(--accent-gold); opacity: 0.85; font-weight: normal; margin-left: 6px; border: 1px solid var(--border-color); padding: 2px 6px; border-radius: 4px; background: rgba(201,160,69,0.08);">v16.0</small></h2>
+                <h2>Peninsula <span>Private</span> <small style="font-size: 11px; color: var(--accent-gold); opacity: 0.85; font-weight: normal; margin-left: 6px; border: 1px solid var(--border-color); padding: 2px 6px; border-radius: 4px; background: rgba(201,160,69,0.08);">v17.0</small></h2>
             </div>
 
             <!-- Storyboard Options -->
@@ -637,14 +637,15 @@
                 </div>
             </div>
 
-            <!-- Hardcoded High-Tier AI Engine Indicator -->
+            <!-- Hardcoded Dual AI Engine Indicator (ChatGPT Primary + Gemini Fallback) -->
             <div style="background: rgba(201, 160, 69, 0.08); border: 1px solid rgba(201, 160, 69, 0.25); border-radius: 8px; padding: 12px 14px; margin-bottom: 16px; display: flex; align-items: center; gap: 12px;">
-                <div style="width: 32px; height: 32px; border-radius: 8px; background: linear-gradient(135deg, #d4af37, #aa820a); color: #000; display: flex; align-items: center; justify-content: center; font-size: 15px;">
-                    <i class="fa-solid fa-microchip"></i>
+                <div style="width: 32px; height: 32px; border-radius: 8px; background: linear-gradient(135deg, #10a37f, #0d8a6a); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 15px;">
+                    <i class="fa-solid fa-bolt"></i>
                 </div>
                 <div style="font-size: 12px; line-height: 1.4;">
-                    <div style="color: var(--accent-gold); font-weight: 600; font-size: 13px;">Động cơ AI Mặc Định:</div>
-                    <div style="color: #fff; font-size: 11px; opacity: 0.9;">Google Gemini 3.7 Flash <span style="color: #4ade80; font-weight: 600;">(High Reasoning)</span></div>
+                    <div style="color: #4ade80; font-weight: 600; font-size: 13px;"><i class="fa-solid fa-robot"></i> Động cơ AI Kép (Ưu Tiên):</div>
+                    <div style="color: #fff; font-size: 11px; opacity: 0.95;">OpenAI ChatGPT (GPT-4o / o3-mini)</div>
+                    <div style="color: var(--accent-gold); font-size: 10px; opacity: 0.85;">⚡ Auto-Fallback: Google Gemini 3.7 Flash</div>
                 </div>
             </div>
 
